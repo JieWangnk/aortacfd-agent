@@ -40,6 +40,7 @@ src/aortacfd_agent/corpus/index/
 # Agent run artefacts
 output/
 runs/
+examples/output/
 *.trace.jsonl
 
 # Agent cache
