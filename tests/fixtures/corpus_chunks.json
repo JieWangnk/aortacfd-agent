@@ -1,0 +1,62 @@
+[
+  {
+    "paper": "Steinman2013",
+    "page": 2,
+    "text": "Expert groups given identical aortic geometry produced consistent pressure drops but widely varying wall shear stress results, with most of the variation traced to undocumented modelling choices rather than solver deficiencies. The ASME CFD Challenge showed that WSS in cardiovascular CFD is especially sensitive to mesh and scheme choices."
+  },
+  {
+    "paper": "ValenSendstad2018",
+    "page": 5,
+    "text": "Variability across independent groups was largest for wall shear stress percentiles and smallest for bulk pressure drop. For studies where WSS, OSI and near-wall indices are primary endpoints we recommend mesh refinement around the wall region and explicit reporting of the numerical profile used."
+  },
+  {
+    "paper": "Pfaller2021",
+    "page": 8,
+    "text": "Windkessel-coupled aortic simulations initialised at mean arterial pressure reached periodic steady state within three cardiac cycles. Zero-gauge and diastolic initialisation required six to nine cycles. Three cycles with MAP initialisation is therefore a reasonable default for bulk hemodynamic studies."
+  },
+  {
+    "paper": "Murray1926",
+    "page": 1,
+    "text": "The cost of transporting blood through a symmetric bifurcation is minimised when flow is allocated proportionally to the cube of vessel radius. Murray's law therefore applies to healthy vascular trees where local pressure gradients are dominated by branching geometry rather than focal stenoses."
+  },
+  {
+    "paper": "Wang2025",
+    "page": 4,
+    "text": "In coarctation cases Murray's law systematically misallocates flow because the stenosis dominates the local pressure distribution and the assumption of optimal branching no longer holds. Published paediatric coarctation studies use a user-specified flow split with roughly seventy percent of cardiac output to the descending aorta."
+  },
+  {
+    "paper": "Olufsen1999",
+    "page": 3,
+    "text": "Characteristic impedance for each outlet is computed from the local pulse wave velocity and cross-sectional area using the Olufsen structured tree model, Z equals rho times c divided by A. This produces physiologically reasonable impedance estimates even for small vessels."
+  },
+  {
+    "paper": "Stergiopulos1999",
+    "page": 2,
+    "text": "The systemic arterial time constant tau equals total peripheral resistance times total compliance and typically lies between one and two seconds for the adult circulation. A default tau of one point five seconds is appropriate when patient-specific calibration is unavailable."
+  },
+  {
+    "paper": "Esmaily2011",
+    "page": 7,
+    "text": "Diastolic backflow at Windkessel outlets can trigger instabilities when the velocity boundary condition alternates between Dirichlet and Neumann forms. A directional stabilisation with beta_T equal to zero point three damps tangential velocity during backflow while preserving normal pressure response, eliminating divergence in our test cases with less than one percent hemodynamic bias."
+  },
+  {
+    "paper": "Esmaily2011",
+    "page": 9,
+    "text": "For extreme paediatric anatomies or cases with strong diastolic reversal, raising beta_T to zero point five provides additional stability at the cost of slightly increased damping of the tangential velocity component."
+  },
+  {
+    "paper": "Buchner2024",
+    "page": 6,
+    "text": "Wall-resolved LES of the healthy adult aorta with 4D flow MRI comparison reported velocity field correlations of R equals zero point nine two for the axial component at peak systole when downsampled to MRI resolution. This is the reference for bulk hemodynamic validation in healthy subjects."
+  },
+  {
+    "paper": "Wang2025",
+    "page": 3,
+    "text": "At peak cardiac output the Reynolds number in the ascending aorta routinely exceeds two thousand. For Reynolds above two thousand, laminar simulations over-predict the cycle averaged pressure drop by roughly forty percent relative to RANS or wall modelled LES, so RANS is preferred for absolute pressure prediction."
+  },
+  {
+    "paper": "Updegrove2017",
+    "page": 10,
+    "text": "SimVascular exposes a standard three element RCR Windkessel for outlet boundary conditions. Matching the published RCR coefficients in the Vascular Model Repository enables direct cross-solver comparison between SimVascular and OpenFOAM-based pipelines on the same patient anatomy."
+  }
+]

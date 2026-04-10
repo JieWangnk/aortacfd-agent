@@ -11,5 +11,11 @@ The supervisor that chains these agents together lives in
 """
 
 from .intake import IntakeAgent, IntakeResult
+from .literature import LiteratureAgent, LiteratureResult
 
-__all__ = ["IntakeAgent", "IntakeResult"]
+__all__ = [
+    "IntakeAgent",
+    "IntakeResult",
+    "LiteratureAgent",
+    "LiteratureResult",
+]

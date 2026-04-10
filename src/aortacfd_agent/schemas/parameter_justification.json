@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JieWangnk/aortacfd-agent/schemas/parameter_justification.json",
+  "title": "ParameterJustification",
+  "description": "Literature-grounded recommendations for each non-default CFD parameter decision the ConfigAgent must make. Produced by the LiteratureAgent after searching the RAG corpus. Every recommendation carries at least one citation from the seed corpus so the downstream rationale can trace the choice back to primary literature.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decisions", "search_queries_used", "confidence"],
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "description": "One entry per parameter decision the agent made. Each decision must have at least one citation unless it is explicitly marked as 'default_no_citation_required' in the reasoning field.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["parameter", "value", "reasoning", "citations"],
+        "properties": {
+          "parameter": {
+            "type": "string",
+            "description": "Short machine-readable parameter identifier (e.g. 'physics_model', 'mesh_goal', 'wk_flow_allocation_method', 'backflow_stabilisation', 'numerics_profile', 'windkessel_tau').",
+            "enum": [
+              "physics_model",
+              "mesh_goal",
+              "wk_flow_allocation_method",
+              "wk_flow_split_fractions",
+              "windkessel_tau",
+              "windkessel_z_fraction",
+              "backflow_stabilisation",
+              "numerics_profile",
+              "number_of_cycles",
+              "initialisation_strategy",
+              "other"
+            ]
+          },
+          "value": {
+            "description": "The recommended value. Type depends on the parameter — may be a string ('laminar'), number (0.3), array, or nested object.",
+            "type": ["string", "number", "boolean", "array", "object", "null"]
+          },
+          "reasoning": {
+            "type": "string",
+            "description": "One or two sentences explaining why this value is chosen for this clinical scenario, referring to the citations."
+          },
+          "citations": {
+            "type": "array",
+            "minItems": 0,
+            "description": "List of literature citations backing this choice. Empty arrays are only permitted when the reasoning explicitly states 'default_no_citation_required'.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["paper", "quote"],
+              "properties": {
+                "paper": {
+                  "type": "string",
+                  "description": "Paper identifier (author-year or citation key), e.g. 'Steinman2013' or 'Esmaily2011'."
+                },
+                "page": {
+                  "type": ["integer", "string", "null"],
+                  "description": "Page number or section label where the quote appears."
+                },
+                "quote": {
+                  "type": "string",
+                  "description": "Short (<30 words) verbatim excerpt that supports the parameter choice. Do not paraphrase."
+                }
+              }
+            }
+          },
+          "alternative_considered": {
+            "type": ["string", "null"],
+            "description": "Optional — a competing value the agent considered and rejected, with a one-line reason."
+          }
+        }
+      }
+    },
+    "search_queries_used": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The list of queries the agent issued to search_corpus, in order. Used by the audit trace to reproduce the RAG session."
+    },
+    "unresolved_decisions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Parameter decisions the agent could not justify from the corpus. The ConfigAgent will fall back to hard-coded defaults for these and flag them in its rationale."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Agent's self-reported confidence. 'high' when every decision has at least one direct citation; 'low' when multiple decisions fell back to defaults."
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Free-text caveats the agent wants to flag to downstream reviewers."
+    }
+  }
+}
