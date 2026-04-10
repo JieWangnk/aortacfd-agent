@@ -10,6 +10,7 @@ The supervisor that chains these agents together lives in
 :mod:`aortacfd_agent.coordinator`.
 """
 
+from .config import ConfigAgent, ConfigAgentError, ConfigAgentResult
 from .intake import IntakeAgent, IntakeResult
 from .literature import LiteratureAgent, LiteratureResult
 
@@ -18,4 +19,7 @@ __all__ = [
     "IntakeResult",
     "LiteratureAgent",
     "LiteratureResult",
+    "ConfigAgent",
+    "ConfigAgentError",
+    "ConfigAgentResult",
 ]
