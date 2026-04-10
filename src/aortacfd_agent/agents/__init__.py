@@ -14,6 +14,7 @@ from .config import ConfigAgent, ConfigAgentError, ConfigAgentResult
 from .execution import ExecutionAgent, ExecutionAgentError, ExecutionResult
 from .intake import IntakeAgent, IntakeResult
 from .literature import LiteratureAgent, LiteratureResult
+from .results import ResultsAgent, ResultsResponse
 
 __all__ = [
     "IntakeAgent",
@@ -26,4 +27,6 @@ __all__ = [
     "ExecutionAgent",
     "ExecutionAgentError",
     "ExecutionResult",
+    "ResultsAgent",
+    "ResultsResponse",
 ]
