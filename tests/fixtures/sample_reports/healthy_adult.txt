@@ -1,0 +1,20 @@
+Patient: VOL04
+
+34-year-old female volunteer, no cardiovascular history, normotensive.
+Enrolled as a healthy control for a 4D flow MRI reproducibility study.
+
+Measurements:
+- Heart rate 68 bpm at rest
+- Blood pressure 122/76 mmHg
+- No clinical indication for treatment
+
+Imaging:
+- 4D flow MRI acquired on a 3T scanner, inlet velocity field available as
+  per-timestep boundaryData under constant/boundaryData/inlet/ in the case
+  directory. Segmentation of the thoracic aorta and supra-aortic branches
+  has already been done.
+
+Study goal:
+- Produce a bulk hemodynamic reference (velocity field, pressure gradient,
+  stroke volume preservation) for comparison against a wall-resolved LES
+  from the literature. This is a validation case, not a clinical study.

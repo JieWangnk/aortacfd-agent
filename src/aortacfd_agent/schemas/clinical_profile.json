@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JieWangnk/aortacfd-agent/schemas/clinical_profile.json",
+  "title": "ClinicalProfile",
+  "description": "Structured patient data extracted from a free-text clinical referral. Produced by the IntakeAgent and consumed by the LiteratureAgent and ConfigAgent downstream. Every field is optional except the ones marked required — missing fields trigger literature-backed defaults in later stages, not hard failures.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["diagnosis", "confidence"],
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "Anonymised identifier used in case directories (e.g. 'BPM120'). Optional — if the referral does not state one the coordinator will assign a placeholder."
+    },
+    "age_years": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 120,
+      "description": "Patient age in whole years. Null if not stated."
+    },
+    "sex": {
+      "type": ["string", "null"],
+      "enum": ["male", "female", "unknown", null],
+      "description": "Biological sex for Reynolds scaling (cardiac output varies). Use 'unknown' rather than guessing."
+    },
+    "weight_kg": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Body weight in kilograms. Optional."
+    },
+    "height_cm": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Body height in centimetres. Optional."
+    },
+    "bsa_m2": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Body surface area in square metres (DuBois or Mosteller). Used for flow normalisation."
+    },
+    "diagnosis": {
+      "type": "string",
+      "description": "Primary cardiovascular diagnosis, in the referrer's own words where possible. Required — this drives downstream parameter selection."
+    },
+    "diagnosis_severity_hint": {
+      "type": ["string", "null"],
+      "description": "A qualitative or quantitative severity marker explicitly mentioned in the referral (e.g. 'peak echo gradient 35 mmHg', 'dilated to 45 mm', 'post-operative day 14'). Do not invent."
+    },
+    "heart_rate_bpm": {
+      "type": ["integer", "null"],
+      "minimum": 30,
+      "maximum": 220,
+      "description": "Resting heart rate in bpm. Sets the cardiac cycle period (T = 60/HR)."
+    },
+    "systolic_bp_mmhg": {
+      "type": ["integer", "null"],
+      "minimum": 40,
+      "maximum": 260,
+      "description": "Systolic blood pressure from the arm cuff, in mmHg."
+    },
+    "diastolic_bp_mmhg": {
+      "type": ["integer", "null"],
+      "minimum": 20,
+      "maximum": 200,
+      "description": "Diastolic blood pressure from the arm cuff, in mmHg."
+    },
+    "cardiac_output_l_min": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Estimated cardiac output in L/min (from echo, MRI, or thermodilution). If missing, the config stage will use a BSA-normalised default."
+    },
+    "imaging_modality": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["4D_flow_MRI", "CT_angiography", "MRI_angiography", "echocardiography", "Doppler", "catheter", "unknown"]
+      },
+      "description": "Imaging modalities mentioned in the referral. Drives inlet BC choice (MRI ⇒ boundaryData mapping, others ⇒ analytical profile)."
+    },
+    "flow_waveform_source": {
+      "type": ["string", "null"],
+      "enum": ["4D_flow_MRI", "doppler_csv", "literature_default", "unknown", null],
+      "description": "Where the inlet flow waveform will come from. The agent fills this based on what the referral mentions; ConfigAgent later resolves the actual file path."
+    },
+    "study_goal": {
+      "type": ["string", "null"],
+      "description": "One-sentence summary of what the CFD study is meant to assess (e.g. 'pressure drop and WSS around the coarctation'). Used to pick the mesh goal preset."
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Hard constraints stated by the referrer — runtime budget, required physics model, must-use Windkessel settings, etc. Each entry is a short clause. The ConfigAgent treats these as non-negotiable."
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of standard fields (heart_rate_bpm, systolic_bp_mmhg, etc.) that the referral did NOT state. The downstream rationale uses this to explain which values came from defaults."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "IntakeAgent's self-reported confidence. 'high' when the referral is unambiguous and complete, 'low' when key fields were guessed from context."
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Free-text caveats the agent wants to flag to the clinician (e.g. 'HR value inferred from cycle period'). Optional."
+    }
+  }
+}

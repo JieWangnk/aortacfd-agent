@@ -1,0 +1,27 @@
+Patient: BPM120
+
+12-year-old male, known aortic coarctation post-balloon angioplasty at age 3.
+Referred for routine follow-up hemodynamic assessment, no acute symptoms.
+
+Vitals (today's clinic):
+- Heart rate 78 bpm, sinus rhythm
+- Right arm BP 118/72 mmHg, leg BP 104/65 mmHg
+- Saturations 98% on room air
+
+Cardiac function:
+- Echo cardiac output 4.8 L/min (Simpson's biplane)
+- Body surface area 1.32 m² (Mosteller)
+
+Imaging:
+- Gated CT angiography performed last week. Segmentation completed with
+  inlet at the ascending aorta proximal to the brachiocephalic, three
+  supra-aortic outlets (BCA, LCC, LSA), a descending aorta outlet, and a
+  wall patch. STLs are in millimetres.
+
+Clinical question:
+- Assess wall shear stress distribution around the coarctation region and
+  pressure drop from ascending to descending aorta, for surgical planning.
+- Must finish overnight on a small HPC partition (≤32 cores).
+- Use the 3-element Windkessel default for outlets; Murray's law split is
+  acceptable provided the rationale explains why (or why not) for this
+  pathological geometry.

@@ -1,0 +1,21 @@
+Patient: follow-up post-repair
+
+23-year-old female, 5 years post end-to-end coarctation repair. Routine
+surveillance CT angiography.
+
+Vitals:
+- Heart rate 66 bpm
+- Upper-limb BP 115/70 mmHg
+- Lower-limb BP 114/72 mmHg (minimal gradient — good repair)
+- Cardiac output estimate from echo: 4.4 L/min
+- BSA 1.58 m²
+
+Imaging:
+- Gated CT with ECG triggering, full thoracic aorta segmentation
+  completed. STL files in millimetres. No 4D flow acquired.
+
+Clinical question:
+- Document baseline hemodynamics for longitudinal comparison at next
+  follow-up in 2 years. Pressure drop at repair site is the primary
+  endpoint; WSS is secondary and will be reported comparatively rather
+  than as an absolute magnitude. Standard numerics are fine.

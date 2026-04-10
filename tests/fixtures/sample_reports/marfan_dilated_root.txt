@@ -1,0 +1,22 @@
+Patient: 0023 (Vascular Model Repository case)
+
+15-year-old male, Marfan syndrome with dilated aortic root (45 mm at
+sinuses of Valsalva) and mild aortic regurgitation. No prior surgery.
+Referred for simulation-based assessment before annual follow-up.
+
+Vitals (clinic visit):
+- Heart rate 72 bpm
+- BP 118/68 mmHg (right arm)
+- Moderate aortic regurgitation on echo (vena contracta 0.4 cm)
+
+Imaging and priors:
+- CT angiography at age 14, segmented and available in the VMR repository.
+- Doppler-estimated cardiac output: approximately 5.2 L/min.
+- Published RCR parameters for the four outlets exist in the VMR case
+  metadata — the clinical team wants the SAME Windkessel coefficients used
+  so the result is directly comparable to the SimVascular study of record.
+
+Clinical question:
+- Cross-solver comparison against SimVascular using identical boundary
+  conditions. Prescribed RCZ values override Murray's law for this case.
+- Standard numerical profile, laminar physics. Do not switch to RANS.

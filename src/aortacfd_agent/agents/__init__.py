@@ -9,3 +9,7 @@
 The supervisor that chains these agents together lives in
 :mod:`aortacfd_agent.coordinator`.
 """
+
+from .intake import IntakeAgent, IntakeResult
+
+__all__ = ["IntakeAgent", "IntakeResult"]

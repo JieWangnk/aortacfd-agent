@@ -1,0 +1,28 @@
+Patient: PAT003
+
+14-month-old male, 9.2 kg, complex paediatric aortic arch anatomy.
+Previously treated with balloon dilatation at 3 months of age.
+Current admission for pre-operative planning.
+
+Vitals (sedated echo, most recent):
+- Heart rate 120 bpm
+- BP not reliably measurable; cuff estimate 95/55 mmHg (noted in chart as
+  approximate, agitated child)
+- Saturations 96% room air
+
+Cardiac function:
+- Echo cardiac output 1.1 L/min (left ventricular outflow Doppler)
+- Echo severity: significant turbulent acceleration in the descending
+  aorta, peak instantaneous gradient 48 mmHg
+
+Imaging:
+- Gated CTA for surgical planning. Segmentation done externally; STLs in
+  mm. Inlet is at the ascending aorta, three supra-aortic outlets plus a
+  descending aorta outlet.
+
+Constraints:
+- Because of the extreme small-vessel diameters, Murray's law is known to
+  misallocate flow — use the user-specified flow split mode with 70% to
+  the descending aorta, 10% each to the arch branches, as used in the
+  centre's prior case series.
+- Robust numerical profile, β_T = 0.5 for backflow stability.
