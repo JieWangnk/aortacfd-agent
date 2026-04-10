@@ -1,0 +1,3 @@
+[submodule "external/aortacfd-app"]
+	path = external/aortacfd-app
+	url = ../AortaCFD-app

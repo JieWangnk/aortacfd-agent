@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aortacfd-agent"
+version = "0.1.0"
+description = "LLM-agent layer over AortaCFD: free-text clinical referral → validated patient-specific CFD run → natural-language clinical summary"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Jie Wang", email = "jieandwang@gmail.com" },
+]
+keywords = ["cardiovascular", "CFD", "LLM", "agent", "OpenFOAM", "patient-specific", "biomedical-NLP"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+# Core runtime: the agent layer itself has minimal hard dependencies.
+# Provider SDKs are optional extras so users only install what they pick.
+dependencies = [
+    "numpy>=1.24",
+    "numpy-stl>=3.0",
+    "jsonschema>=4.0",
+]
+
+[project.optional-dependencies]
+# LLM provider SDKs. Install only the one(s) you actually use.
+anthropic = ["anthropic>=0.40"]
+openai = ["openai>=1.40"]
+# Retrieval stack for the LiteratureAgent.
+rag = [
+    "chromadb>=0.4",
+    "pypdf>=4.0",
+    "sentence-transformers>=2.5",
+]
+# Everything, useful for a full demo environment.
+all = [
+    "anthropic>=0.40",
+    "openai>=1.40",
+    "chromadb>=0.4",
+    "pypdf>=4.0",
+    "sentence-transformers>=2.5",
+]
+# Test-only dependencies.
+test = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+aortacfd-agent = "aortacfd_agent.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/JieWangnk/aortacfd-agent"
+"AortaCFD core pipeline" = "https://github.com/JieWangnk/AortaCFD-app"
+Issues = "https://github.com/JieWangnk/aortacfd-agent/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["aortacfd_agent*"]
+
+[tool.setuptools.package-data]
+aortacfd_agent = ["prompts/*.md", "schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers"
+markers = [
+    "live_llm: tests that hit a real LLM endpoint (skipped by default)",
+    "slow: tests that take more than a second",
+]

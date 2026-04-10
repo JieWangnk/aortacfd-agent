@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# Venv
+venv/
+.venv/
+env/
+.env
+.env.local
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# RAG corpus: papers are not redistributable. List them in corpus/papers/README.md
+# instead so users fetch their own copies.
+src/aortacfd_agent/corpus/papers/*.pdf
+src/aortacfd_agent/corpus/papers/*.PDF
+
+# Chroma / vector store: rebuilt from papers/ on demand.
+src/aortacfd_agent/corpus/index/
+
+# Agent run artefacts
+output/
+runs/
+*.trace.jsonl
+
+# Agent cache
+.agent_cache/
+# .pytest_cache is auto-generated
+.pytest_cache/
