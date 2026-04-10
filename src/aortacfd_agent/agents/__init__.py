@@ -11,6 +11,7 @@ The supervisor that chains these agents together lives in
 """
 
 from .config import ConfigAgent, ConfigAgentError, ConfigAgentResult
+from .execution import ExecutionAgent, ExecutionAgentError, ExecutionResult
 from .intake import IntakeAgent, IntakeResult
 from .literature import LiteratureAgent, LiteratureResult
 
@@ -22,4 +23,7 @@ __all__ = [
     "ConfigAgent",
     "ConfigAgentError",
     "ConfigAgentResult",
+    "ExecutionAgent",
+    "ExecutionAgentError",
+    "ExecutionResult",
 ]
