@@ -209,7 +209,9 @@ class TestConfigAgentGenerate:
         assert wk["betaT"] == 0.3
         assert wk["enable_stabilization"] is True
         assert wk["methodology"] == "user_flow_split"
-        assert wk["flow_split_fractions"]["descending"] == 0.70
+        # The fixture uses semantic keys (descending/bca/lcca/lsa) which the
+        # normaliser collapses to a scalar branch-percentage (70%).
+        assert wk["flow_split"] == 70.0
 
         # Inlet BC type from flow_waveform_source = doppler_csv
         inlet = cfg["boundary_conditions"]["inlet"]
@@ -220,8 +222,9 @@ class TestConfigAgentGenerate:
         assert any("patient_id ← BPM120" in p for p in result.patches_applied)
         assert any("physics.model ← rans" in p for p in result.patches_applied)
 
-        # No warnings (every field was set)
-        assert result.warnings == []
+        # Warnings explain the flow-split collapse but nothing else.
+        assert any("collapsed to scalar" in w for w in result.warnings)
+        assert not any("heart_rate" in w for w in result.warnings)
 
         # Rationale contains the decisions
         assert "BPM120" in result.rationale
@@ -291,6 +294,61 @@ class TestConfigAgentSave:
 # ---------------------------------------------------------------------------
 # Reducer validation — bad values must raise, not silently pass through
 # ---------------------------------------------------------------------------
+
+
+class TestFlowSplitNormalisation:
+    """The normaliser accepts scalar, outlet-keyed dict, or semantic dict."""
+
+    def _run_with_flow_split(self, flow_split_value):
+        j = _valid_justification()
+        for decision in j["decisions"]:
+            if decision["parameter"] == "wk_flow_split_fractions":
+                decision["value"] = flow_split_value
+                break
+        return ConfigAgent().generate(_bpm120_profile(), j)
+
+    def test_scalar_fraction_in_0_1_range_is_percentified(self):
+        result = self._run_with_flow_split(0.7)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert wk["flow_split"] == 70.0
+        assert any("flow_split ← 70" in p for p in result.patches_applied)
+
+    def test_scalar_percentage_passes_through(self):
+        result = self._run_with_flow_split(70)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert wk["flow_split"] == 70.0
+
+    def test_outlet_keyed_dict_passes_through(self):
+        fractions = {"outlet1": 0.1, "outlet2": 0.1, "outlet3": 0.1, "outlet4": 0.7}
+        result = self._run_with_flow_split(fractions)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert wk["flow_split"] == fractions
+
+    def test_semantic_dict_collapses_to_scalar(self):
+        fractions = {
+            "descending": 0.70,
+            "brachiocephalic": 0.10,
+            "lcca": 0.10,
+            "lsa": 0.10,
+        }
+        result = self._run_with_flow_split(fractions)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert wk["flow_split"] == 70.0
+        # The collapse should have produced a warning so the rationale mentions it.
+        assert any("collapsed to scalar" in w for w in result.warnings)
+
+    def test_dict_without_descending_is_skipped_with_warning(self):
+        fractions = {"foo": 0.5, "bar": 0.5}
+        result = self._run_with_flow_split(fractions)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert "flow_split" not in wk
+        assert any("neither real outlet names" in w for w in result.warnings)
+
+    def test_out_of_range_scalar_is_rejected(self):
+        result = self._run_with_flow_split(250)
+        wk = result.config["boundary_conditions"]["outlets"]["windkessel_settings"]
+        assert "flow_split" not in wk
+        assert any("outside" in w for w in result.warnings)
 
 
 class TestReducerValidation:

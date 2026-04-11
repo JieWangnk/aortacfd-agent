@@ -404,22 +404,131 @@ class ConfigAgent:
 
         if "wk_flow_split_fractions" in seen:
             fractions = seen["wk_flow_split_fractions"]
-            if isinstance(fractions, dict):
-                wk["flow_split_fractions"] = fractions
-                patches.append(
-                    "windkessel.flow_split_fractions ← " + ", ".join(
-                        f"{k}={v}" for k, v in sorted(fractions.items())
+            flow_split = self._normalise_flow_split(fractions, warnings)
+            if flow_split is not None:
+                # AortaCFD-app wk_setup.py reads this key and accepts either
+                # a scalar percentage (branch-percentage / MATLAB method) or
+                # a dict keyed by real outlet names. Writing to the correct
+                # key — ``flow_split`` — matches BPM120's production config.
+                wk["flow_split"] = flow_split
+                if isinstance(flow_split, (int, float)):
+                    patches.append(
+                        f"windkessel.flow_split ← {flow_split:g} "
+                        "(scalar % to descending aorta, branch-percentage method)"
                     )
-                )
-            else:
-                warnings.append(
-                    "wk_flow_split_fractions must be a dict of outlet → fraction; skipped."
-                )
+                else:
+                    patches.append(
+                        "windkessel.flow_split ← " + ", ".join(
+                            f"{k}={v}" for k, v in sorted(flow_split.items())
+                        )
+                    )
 
         # Record unresolved decisions as warnings so the rationale lists them.
         unresolved = justification.get("unresolved_decisions") or []
         for name in unresolved:
             warnings.append(f"unresolved decision: {name} — template default used")
+
+    def _normalise_flow_split(
+        self,
+        raw: Any,
+        warnings: List[str],
+    ) -> Optional[Any]:
+        """Translate a literature-agent flow split into a CFD-consumable form.
+
+        The LiteratureAgent may emit any of three shapes:
+
+        1. A scalar (0..1 fraction or 0..100 percentage) — the branch
+           percentage that goes to the descending aorta. ``wk_setup.py``
+           treats this as the "MATLAB method": descending gets the
+           percentage, remaining goes to the arch branches by area.
+
+        2. A dict keyed by real outlet names the geometry uses
+           (``outlet1``, ``outlet2``, ``outlet3``, ``outlet4``). This
+           is passed through unchanged.
+
+        3. A dict keyed by semantic anatomical names (``descending``,
+           ``brachiocephalic``, ``lcca``, ``lsa``, ``innominate``, …).
+           These names do not exist in the geometry, so we collapse to
+           the scalar form by extracting the ``descending`` fraction.
+           That is the lowest-information-loss projection because the
+           branch-percentage method distributes the remainder by area
+           across the arch branches anyway.
+
+        Returns ``None`` and appends a warning if the shape cannot be
+        interpreted.
+        """
+        if raw is None:
+            return None
+
+        # Case 1: scalar number.
+        if isinstance(raw, (int, float)):
+            v = float(raw)
+            if 0.0 <= v <= 1.0:
+                v = v * 100.0  # convert 0.70 → 70 for the branch-percentage path
+            if not (0.0 < v <= 100.0):
+                warnings.append(
+                    f"wk_flow_split scalar {raw!r} is outside [0, 100]; skipped."
+                )
+                return None
+            return v
+
+        # Case 2 & 3: dict.
+        if isinstance(raw, dict):
+            # If every key looks like an actual outlet name the geometry uses,
+            # pass it through unchanged.
+            outlet_like = all(
+                isinstance(k, str) and k.lower().startswith("outlet")
+                for k in raw.keys()
+            )
+            if outlet_like and raw:
+                return dict(raw)
+
+            # Semantic keys: find the descending-aorta entry and fold
+            # everything else into "branches distributed by area".
+            descending_aliases = {
+                "descending",
+                "descending_aorta",
+                "dao",
+                "descending aorta",
+            }
+            desc_value = None
+            for key, value in raw.items():
+                if not isinstance(key, str):
+                    continue
+                if key.lower().strip() in descending_aliases:
+                    try:
+                        desc_value = float(value)
+                    except (TypeError, ValueError):
+                        desc_value = None
+                    break
+
+            if desc_value is None:
+                warnings.append(
+                    "wk_flow_split dict has neither real outlet names "
+                    "(outlet1..N) nor a 'descending' entry; skipped. "
+                    f"Keys were: {sorted(raw.keys())}"
+                )
+                return None
+
+            if 0.0 <= desc_value <= 1.0:
+                desc_value *= 100.0
+            if not (0.0 < desc_value <= 100.0):
+                warnings.append(
+                    f"wk_flow_split descending value {desc_value!r} is out of range."
+                )
+                return None
+
+            warnings.append(
+                "wk_flow_split dict used semantic anatomical names; "
+                f"collapsed to scalar {desc_value:g}% to descending aorta "
+                "(branch-percentage method distributes the remainder across arch branches by area)."
+            )
+            return desc_value
+
+        warnings.append(
+            f"wk_flow_split value has unsupported type {type(raw).__name__}; skipped."
+        )
+        return None
 
     def _validate(self, config: Dict[str, Any]) -> None:
         """Lightweight sanity check on the assembled config.
