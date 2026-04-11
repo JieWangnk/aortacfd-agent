@@ -79,6 +79,7 @@ class RecordingExecutor:
         timeout: Optional[float] = None,
         capture_output: bool = True,
         text: bool = True,
+        env: Optional[Dict[str, str]] = None,
     ) -> subprocess.CompletedProcess:
         self.calls.append(
             {
@@ -88,6 +89,7 @@ class RecordingExecutor:
                 "timeout": timeout,
                 "capture_output": capture_output,
                 "text": text,
+                "env": env,
             }
         )
         if self.raise_timeout:

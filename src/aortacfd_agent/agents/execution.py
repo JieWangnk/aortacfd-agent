@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -82,6 +83,19 @@ class ExecutionResult:
 # Default AortaCFD-app submodule location inside this repo.
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _DEFAULT_SUBMODULE = _REPO_ROOT / "external" / "aortacfd-app"
+
+# Pydantic mask for the subprocess environment. See the full justification
+# in ``src/aortacfd_agent/_subproc_shims/pydantic_mask/pydantic.py``. Short
+# version: the pinned submodule has a latent validator bug under pydantic v2
+# that only triggers when pydantic is importable; prepending this dir to
+# PYTHONPATH makes the subprocess think pydantic is not installed and fall
+# back to the permissive dict-path. Our agent process is unaffected because
+# we only set this in the child environment.
+_PYDANTIC_MASK_DIR = (
+    Path(__file__).resolve().parent.parent
+    / "_subproc_shims"
+    / "pydantic_mask"
+)
 
 # Canonical step groups the CFD CLI recognises. These match the values
 # accepted by ``run_patient.py --steps``. Dry-run stops at 'boundary';
@@ -203,6 +217,17 @@ class ExecutionAgent:
         run = executor if executor is not None else subprocess.run
         cwd = str(self.submodule_path)
 
+        # Build the subprocess environment with the pydantic mask prepended
+        # to PYTHONPATH so the submodule's config validator falls back to
+        # its dict path (see _PYDANTIC_MASK_DIR comment above).
+        child_env = os.environ.copy()
+        existing_pp = child_env.get("PYTHONPATH", "")
+        child_env["PYTHONPATH"] = (
+            f"{_PYDANTIC_MASK_DIR}{os.pathsep}{existing_pp}"
+            if existing_pp
+            else str(_PYDANTIC_MASK_DIR)
+        )
+
         logger.info("ExecutionAgent: invoking %s", " ".join(command))
         t0 = time.perf_counter()
         try:
@@ -213,6 +238,7 @@ class ExecutionAgent:
                 timeout=timeout_s,
                 capture_output=capture_output,
                 text=True,
+                env=child_env,
             )
         except subprocess.TimeoutExpired as exc:
             raise ExecutionAgentError(

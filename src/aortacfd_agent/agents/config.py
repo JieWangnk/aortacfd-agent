@@ -367,6 +367,22 @@ class ConfigAgent:
             )
             return
 
+        # Plant geometry.cad_folder so the submodule's inlet-CSV resolver
+        # (workflow/tasks/setup_tasks.py::_find_inlet_csv) can find the file
+        # when the generated config lives outside the patient case dir. The
+        # submodule's resolver looks in three places in order:
+        #   1. the run directory (populated later),
+        #   2. the directory containing the config file,
+        #   3. geometry.cad_folder.
+        # Since our agent_config.json lives under examples/output/..., path
+        # 2 resolves to a directory with no CSVs, so path 3 is the hook.
+        geometry = config.setdefault("geometry", {})
+        if not geometry.get("cad_folder"):
+            geometry["cad_folder"] = str(case_dir.resolve())
+            patches.append(
+                f"geometry.cad_folder ← {case_dir} (so CSV/STL resolution works)"
+            )
+
         bc = config.get("boundary_conditions") or {}
         inlet = bc.get("inlet") or {}
         if inlet.get("type") != "TIMEVARYING":

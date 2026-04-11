@@ -61,12 +61,20 @@ def _pretty(n_bytes: int) -> str:
 
 
 def _find_run_dir(patient_id: str) -> Path | None:
-    """Return the most recently modified run_* directory for this patient."""
+    """Return the most recently modified run directory for this patient.
+
+    The submodule writes runs under ``output/<patient_id>/<run_name>/`` with
+    a name like ``run_<timestamp>`` (default) or ``agent_<timestamp>`` (when
+    our ExecutionAgent passes ``--run-name agent_<timestamp>``). Match both.
+    """
     base = _REPO / "external" / "aortacfd-app" / "output" / patient_id
     if not base.exists():
         return None
     candidates = sorted(
-        (p for p in base.iterdir() if p.is_dir() and p.name.startswith("run_")),
+        (
+            p for p in base.iterdir()
+            if p.is_dir() and (p.name.startswith("run_") or p.name.startswith("agent_"))
+        ),
         key=lambda p: p.stat().st_mtime,
         reverse=True,
     )
