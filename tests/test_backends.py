@@ -162,6 +162,102 @@ def test_resolve_backend_config_from_dict_preserves_extras():
     assert cfg.extra == {"temperature_hint": 0.2}
 
 
+# ---------------------------------------------------------------------------
+# AnthropicBackend retry behaviour
+# ---------------------------------------------------------------------------
+
+
+def _anthropic_sdk_available() -> bool:
+    try:
+        import anthropic  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+@pytest.mark.skipif(
+    not _anthropic_sdk_available(),
+    reason="anthropic SDK not installed",
+)
+def test_anthropic_backend_retries_transient_errors(monkeypatch):
+    """A flaky client that raises twice then succeeds should still return."""
+    import anthropic
+
+    from aortacfd_agent.backends.anthropic_backend import AnthropicBackend
+
+    # Dummy block matching the shape AnthropicBackend extracts.
+    class _Block:
+        type = "text"
+        text = "ok"
+
+    class _Resp:
+        content = [_Block()]
+        stop_reason = "end_turn"
+
+    calls = {"n": 0}
+
+    class _FlakyMessages:
+        def create(self, **payload):
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise anthropic.APIConnectionError(request=None)  # type: ignore[arg-type]
+            return _Resp()
+
+    class _FlakyClient:
+        messages = _FlakyMessages()
+
+    backend = AnthropicBackend.__new__(AnthropicBackend)
+    backend._client = _FlakyClient()
+    backend.model = "claude-haiku-4-5"
+
+    # Zero out sleeps so the test runs instantly.
+    monkeypatch.setattr(
+        "aortacfd_agent.backends.anthropic_backend.time.sleep",
+        lambda _s: None,
+    )
+
+    resp = backend.chat(
+        messages=[Message(role="user", content="ping")],
+        tools=[],
+    )
+    assert resp.text == "ok"
+    assert calls["n"] == 3
+
+
+@pytest.mark.skipif(
+    not _anthropic_sdk_available(),
+    reason="anthropic SDK not installed",
+)
+def test_anthropic_backend_gives_up_after_max_attempts(monkeypatch):
+    """Persistent transient errors eventually re-raise the last one."""
+    import anthropic
+
+    from aortacfd_agent.backends.anthropic_backend import AnthropicBackend
+
+    calls = {"n": 0}
+
+    class _AlwaysFailsMessages:
+        def create(self, **payload):
+            calls["n"] += 1
+            raise anthropic.APIConnectionError(request=None)  # type: ignore[arg-type]
+
+    class _AlwaysFailsClient:
+        messages = _AlwaysFailsMessages()
+
+    backend = AnthropicBackend.__new__(AnthropicBackend)
+    backend._client = _AlwaysFailsClient()
+    backend.model = "claude-haiku-4-5"
+
+    monkeypatch.setattr(
+        "aortacfd_agent.backends.anthropic_backend.time.sleep",
+        lambda _s: None,
+    )
+
+    with pytest.raises(anthropic.APIConnectionError):
+        backend.chat(messages=[Message(role="user", content="ping")], tools=[])
+    assert calls["n"] == 5  # default max_attempts
+
+
 def test_resolve_backend_openai_requires_openai_sdk_or_model(monkeypatch):
     # Missing model AND missing OPENAI_API_KEY: either the openai SDK is
     # not installed (ImportError) or we get a ValueError about the model.

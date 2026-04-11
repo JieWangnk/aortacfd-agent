@@ -23,9 +23,40 @@ multi-step tool planning noticeably better than the 7-8B local models.
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List, Optional
+import logging
+import random
+import time
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 from .base import AgentResponse, Message, ToolCall, ToolSpec
+
+logger = logging.getLogger(__name__)
+
+
+def _transient_exception_types() -> Tuple[Type[BaseException], ...]:
+    """Return Anthropic SDK exception types that are worth retrying.
+
+    Imported lazily so the module stays importable without the SDK. The
+    list deliberately excludes authentication / bad request / permission
+    errors — those indicate a caller bug, not a transient outage.
+    """
+    try:
+        import anthropic  # type: ignore
+    except ImportError:
+        return tuple()
+
+    retryable: List[Type[BaseException]] = []
+    for name in (
+        "APIConnectionError",
+        "APITimeoutError",
+        "APIStatusError",
+        "RateLimitError",
+        "InternalServerError",
+    ):
+        cls = getattr(anthropic, name, None)
+        if cls is not None and isinstance(cls, type):
+            retryable.append(cls)
+    return tuple(retryable)
 
 
 class AnthropicBackend:
@@ -114,6 +145,45 @@ class AnthropicBackend:
             i += 1
         return out
 
+    # -- retry helper --------------------------------------------------------
+
+    def _call_with_retry(
+        self,
+        payload: Dict[str, Any],
+        *,
+        max_attempts: int = 5,
+        base_delay: float = 1.0,
+        max_delay: float = 30.0,
+    ) -> Any:
+        """Call ``messages.create`` with exponential backoff on transient errors.
+
+        Retries on the SDK's network / rate-limit / 5xx exception classes.
+        Auth errors, bad-request errors, and permission errors are *not*
+        retried — those are caller bugs, not transient outages.
+        """
+        transient = _transient_exception_types()
+        last_exc: Optional[BaseException] = None
+        for attempt in range(max_attempts):
+            try:
+                return self._client.messages.create(**payload)
+            except transient as exc:  # type: ignore[misc]
+                last_exc = exc
+                if attempt == max_attempts - 1:
+                    break
+                delay = min(max_delay, base_delay * (2 ** attempt))
+                delay += random.uniform(0, 1)
+                logger.warning(
+                    "anthropic transient error (%s): %s — retry %d/%d in %.1fs",
+                    type(exc).__name__,
+                    exc,
+                    attempt + 1,
+                    max_attempts - 1,
+                    delay,
+                )
+                time.sleep(delay)
+        assert last_exc is not None
+        raise last_exc
+
     # -- main entry point ----------------------------------------------------
 
     def chat(
@@ -135,7 +205,7 @@ class AnthropicBackend:
         if tools:
             payload["tools"] = self._tools_to_anthropic(tools)
 
-        resp = self._client.messages.create(**payload)
+        resp = self._call_with_retry(payload)
 
         # Extract text and tool calls from the returned content blocks.
         text_parts: List[str] = []
