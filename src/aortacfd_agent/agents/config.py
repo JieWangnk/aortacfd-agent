@@ -186,6 +186,7 @@ class ConfigAgent:
         parameter_justification: Dict[str, Any],
         output_dir: Optional[Path] = None,
         save: bool = False,
+        case_dir: Optional[Path] = None,
     ) -> ConfigAgentResult:
         """Build a complete config from the intake + literature outputs.
 
@@ -198,6 +199,17 @@ class ConfigAgent:
         output_dir
             Where to write the final config if ``save`` is True. Ignored
             when ``save`` is False.
+        case_dir
+            Optional path to the patient case directory. When provided,
+            the agent auto-detects the inlet flow CSV file name by
+            scanning ``*.csv`` in this directory, so the generated config
+            is immediately runnable on the real case (rather than
+            defaulting to the template's ``flowrate.csv`` which may not
+            exist). If the directory contains multiple CSVs, the
+            preference order is:
+              1. ``flowrate.csv`` (the template convention)
+              2. ``<patient_id>.csv`` (BPM120-style)
+              3. the first CSV found alphabetically
         save
             If True, the final config and a markdown rationale are written
             under ``output_dir`` using the ``save_config`` tool function.
@@ -213,6 +225,8 @@ class ConfigAgent:
 
         self._patch_from_profile(config, clinical_profile, patches, warnings)
         self._patch_from_justification(config, parameter_justification, patches, warnings)
+        if case_dir is not None:
+            self._patch_from_case_dir(config, Path(case_dir), clinical_profile, patches, warnings)
 
         self._validate(config)
 
@@ -328,6 +342,80 @@ class ConfigAgent:
             warnings.append(
                 "flow_waveform_source is literature_default — user must supply "
                 "a flowrate.csv matching the referral's cardiac output."
+            )
+
+    def _patch_from_case_dir(
+        self,
+        config: Dict[str, Any],
+        case_dir: Path,
+        profile: Dict[str, Any],
+        patches: List[str],
+        warnings: List[str],
+    ) -> None:
+        """Look at the real case directory and fix up file-path fields.
+
+        Currently this only resolves ``boundary_conditions.inlet.csv_file``
+        for TIMEVARYING inlets. The template default is ``flowrate.csv``,
+        but real patient directories usually name the file after the
+        patient ID (``BPM120.csv``), so we scan the directory and pick
+        the first sensible match. This makes the generated config
+        runnable without manual renaming.
+        """
+        if not case_dir.exists() or not case_dir.is_dir():
+            warnings.append(
+                f"case_dir does not exist — skipping case-specific patches: {case_dir}"
+            )
+            return
+
+        bc = config.get("boundary_conditions") or {}
+        inlet = bc.get("inlet") or {}
+        if inlet.get("type") != "TIMEVARYING":
+            # Only TIMEVARYING uses a csv_file field. MRI uses boundaryData,
+            # CONSTANT/PARABOLIC use velocity/flow values directly.
+            return
+
+        csvs = sorted(p for p in case_dir.glob("*.csv") if p.is_file())
+        if not csvs:
+            warnings.append(
+                f"TIMEVARYING inlet selected but no .csv files found in {case_dir}. "
+                "The user must supply a flowrate CSV before running the pipeline."
+            )
+            return
+
+        # Preference order:
+        #   1. Exactly 'flowrate.csv' (the template convention)
+        #   2. '<patient_id>.csv' or '<patient_id>_*.csv'
+        #   3. First alphabetically
+        preferred: Optional[Path] = None
+        csv_names = [p.name for p in csvs]
+
+        if "flowrate.csv" in csv_names:
+            preferred = case_dir / "flowrate.csv"
+        else:
+            patient_id = (profile or {}).get("patient_id") or ""
+            if patient_id:
+                pid_lower = patient_id.lower()
+                # Exact match first
+                for p in csvs:
+                    if p.stem.lower() == pid_lower:
+                        preferred = p
+                        break
+                # Then prefix-match (e.g. BPM120_steadyStatePeak.csv vs BPM120.csv — pick the plain one)
+                if preferred is None:
+                    for p in csvs:
+                        if p.stem.lower().startswith(pid_lower):
+                            preferred = p
+                            break
+
+        if preferred is None:
+            preferred = csvs[0]
+
+        existing = inlet.get("csv_file")
+        if existing != preferred.name:
+            inlet["csv_file"] = preferred.name
+            patches.append(
+                f"inlet.csv_file ← {preferred.name} "
+                f"(auto-detected from {case_dir.name}/)"
             )
 
     def _patch_from_justification(

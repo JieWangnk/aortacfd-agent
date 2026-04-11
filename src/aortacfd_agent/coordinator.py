@@ -228,6 +228,7 @@ class Coordinator:
                         parameter_justification=justification,
                         output_dir=output_dir,
                         save=True,
+                        case_dir=case_dir,
                     )
                     result.config = cfg_result
                     result.stages_run.append("config")

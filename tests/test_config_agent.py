@@ -296,6 +296,76 @@ class TestConfigAgentSave:
 # ---------------------------------------------------------------------------
 
 
+class TestCsvAutoDetection:
+    """ConfigAgent resolves the inlet CSV filename from the real case dir."""
+
+    def _write_case(self, tmp_path: Path, csv_names):
+        case = tmp_path / "case"
+        case.mkdir()
+        for name in csv_names:
+            (case / name).write_text("time,flow\n0.0,0.0\n", encoding="utf-8")
+        return case
+
+    def _inlet_csv(self, result):
+        return result.config["boundary_conditions"]["inlet"]["csv_file"]
+
+    def test_prefers_flowrate_csv_when_present(self, tmp_path: Path):
+        case = self._write_case(tmp_path, ["flowrate.csv", "other.csv"])
+        result = ConfigAgent().generate(
+            _bpm120_profile(), _valid_justification(), case_dir=case
+        )
+        assert self._inlet_csv(result) == "flowrate.csv"
+
+    def test_falls_back_to_patient_id_csv(self, tmp_path: Path):
+        case = self._write_case(tmp_path, ["BPM120.csv", "other.csv"])
+        result = ConfigAgent().generate(
+            _bpm120_profile(), _valid_justification(), case_dir=case
+        )
+        assert self._inlet_csv(result) == "BPM120.csv"
+
+    def test_prefers_exact_patient_id_over_prefix_match(self, tmp_path: Path):
+        # BPM120.csv should win over BPM120_steadyStatePeak.csv
+        case = self._write_case(
+            tmp_path, ["BPM120_steadyStatePeak.csv", "BPM120.csv"]
+        )
+        result = ConfigAgent().generate(
+            _bpm120_profile(), _valid_justification(), case_dir=case
+        )
+        assert self._inlet_csv(result) == "BPM120.csv"
+
+    def test_first_alphabetical_when_nothing_matches(self, tmp_path: Path):
+        case = self._write_case(tmp_path, ["alpha.csv", "zulu.csv"])
+        profile = _bpm120_profile()
+        profile["patient_id"] = "OTHER"
+        result = ConfigAgent().generate(profile, _valid_justification(), case_dir=case)
+        assert self._inlet_csv(result) == "alpha.csv"
+
+    def test_no_csv_files_produces_warning(self, tmp_path: Path):
+        case = tmp_path / "empty_case"
+        case.mkdir()
+        result = ConfigAgent().generate(
+            _bpm120_profile(), _valid_justification(), case_dir=case
+        )
+        assert any("no .csv files" in w for w in result.warnings)
+
+    def test_missing_case_dir_produces_warning(self, tmp_path: Path):
+        result = ConfigAgent().generate(
+            _bpm120_profile(),
+            _valid_justification(),
+            case_dir=tmp_path / "does_not_exist",
+        )
+        assert any("does not exist" in w for w in result.warnings)
+
+    def test_mri_inlet_skips_csv_detection(self, tmp_path: Path):
+        """MRI inlet has no csv_file field to resolve."""
+        case = self._write_case(tmp_path, ["irrelevant.csv"])
+        profile = _vol04_profile()  # flow_waveform_source = 4D_flow_MRI
+        result = ConfigAgent().generate(profile, _valid_justification(), case_dir=case)
+        inlet = result.config["boundary_conditions"]["inlet"]
+        assert inlet["type"] == "MRI"
+        assert "csv_file" not in inlet
+
+
 class TestFlowSplitNormalisation:
     """The normaliser accepts scalar, outlet-keyed dict, or semantic dict."""
 
