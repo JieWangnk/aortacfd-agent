@@ -2,7 +2,7 @@
   "jobDefinitionName": "aortacfd-cfd-run",
   "type": "container",
   "containerProperties": {
-    "image": "<ACCOUNT_ID>.dkr.ecr.eu-west-2.amazonaws.com/aortacfd-agent:latest",
+    "image": "774222655637.dkr.ecr.eu-north-1.amazonaws.com/aortacfd-agent:latest",
     "vcpus": 8,
     "memory": 16384,
     "command": [
@@ -11,14 +11,14 @@
     ],
     "environment": [
       { "name": "S3_BUCKET", "value": "aortacfd-runs" },
-      { "name": "AWS_DEFAULT_REGION", "value": "eu-west-2" }
+      { "name": "AWS_DEFAULT_REGION", "value": "eu-north-1" }
     ],
-    "jobRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/aortacfd-batch-role",
+    "jobRoleArn": "arn:aws:iam::774222655637:role/aortacfd-batch-role",
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "/aws/batch/aortacfd",
-        "awslogs-region": "eu-west-2",
+        "awslogs-region": "eu-north-1",
         "awslogs-stream-prefix": "cfd"
       }
     }

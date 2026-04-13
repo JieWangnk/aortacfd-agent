@@ -13,10 +13,14 @@
       "c5a.2xlarge",
       "c6i.2xlarge"
     ],
-    "subnets": ["<SUBNET_ID>"],
-    "securityGroupIds": ["<SG_ID>"],
-    "instanceRole": "arn:aws:iam::<ACCOUNT_ID>:instance-profile/ecsInstanceRole",
-    "spotIamFleetRole": "arn:aws:iam::<ACCOUNT_ID>:role/aws-ec2-spot-fleet-tagging-role",
+    "subnets": [
+      "subnet-045b6e383213dce0a",
+      "subnet-0f4a9866553f113ae",
+      "subnet-0eda05a244d9077e2"
+    ],
+    "securityGroupIds": ["sg-0ae2786ce40ccc347"],
+    "instanceRole": "arn:aws:iam::774222655637:instance-profile/ecsInstanceRole",
+    "spotIamFleetRole": "arn:aws:iam::774222655637:role/aws-ec2-spot-fleet-tagging-role",
     "tags": {
       "Project": "aortacfd",
       "Environment": "research"
