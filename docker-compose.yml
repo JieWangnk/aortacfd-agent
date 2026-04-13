@@ -1,0 +1,57 @@
+# docker-compose.yml  —  local development / demo
+#
+# Usage:
+#   # Dry-run demo (no API key needed)
+#   docker compose run --rm agent-demo
+#
+#   # With Claude
+#   ANTHROPIC_API_KEY=sk-... docker compose run --rm agent-claude
+#
+#   # With local Ollama (install Ollama on host first)
+#   docker compose run --rm agent-ollama
+
+services:
+
+  # --- Dry-run demo (FakeBackend, zero cost) ---
+  agent-demo:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./cases_input:/app/cases_input:ro
+    command: >
+      run
+      --case /app/external/aortacfd-app/cases_input/BPM120
+      --clinical-text "5-year-old with aortic coarctation, peak echo gradient 35 mmHg, HR 110, BP 110/65"
+      --output /app/output/BPM120_demo
+      --backend fake
+
+  # --- Claude backend ---
+  agent-claude:
+    build: .
+    environment:
+      - ANTHROPIC_API_KEY
+    volumes:
+      - ./output:/app/output
+      - ./cases_input:/app/cases_input:ro
+    command: >
+      run
+      --case /app/external/aortacfd-app/cases_input/BPM120
+      --clinical-text "5-year-old with aortic coarctation, peak echo gradient 35 mmHg, HR 110, BP 110/65"
+      --output /app/output/BPM120_claude
+      --backend anthropic
+      --model claude-sonnet-4-20250514
+
+  # --- Ollama (host network, assumes ollama serve on localhost:11434) ---
+  agent-ollama:
+    build: .
+    network_mode: host
+    volumes:
+      - ./output:/app/output
+      - ./cases_input:/app/cases_input:ro
+    command: >
+      run
+      --case /app/external/aortacfd-app/cases_input/BPM120
+      --clinical-text "5-year-old with aortic coarctation, peak echo gradient 35 mmHg, HR 110, BP 110/65"
+      --output /app/output/BPM120_ollama
+      --backend ollama
+      --model qwen2.5:7b-instruct
