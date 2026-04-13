@@ -48,6 +48,11 @@ all = [
     "pypdf>=4.0",
     "sentence-transformers>=2.5",
 ]
+# Streamlit demo app.
+demo = [
+    "streamlit>=1.30",
+    "plotly>=5.0",
+]
 # Test-only dependencies.
 test = [
     "pytest>=8.0",
