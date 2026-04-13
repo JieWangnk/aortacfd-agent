@@ -1,0 +1,25 @@
+{
+  "computeEnvironmentName": "aortacfd-spot-env",
+  "type": "MANAGED",
+  "state": "ENABLED",
+  "computeResources": {
+    "type": "SPOT",
+    "bidPercentage": 60,
+    "minvCpus": 0,
+    "maxvCpus": 16,
+    "desiredvCpus": 0,
+    "instanceTypes": [
+      "c5.2xlarge",
+      "c5a.2xlarge",
+      "c6i.2xlarge"
+    ],
+    "subnets": ["<SUBNET_ID>"],
+    "securityGroupIds": ["<SG_ID>"],
+    "instanceRole": "arn:aws:iam::<ACCOUNT_ID>:instance-profile/ecsInstanceRole",
+    "spotIamFleetRole": "arn:aws:iam::<ACCOUNT_ID>:role/aws-ec2-spot-fleet-tagging-role",
+    "tags": {
+      "Project": "aortacfd",
+      "Environment": "research"
+    }
+  }
+}

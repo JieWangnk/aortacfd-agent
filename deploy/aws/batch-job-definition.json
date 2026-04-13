@@ -1,0 +1,32 @@
+{
+  "jobDefinitionName": "aortacfd-cfd-run",
+  "type": "container",
+  "containerProperties": {
+    "image": "<ACCOUNT_ID>.dkr.ecr.eu-west-2.amazonaws.com/aortacfd-agent:latest",
+    "vcpus": 8,
+    "memory": 16384,
+    "command": [
+      "bash", "-c",
+      "source /opt/openfoam12/etc/bashrc && python /app/deploy/aws/batch_entrypoint.py"
+    ],
+    "environment": [
+      { "name": "S3_BUCKET", "value": "aortacfd-runs" },
+      { "name": "AWS_DEFAULT_REGION", "value": "eu-west-2" }
+    ],
+    "jobRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/aortacfd-batch-role",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/aws/batch/aortacfd",
+        "awslogs-region": "eu-west-2",
+        "awslogs-stream-prefix": "cfd"
+      }
+    }
+  },
+  "retryStrategy": {
+    "attempts": 1
+  },
+  "timeout": {
+    "attemptDurationSeconds": 7200
+  }
+}

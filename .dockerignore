@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+external/aortacfd-app/venv/
+external/aortacfd-app/.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitmodules
+external/aortacfd-app/.git/
+
+# Test / coverage artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# OpenFOAM case output (large, rebuild in container)
+output/
+external/aortacfd-app/output/
+external/aortacfd-app/cases_output/
+live_test_output.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker (don't recurse)
+Dockerfile
+docker-compose.yml
