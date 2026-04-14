@@ -172,12 +172,21 @@ def render_config_stage(agent_config: dict, base_config: dict, rationale_md: str
                     if len(changes) > 20:
                         st.caption(f"... and {len(changes) - 20} more changes")
                 else:
-                    st.info("No differences detected (base config may not be available).")
+                    st.info("No differences detected.")
+            elif agent_config:
+                # No base config — show agent config fields as "added"
+                st.caption("Base template not available — showing agent config fields:")
+                for key in sorted(agent_config.keys()):
+                    if not key.startswith("_"):
+                        st.markdown(f"**`{key}`**: :green[{_format_val(agent_config[key])}]")
             else:
-                st.info("Base config not available for diff comparison.")
+                st.info("Config not available.")
 
         with tabs[1]:
-            st.json(agent_config)
+            if agent_config:
+                st.json(agent_config)
+            else:
+                st.info("Config not available.")
 
 
 def _format_val(v: Any) -> str:
