@@ -214,13 +214,20 @@ def load_demo_data(referral_text: str = "") -> DemoData:
     sibling = _sibling_app_root()
     assets = _assets_dir()
 
-    # Agent outputs
-    agent_config = _read_json(demo_dir / "agent_config.json")
-    rationale_md = _read_text(demo_dir / "agent_rationale.md")
+    # Agent outputs — bundled assets first, then examples/output
+    agent_config = _read_json(assets / "agent_config.json")
+    if not agent_config:
+        agent_config = _read_json(demo_dir / "agent_config.json")
 
-    # Trace
+    rationale_md = _read_text(assets / "agent_rationale.md")
+    if not rationale_md:
+        rationale_md = _read_text(demo_dir / "agent_rationale.md")
+
+    # Trace — bundled assets first
     trace_records = []
-    trace_path = demo_dir / "agent_trace.jsonl"
+    trace_path = assets / "agent_trace.jsonl"
+    if not trace_path.exists():
+        trace_path = demo_dir / "agent_trace.jsonl"
     if trace_path.exists():
         for line in trace_path.read_text(encoding="utf-8").strip().splitlines():
             try:
