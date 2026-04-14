@@ -249,7 +249,7 @@ def load_demo_data(referral_text: str = "") -> DemoData:
     if not stl_path.exists():
         stl_path = None
 
-    from .sample_referrals import REFERRALS
+    from sample_referrals import REFERRALS
     default_referral = list(REFERRALS.values())[0]
 
     return DemoData(
