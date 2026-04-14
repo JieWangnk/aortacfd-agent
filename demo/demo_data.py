@@ -201,12 +201,18 @@ DEMO_JUSTIFICATION = {
 }
 
 
+def _assets_dir() -> Path:
+    """Bundled demo assets (work on Streamlit Cloud where submodule/sibling repos don't exist)."""
+    return Path(__file__).resolve().parent / "assets"
+
+
 def load_demo_data(referral_text: str = "") -> DemoData:
     """Load all pre-computed demo data from disk."""
     root = _repo_root()
     demo_dir = root / "examples" / "output" / "demo_BPM120"
     sub = _submodule_root()
     sibling = _sibling_app_root()
+    assets = _assets_dir()
 
     # Agent outputs
     agent_config = _read_json(demo_dir / "agent_config.json")
@@ -222,20 +228,23 @@ def load_demo_data(referral_text: str = "") -> DemoData:
             except json.JSONDecodeError:
                 pass
 
-    # Base config (for diff)
-    base_config = _read_json(sub / "cases_input" / "BPM120" / "config.json")
+    # Base config (for diff) — bundled assets first, then submodule
+    base_config = _read_json(assets / "base_config.json")
+    if not base_config:
+        base_config = _read_json(sub / "cases_input" / "BPM120" / "config.json")
 
-    # Hemodynamics report — try submodule, then sibling
-    hemo_report = ""
-    for base in [sub, sibling]:
-        if base:
-            hemo_report = _read_text(base / "docs" / "tutorial" / "precomputed_results" / "BPM120_hemodynamics_report.txt")
-            if hemo_report:
-                break
+    # Hemodynamics report — bundled assets first, then submodule/sibling
+    hemo_report = _read_text(assets / "BPM120_hemodynamics_report.txt")
+    if not hemo_report:
+        for base in [sub, sibling]:
+            if base:
+                hemo_report = _read_text(base / "docs" / "tutorial" / "precomputed_results" / "BPM120_hemodynamics_report.txt")
+                if hemo_report:
+                    break
 
-    # Flow distribution plot — try sibling repo output dirs
-    flow_png = None
-    if sibling:
+    # Flow distribution plot — bundled assets first, then sibling output dirs
+    flow_png = _read_bytes(assets / "flow_distribution.png")
+    if not flow_png and sibling:
         for candidate in [
             sibling / "output" / "BPM120" / "tutorial_300k" / "reports" / "flow_distribution.png",
             sibling / "output" / "BPM120" / "L3_span20_layers" / "reports" / "flow_distribution.png",
@@ -244,8 +253,10 @@ def load_demo_data(referral_text: str = "") -> DemoData:
             if flow_png:
                 break
 
-    # STL geometry
-    stl_path = sub / "cases_input" / "BPM120" / "wall_aorta.stl"
+    # STL geometry — bundled assets first, then submodule
+    stl_path = assets / "wall_aorta.stl"
+    if not stl_path.exists():
+        stl_path = sub / "cases_input" / "BPM120" / "wall_aorta.stl"
     if not stl_path.exists():
         stl_path = None
 

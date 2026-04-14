@@ -1,0 +1,90 @@
+{
+  "case_info": {
+    "patient_id": "BPM120",
+    "description": "Published pediatric aortic coarctation case (Wang et al.)",
+    "source": "Author's published research",
+    "clinical_data": {
+      "heart_rate": 120,
+      "age_group": "pediatric"
+    }
+  },
+
+  "physics": {
+    "model": "laminar",
+    "transport_properties": {
+      "rho": 1060,
+      "nu": 3.7736e-6,
+      "_comment": "Standard blood properties: rho=1060 kg/m³, mu=0.004 Pa·s → nu=3.77e-6 m²/s"
+    }
+  },
+
+  "numerics": {
+    "profile": "standard",
+    "max_co": 1,
+    "correctors": {
+      "nOuterCorrectors": 3,
+      "nCorrectors": 2,
+      "nNonOrthogonalCorrectors": 2
+    }
+  },
+
+  "mesh": {
+    "cells_per_diameter": 15,
+    "boundary_layers": {
+      "enabled": true,
+      "num_layers": 5,
+      "expansion_ratio": 1.2,
+      "final_layer_thickness": 0.3,
+      "min_thickness": 0.1
+    },
+    "SNAPPY_SETTINGS": {
+      "parallel": true,
+      "nProcessors": 8,
+      "surfaceRefinementLevels": [1, 2]
+    }
+  },
+
+  "geometry": {
+    "inlet_keywords_ordered": "inlet",
+    "outlet_keywords_ordered": ["outlet1", "outlet2", "outlet3", "outlet4"],
+    "wall_keywords_ordered": "wall_aorta",
+    "scale_factor": 0.001,
+    "_comment": "Geometry in mm, scale 0.001 converts to meters"
+  },
+
+  "boundary_conditions": {
+    "inlet": {
+      "type": "TIMEVARYING",
+      "csv_file": "BPM120.csv",
+      "data_type": "flowrate",
+      "profile": "parabolic"
+    },
+
+    "outlets": {
+      "type": "3EWINDKESSEL",
+      "windkessel_settings": {
+        "systolic_pressure": 120,
+        "diastolic_pressure": 80,
+        "venous_pressure": 0,
+        "methodology": "murray_law_automatic",
+        "tau": 1.0
+      }
+    },
+
+    "walls": {
+      "type": "no_slip"
+    }
+  },
+
+  "simulation_control": {
+    "cardiac_cycle_period": 0.5,
+    "number_of_cycles": 3,
+    "writeInterval": 0.05
+  },
+
+  "run_settings": {
+    "solution_type": "parallel",
+    "subdomains": 8,
+    "decomposition_method": "scotch"
+  }
+}
