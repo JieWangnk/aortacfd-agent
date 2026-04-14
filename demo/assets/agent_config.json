@@ -1,0 +1,105 @@
+{
+  "case_info": {
+    "patient_id": "BPM120",
+    "description": "aortic coarctation post-balloon angioplasty"
+  },
+  "cardiac_cycle": 0.769,
+  "physics": {
+    "model": "laminar",
+    "transport_properties": {
+      "rho": 1060,
+      "nu": 3.7736e-06
+    }
+  },
+  "numerics": {
+    "profile": "standard"
+  },
+  "mesh": {
+    "goal": "wall_sensitive",
+    "SNAPPY_SETTINGS": {
+      "parallel": true,
+      "nProcessors": 8
+    }
+  },
+  "geometry": {
+    "inlet_keywords_ordered": "inlet",
+    "outlet_keywords_ordered": [
+      "outlet1",
+      "outlet2",
+      "outlet3",
+      "outlet4"
+    ],
+    "wall_keywords_ordered": "wall_aorta",
+    "scale_factor": 0.001
+  },
+  "boundary_conditions": {
+    "inlet": {
+      "type": "TIMEVARYING",
+      "csv_file": "BPM120.csv",
+      "data_type": "flowrate",
+      "profile": "parabolic"
+    },
+    "outlets": {
+      "type": "3EWINDKESSEL",
+      "windkessel_settings": {
+        "systolic_pressure": 118,
+        "diastolic_pressure": 72,
+        "venous_pressure": 0,
+        "methodology": "user_flow_split",
+        "tau": 1.5,
+        "enable_stabilization": true,
+        "betaT": 0.3,
+        "betaN": 0.0,
+        "flow_split": 70.0
+      }
+    },
+    "walls": {
+      "type": "no_slip"
+    }
+  },
+  "hemodynamics": {
+    "runtime_functions": {
+      "wallShearStress": true,
+      "fieldAverage": true,
+      "pressureMonitoring": true
+    },
+    "tawss_settings": {
+      "skip_cycles": 1,
+      "periodicRestart": true
+    }
+  },
+  "simulation_control": {
+    "number_of_cycles": 3,
+    "writeInterval": 0.04
+  },
+  "run_settings": {
+    "solution_type": "parallel",
+    "subdomains": 8,
+    "decomposition_method": "scotch"
+  },
+  "visualization": {
+    "fields": [
+      "U",
+      "p",
+      "wallShearStress",
+      "TAWSS",
+      "OSI",
+      "RRT"
+    ],
+    "time_steps": "last",
+    "color_ranges": {
+      "TAWSS": [
+        0,
+        50
+      ],
+      "OSI": [
+        0,
+        0.5
+      ],
+      "RRT": [
+        0,
+        10
+      ]
+    }
+  }
+}
