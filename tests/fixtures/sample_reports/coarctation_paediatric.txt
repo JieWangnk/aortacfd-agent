@@ -1,16 +1,17 @@
 Patient: BPM120
 
-12-year-old male, known aortic coarctation post-balloon angioplasty at age 3.
-Referred for routine follow-up hemodynamic assessment, no acute symptoms.
+18-month-old male, neonatal diagnosis of aortic coarctation repaired by
+balloon angioplasty in early infancy. Referred for hemodynamic assessment
+of possible residual/recurrent gradient before elective re-intervention.
 
 Vitals (today's clinic):
-- Heart rate 78 bpm, sinus rhythm
-- Right arm BP 118/72 mmHg, leg BP 104/65 mmHg
+- Heart rate 120 bpm, sinus rhythm
+- Right arm BP 100/55 mmHg, leg BP 82/50 mmHg (arm-leg gradient present)
 - Saturations 98% on room air
 
 Cardiac function:
-- Echo cardiac output 4.8 L/min (Simpson's biplane)
-- Body surface area 1.32 m² (Mosteller)
+- Echo cardiac output 1.8 L/min (Simpson's biplane)
+- Weight 11 kg, height 82 cm, BSA 0.50 m² (Mosteller)
 
 Imaging:
 - Gated CT angiography performed last week. Segmentation completed with
