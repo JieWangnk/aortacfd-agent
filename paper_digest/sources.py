@@ -100,10 +100,14 @@ METHOD_TERMS = [
     "finite element", "finite volume", "openfoam", "simvascular",
     "les ", " rans", "large eddy", "direct numerical simulation",
     "turbulen", "reynolds-averaged", "navier-stokes",
-    # ML / PINN / surrogates
+    # ML / PINN / surrogates / digital twins
     "pinn", "physics-informed", "neural operator", "fourier neural",
     "deeponet", "graph neural", "digital twin", "surrogate model",
     "machine learning", "deep learning", "neural network",
+    # Broader modern AI (2024+ techniques)
+    "diffusion model", "transformer", "foundation model",
+    "auto-segmentation", "auto segmentation", "self-supervised",
+    "generative model", "latent diffusion", "variational autoencoder",
     # Boundary conditions & modelling
     "boundary condition", "lumped parameter", "0d-3d", "3d-0d",
     "multiscale", "reduced order", "fluid-structure",
@@ -154,7 +158,8 @@ OPENALEX_SEARCH = (
     '"hemodynamic" OR "haemodynamic" OR "wall shear stress" OR "aortic flow" '
     'OR "coronary flow" OR "blood flow simulation" OR "cardiovascular cfd" '
     'OR "physics-informed" OR "neural operator" OR "windkessel" '
-    'OR "4d flow mri" OR "patient-specific cfd"'
+    'OR "4d flow mri" OR "patient-specific cfd" OR "digital twin cardiovascular" '
+    'OR "cardiovascular surrogate" OR "cardiovascular foundation model"'
 )
 
 
@@ -252,7 +257,8 @@ def fetch_openalex(
 ARXIV_KEYWORD_QUERY = (
     'abs:"hemodynamic" OR abs:"haemodynamic" OR abs:"wall shear stress" '
     'OR abs:"aortic flow" OR abs:"coronary flow" OR abs:"blood flow" '
-    'OR abs:"windkessel" OR abs:"cardiovascular cfd" OR abs:"patient-specific cfd"'
+    'OR abs:"windkessel" OR abs:"cardiovascular cfd" OR abs:"patient-specific cfd" '
+    'OR abs:"cardiovascular digital twin" OR abs:"cardiovascular surrogate"'
 )
 
 

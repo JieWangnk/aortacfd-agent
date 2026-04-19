@@ -25,7 +25,7 @@ TIER_NAMES: Dict[str, str] = {
     "C": "V&V and uncertainty quantification",
     "D": "Physiology & scaling laws",
     "E": "Imaging & WSS measurement",
-    "F": "AI pipelines & PINN / neural operators",
+    "F": "AI, ML & digital-twin pipelines",
     "X": "Out of scope",  # will be dropped from the digest
 }
 
@@ -40,7 +40,7 @@ TIERS:
   C — V&V and uncertainty quantification (grid convergence, sensitivity, GCI, UQ)
   D — Physiology & scaling (Murray's law, Womersley, arterial biomechanics, hemodynamic principles)
   E — Imaging & WSS (4D flow MRI, Doppler echo, WSS measurement from imaging)
-  F — AI pipelines / PINN (neural operators, physics-informed ML, surrogates, digital twins, AI segmentation for CFD)
+  F — AI, ML & digital-twin pipelines (PINN, neural operators, GNN surrogates, diffusion/transformer/foundation models, AI segmentation for CFD, patient-specific digital twins)
   X — Out of scope (not cardiovascular CFD; pure experiment with no CFD/modelling tie; unrelated)
 
 RULES:
