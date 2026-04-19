@@ -49,6 +49,8 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 # Sidebar
 # ---------------------------------------------------------------------------
 
+DEMO_VERSION = "v1.2 · 18-mo BPM120 profile · 2026-04-19"
+
 with st.sidebar:
     st.title("AortaCFD Agent")
     st.caption("Clinical text to patient-specific CFD")
@@ -84,9 +86,9 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(
         "[GitHub](https://github.com/JieWangnk/aortacfd-agent) | "
-        "[Paper](https://github.com/JieWangnk/AortaCFDappPaper) | "
-        "v0.1.0"
+        "[Paper](https://github.com/JieWangnk/AortaCFDappPaper)"
     )
+    st.caption(DEMO_VERSION)
 
 # ---------------------------------------------------------------------------
 # Main content
