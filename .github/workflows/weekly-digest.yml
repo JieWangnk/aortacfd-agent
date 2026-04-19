@@ -1,0 +1,59 @@
+name: Weekly Paper Digest
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"  # Every Monday 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      since_days:
+        description: "Look back N days"
+        required: false
+        default: "7"
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout aortacfd-agent
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install anthropic jinja2
+
+      - name: Check out AortaCFD-web
+        uses: actions/checkout@v4
+        with:
+          repository: JieWangnk/AortaCFD-web
+          path: web
+          token: ${{ secrets.WEB_REPO_TOKEN }}
+
+      - name: Generate digest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m paper_digest.digest \
+            --out web/docs/paper-digest \
+            --since "${{ inputs.since_days || '7' }}" \
+            --threshold 0.5
+
+      - name: Commit & push to AortaCFD-web
+        working-directory: web
+        run: |
+          git config user.name "aortacfd-digest-bot"
+          git config user.email "bot@aortacfd"
+          git add docs/paper-digest/
+          if git diff --cached --quiet; then
+            echo "No new papers this week — nothing to commit."
+            exit 0
+          fi
+          WEEK=$(date -u -d '7 days ago' +%Y-%m-%d)
+          git commit -m "Paper digest: week of ${WEEK}"
+          git push

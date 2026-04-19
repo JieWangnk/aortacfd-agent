@@ -1,0 +1,48 @@
+# Paper Digest
+
+A weekly, auto-curated roundup of new papers in **cardiovascular CFD, hemodynamics, and physics-informed ML**. Papers are pulled from OpenAlex and arXiv, classified into one of six research tiers with Claude, and posted here every Monday morning (UTC).
+
+## Latest
+
+{% if latest %}
+**[Week of {{ latest.week_start }}]({{ latest.slug }}.md)** — {{ latest.total }} new papers across Tiers A–F.
+
+{% if latest.teaser %}
+{{ latest.teaser }}
+{% endif %}
+{% else %}
+*No digests published yet — come back Monday.*
+{% endif %}
+
+## Archive
+
+{% for d in archive %}
+- **[{{ d.week_start }}]({{ d.slug }}.md)** — {{ d.total }} papers · top theme: _{{ d.top_tier_name }}_
+{% endfor %}
+
+## The six tiers
+
+Each paper is placed in the tier that best matches its contribution:
+
+| Tier | Focus |
+|---|---|
+| **A** | **Boundary conditions** — inlet/outlet BCs, Windkessel, lumped parameter, fluid-structure coupling |
+| **B** | **Turbulence & LES** — RANS, DES, LES, DNS applied to cardiovascular flows |
+| **C** | **V&V and UQ** — grid convergence, uncertainty quantification, sensitivity analysis |
+| **D** | **Physiology & scaling** — Murray's law, Windkessel theory, biomechanics |
+| **E** | **Imaging & WSS** — 4D flow MRI, Doppler echo, WSS measurement techniques |
+| **F** | **AI pipelines & PINN** — neural operators, physics-informed ML, surrogate models, digital twins |
+
+## How it works
+
+The digest is built by [`paper_digest`](https://github.com/JieWangnk/aortacfd-agent/tree/main/paper_digest), a small module in the aortacfd-agent repo that:
+
+1. Queries OpenAlex for papers published in the last 7 days matching cardiovascular CFD concepts.
+2. Queries arXiv for same-week preprints in `physics.flu-dyn`, `cs.LG`, and `q-bio.TO`.
+3. Deduplicates by DOI + title.
+4. Asks Claude Haiku to score relevance (0–1), assign a tier, and write a 2-sentence summary.
+5. Renders this page using a Jinja2 template.
+
+The workflow runs on a GitHub Action cron every Monday at 09:00 UTC.
+
+*Found something the digest missed? Open an [issue](https://github.com/JieWangnk/aortacfd-agent/issues) with the DOI.*
