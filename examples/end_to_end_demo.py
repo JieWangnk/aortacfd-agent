@@ -54,14 +54,15 @@ REFERRAL = dedent(
     """\
     Patient: BPM120
 
-    12-year-old male, known aortic coarctation post-balloon angioplasty at age 3.
-    Referred for routine follow-up hemodynamic assessment.
+    18-month-old male, neonatal diagnosis of aortic coarctation repaired by
+    balloon angioplasty in early infancy. Referred for hemodynamic assessment
+    of possible residual/recurrent gradient before elective re-intervention.
 
     Vitals:
-      Heart rate 78 bpm, sinus rhythm
-      Right arm BP 118/72 mmHg, leg BP 104/65 mmHg
-      Echo cardiac output 4.8 L/min
-      Body surface area 1.32 m²
+      Heart rate 120 bpm, sinus rhythm
+      Right arm BP 100/55 mmHg, leg BP 82/50 mmHg (arm-leg gradient present)
+      Echo cardiac output 1.8 L/min
+      Weight 11 kg, height 82 cm, BSA 0.50 m²
 
     Imaging:
       Gated CT angiography segmented into inlet (ascending aorta),
@@ -138,17 +139,17 @@ def build_demo_corpus() -> FakeCorpusStore:
 def build_demo_backend() -> FakeBackend:
     profile = {
         "patient_id": "BPM120",
-        "age_years": 12,
+        "age_years": 1.5,  # 18 months
         "sex": "male",
-        "weight_kg": None,
-        "height_cm": None,
-        "bsa_m2": 1.32,
+        "weight_kg": 11.0,
+        "height_cm": 82,
+        "bsa_m2": 0.50,
         "diagnosis": "aortic coarctation post-balloon angioplasty",
         "diagnosis_severity_hint": None,
-        "heart_rate_bpm": 78,
-        "systolic_bp_mmhg": 118,
-        "diastolic_bp_mmhg": 72,
-        "cardiac_output_l_min": 4.8,
+        "heart_rate_bpm": 120,
+        "systolic_bp_mmhg": 100,
+        "diastolic_bp_mmhg": 55,
+        "cardiac_output_l_min": 1.8,
         "imaging_modality": ["CT_angiography"],
         "flow_waveform_source": "doppler_csv",
         "study_goal": (

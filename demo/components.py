@@ -53,7 +53,8 @@ def render_intake_stage(referral_text: str, profile: dict):
     with col2:
         st.markdown("**Extracted profile**")
         m1, m2, m3 = st.columns(3)
-        m1.metric("Age", f"{profile.get('age_years', '?')} yr")
+        age_text = profile.get("age_display") or f"{profile.get('age_years', '?')} yr"
+        m1.metric("Age", age_text)
         m2.metric("HR", f"{profile.get('heart_rate_bpm', '?')} bpm")
         m3.metric("CO", f"{profile.get('cardiac_output_l_min', '?')} L/min")
         bp = f"{profile.get('systolic_bp_mmhg', '?')}/{profile.get('diastolic_bp_mmhg', '?')}"

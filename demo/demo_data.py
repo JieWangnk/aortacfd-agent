@@ -64,17 +64,19 @@ def _read_json(path: Path) -> dict:
 
 DEMO_PROFILE = {
     "patient_id": "BPM120",
-    "age_years": 12,
+    "age_years": 1.5,  # 18 months
+    "age_display": "18 months",
+    "age_group": "pediatric (toddler)",
     "sex": "male",
-    "weight_kg": None,
-    "height_cm": None,
-    "bsa_m2": 1.32,
+    "weight_kg": 11.0,     # 50th percentile for 18-mo
+    "height_cm": 82,       # 50th percentile for 18-mo
+    "bsa_m2": 0.50,        # Mosteller: sqrt(11 * 82 / 3600)
     "diagnosis": "aortic coarctation post-balloon angioplasty",
     "diagnosis_severity_hint": None,
-    "heart_rate_bpm": 78,
-    "systolic_bp_mmhg": 118,
-    "diastolic_bp_mmhg": 72,
-    "cardiac_output_l_min": 4.8,
+    "heart_rate_bpm": 120,       # matches cases_input/BPM120/config.json
+    "systolic_bp_mmhg": 100,     # typical toddler BP
+    "diastolic_bp_mmhg": 55,
+    "cardiac_output_l_min": 1.8,  # scaled to BSA 0.50
     "imaging_modality": ["CT_angiography"],
     "flow_waveform_source": "doppler_csv",
     "study_goal": (
@@ -85,9 +87,9 @@ DEMO_PROFILE = {
         "Must finish overnight on \u226432 cores",
         "Use 3-element Windkessel with user-specified flow split",
     ],
-    "missing_fields": ["weight_kg", "height_cm", "diagnosis_severity_hint"],
+    "missing_fields": ["diagnosis_severity_hint"],
     "confidence": "high",
-    "notes": None,
+    "notes": "Pediatric (18-month) aortic coarctation case. Vitals are within typical toddler ranges.",
 }
 
 DEMO_JUSTIFICATION = {
