@@ -1,0 +1,53 @@
+# Week of {{ week_start }} — {{ total }} new papers
+
+*Cardiovascular CFD, hemodynamics, and physics-informed ML. Auto-curated from OpenAlex + arXiv, classified with Claude.*
+
+## At a glance
+
+| Tier | Topic | Count |
+|------|-------|:-----:|
+| **A** | Boundary conditions (inlet/outlet, Windkessel) | {{ counts.A }} |
+| **B** | Turbulence modelling (RANS, LES, DNS) | {{ counts.B }} |
+| **C** | V&V and uncertainty quantification | {{ counts.C }} |
+| **D** | Physiology & scaling laws | {{ counts.D }} |
+| **E** | Imaging & WSS measurement | {{ counts.E }} |
+| **F** | AI pipelines & PINN / neural operators | {{ counts.F }} |
+
+{% if highlights %}
+## Highlights this week
+
+{% for h in highlights %}
+- **{{ h.title }}** — {{ h.authors_short }} · [{{ h.venue_short }}]({{ h.url }})
+{% endfor %}
+{% endif %}
+
+---
+
+{% for tier_key, tier in tiers.items() %}
+{% if tier.papers %}
+## Tier {{ tier_key }} — {{ tier.name }}
+
+{% for p in tier.papers %}
+### {{ p.title }}
+
+*{{ p.authors_short }}* · {{ p.venue }} · {{ p.year }}{% if p.doi %} · [DOI]({{ p.doi_url }}){% endif %}{% if p.arxiv_id %} · [arXiv:{{ p.arxiv_id }}]({{ p.arxiv_url }}){% endif %}
+
+> {{ p.summary }}
+
+**Why it matters:** {{ p.relevance }}
+
+---
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+## Methodology
+
+- **Sources:** OpenAlex (published in the last 7 days) + arXiv (`physics.flu-dyn`, `cs.LG`, `q-bio.TO` with cardiovascular keywords)
+- **Filter:** title/abstract keyword match → Claude Haiku 4.5 relevance score (≥ {{ relevance_threshold }})
+- **Classifier:** Claude assigns one of six tiers (A–F) and writes a 2-sentence summary
+- **Build tooling:** [`aortacfd-agent/paper_digest`](https://github.com/JieWangnk/aortacfd-agent/tree/main/paper_digest)
+- **Published:** every Monday, 09:00 UTC
+
+*Found something the digest missed? Open an [issue](https://github.com/JieWangnk/aortacfd-agent/issues) with the DOI.*
