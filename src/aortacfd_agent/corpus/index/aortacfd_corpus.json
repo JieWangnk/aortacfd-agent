@@ -13,7 +13,109 @@
       "journal": "Journal of the American College of Cardiology",
       "doi": "10.1016/j.jacc.2012.11.083",
       "type": "article",
-      "abstract": ""
+      "abstract": "",
+      "chunks": [
+        {
+          "text": "in accordance with the 5-year follow-up of individuals from the DEFER (Deferral Versus Per- formance of PTCA in Patients Without Documented Ischemia) study (7). Among lesions judg- ed angiographically “obstructive,” >50% were hemodynamically in- signiﬁcant according to FFR. No beneﬁt was observed for revascu- larization in patients with hemo- dynamically insigni ﬁcant lesions.",
+          "page": 2
+        },
+        {
+          "text": "Coronary computed tomog- raphy angiography (CTA) is a noninvasive method for visualiza- tion of CAD (11–13).P r e v i o u s CTA studies have observed an overestimation of stenosis severity, and even among high-grade ste- noses according to CTA con- ﬁrmed by using ICA, only a minority cause ischemia (14,15).",
+          "page": 2
+        },
+        {
+          "text": "These modalities assess wall motion abnormalities or regional differences in coronary ﬂow reserve (CFR) as a surrogate for ischemia and identify individuals who may have severe stenoses. Although robust for ischemia detection on a per-patient basis, these tests demonstrate poor discrimination of speci ﬁc vessels with coronary lesions that cause ischemia.",
+          "page": 2
+        },
+        {
+          "text": "Recent advances in computational ﬂuid dynamics enable calculation of coronary ﬂow and pressure ﬁelds from anatomic image data (18). Applied to CTA, these tech- nologies enable calculation of FFR without additional imaging or medications.",
+          "page": 2
+        },
+        {
+          "text": "The performance of FFR CTA was superior to CTA stenosis for diagnosing ischemic lesions, the latter of which demon- strated an accuracy, sensitivity, speci ﬁcity, PPV, and NPV of 58.5%, 91.4%, 39.6%, 46.5%, and 88.9%, respectively. Case examples of non –ischemia-causing and ischemia-causing stenoses can be seen in Figures 1 and 2, respectively.",
+          "page": 2
+        },
+        {
+          "text": "On a per-patient basis, FFR CTA was superior to CTA stenosis for diagnosis of ischemic lesions for accu- racy (73% vs. 64%), sensitivity (90% vs. 84%), speci ﬁcity (54% vs. 42%), PPV (67% vs. 61%), and NPV (84% vs. 72%). In patients with intermediate stenoses (30% to 70%), there was a more than 2-fold increase in sensitivity, from 37% to 82%, with no loss of speci ﬁcity.",
+          "page": 2
+        },
+        {
+          "text": "This combination of anatomy, physiology, and ﬂuid dynamics enables the computation of coronary ﬂow and pressure. Anatomic data obtained from CTA contains a wealth of information on coronary blood ﬂow because “form follows function” in circulatory systems (21).",
+          "page": 2
+        },
+        {
+          "text": "Allometric scaling laws, which relate the mass of an object to shape, anatomy, and physiology, are critical for deﬁning cardiovascular form –function relationships and are broadly applicable to the entire cardiovascular system (22). Allometric scaling laws also enable relation of organ size to ﬂow rate.",
+          "page": 2
+        },
+        {
+          "text": "Form–function relationships also apply directly to coronary arteries, which may dilate or constrict to modulate organ blood ﬂow (e.g., in exercise), enlarge in response to chronic Abbreviations and Acronyms CAD = coronary artery disease CFD = computational ﬂow dynamics CFR = coronary ﬂow reserve CT = computed tomography FFR = fractional ﬂow reserve ICA = invasive coronary angiography LAD = left anterior descending LCx = left circum ﬂex MACE = major adverse cardiac event(s) MBF = myocardial blood ﬂow MPS = myocardial perfusion scintigraphy NPV = negative predictive value PPV = positive predictive value RCA = right coronary artery Taylor et al .",
+          "page": 2
+        },
+        {
+          "text": "This ﬂow– diameter relationship can be understood by considering Poiseuille’s solution, which relates vessel ﬂow rate, Q, vessel diameter, d, and the wall shear stress, sw, by the formula: Q ¼ p 32m swd 3 [Equation 1] where m is the ﬂuid viscosity. If wall shear stress is main- tained at a constant, homeostatic level, then this formula implies that Q f d 3, and Murray ’s law is recovered.",
+          "page": 3
+        },
+        {
+          "text": "Thus, small coronary branches have a higher resistance to ﬂow than larger branches, and the resistance to Figure 1 FFRCTA Results for 66-Year-Old Man With Multivessel CAD But No Lesion-Speci ﬁc Ischemia (A) Coronary computed tomography angiography (CTA) demonstrating stenosis in the left anterior descending coronary artery (LAD). (B) Fractional ﬂow reserve (FFR) derived from CTA (FFRCTA) demonstrates no ischemia in the LAD, with a computed value of 0.91. (C) Invasive coronary angiography (ICA) with FFR also demonstrates no ischemia in the LAD, with a measured value of 0.89. (D) CTA demonstrating stenosis in the left circum ﬂex coronary (LCx) artery. (E) FFRCTA demonstrates no ischemia in the LCx, with a computed value of 0.91. (F) ICA with FFR also demonstrates no ischemia in the LCx, with a measured value of 0.91.",
+          "page": 3
+        },
+        {
+          "text": "ﬂow distal to a stenosis will be directly related to the number and size of vessels downstream. Computational Fluid Dynamics Coronary ﬂow and pressure can be computed by solving the governing equations of ﬂuid dynamics, which relate to conservation of mass and balance of momentum, and which have been known in their current forms as the Navier- Stokes equations for >150 years.",
+          "page": 4
+        },
+        {
+          "text": "Although blood exhibits complex rheological properties, it can be approxi- mated as a Newtonian ﬂuid with a constant viscosity in large arteries. Notable features of the equations of ﬂuid dynamics are their universality for describing phenomena ranging from airﬂow over a jetliner to water ﬂow in a river to blood ﬂow in arteries, as well as their ability to capture complex phe- nomena.",
+          "page": 4
+        },
+        {
+          "text": "This requires solving millions of nonlinear partial differential equations simultaneously and repeating this process for thousands of time intervals in a cardiac cycle. Numerical methods for solving ﬂuid dynamics problems are known as computational ﬂuid dynamics (CFD) methods.",
+          "page": 4
+        },
+        {
+          "text": "Speci ﬁc to modeling blood ﬂow in arteries, the domain of interest is where the blood is ﬂowing (i.e., the lumen), and the relevant boundaries are the lateral surface, the inlet boundary (the aortic root), and the outlet boundaries of the ascending aorta and the coronary arteries.",
+          "page": 4
+        },
+        {
+          "text": "Abbreviations as in Figure 1 . Taylor et al . JACC Vol. 61, No. 22, 2013 Noninvasive Quantification of Fractional Flow Reserve June 4, 2013:2233 –41 2236",
+          "page": 4
+        },
+        {
+          "text": "circulation. Figure 3 illustrates these concepts in an idealized model of steady ﬂow through a single coronary artery with a stenosis. Image-Based Modeling of Blood Flow in Arteries Coupled to CFD, the computation of FFR from CTA requires methods to extract models from image data and to incorporate boundary conditions that demonstrate the effect of the microcirculation (28,29).",
+          "page": 5
+        },
+        {
+          "text": "During the model construction process, image segmentation algorithms extract the luminal surface of the major vessels and branches, up to the limits imposed by the resolution of CTA. This segmentation process involves extracting the topology of the coronary artery tree; identi- fying, analyzing, and segmenting coronary plaques in each vessel; and extracting the luminal boundary.",
+          "page": 5
+        },
+        {
+          "text": "The velocity is set at zero along the luminal boundary. R micro is set at 120,000 dynes $s/cm2 to model baseline conditions with a ﬂow rate of 1 cc/s and is reduced by a factor of 4.5 to 26,664.4 dynes $s/cm2 to model hyperemic conditions. Hyperemic ﬂow increases to 3.6 cc/s.",
+          "page": 5
+        },
+        {
+          "text": "Figure 4 Image Segmentation Steps for Computing FFR CTA From left, volume-rendered image, lumen boundary surface segmented from image data, and ﬁnal 3-dimensional model. Abbreviation as in Figure 1 . JACC Vol. 61, No. 22, 2013 Taylor et al . June 4, 2013:2233 –41 Noninvasive Quantification of Fractional Flow Reserve 2237",
+          "page": 5
+        },
+        {
+          "text": "At the aortic outlet, the model is used to enforce a relationship between pressure and ﬂow (e.g., the aortic impedance). Notably, the cardiac output and the aortic pressure arise naturally through the interaction of the heart model and the model of the systemic circulation.",
+          "page": 6
+        },
+        {
+          "text": "Subscript LA is for the left atrium, AV for atrioventricular, V-Art for ventricle-arterial, p for proximal, d for distal, a for arterial, im for intermyocardial, and V for venous. (B) Pulsatile pressure and ﬂow rate waveforms demonstrate reduced coronary ﬂow in early systole due to contraction of the ventricle followed by increased ﬂow in diastole resulting from relaxation of the ventricle. (C) Three-dimensional pressure and velocity ﬁelds are computed throughout the cardiac cycle.",
+          "page": 6
+        },
+        {
+          "text": "allometric scaling law, and the computed mean aortic pres- sure matches the patient ’s measured mean brachial pressure. At the coronary outlets, a relationship between pressure and ﬂow based on a model of the coronary microcirculation is enforced.",
+          "page": 7
+        },
+        {
+          "text": "Next, total coronary resistance is calculated from total coronary ﬂow, and the mean aortic pressure is estimated from the mean brachial artery pressure. The basal resistance of each individual coronary outlet boundary is then computed by using total coronary resis- tance and a morphometry law of the form R f d /C0 k, inversely relating the resistance to ﬂow of each branch to vessel diameter.",
+          "page": 7
+        },
+        {
+          "text": "Wilson et al. (30) showed that for arteries with normal CFR, in which the epicardial resistance would be expected to be small both at rest and during hyperemia, total coronary resistance at maximum hyperemia fell to 0.24 of the resting value with intravenous administration of adenosine 140 mg/kg/min.",
+          "page": 7
+        }
+      ]
     },
     {
       "id": "marsden2014",
@@ -46,7 +148,109 @@
       "journal": "Computer Methods in Applied Mechanics and Engineering",
       "doi": "10.1016/S0045-7825(98)80008-X",
       "type": "article",
-      "abstract": ""
+      "abstract": "",
+      "chunks": [
+        {
+          "text": "Localization of plaque within the carotid sinus. (a) Cross-sections from a cadaver; (b) hydrogen bubble visualization of steady flow characteristics. (Adapted from Zarins et al. (431.) stress and high particle residence time are hypothesized to be “hemodynamic risk factors’ for vascular disease ~241.",
+          "page": 2
+        },
+        {
+          "text": "C.A. Taylor et al. I Comput. Methods Appl. Mech. Engrg. 158 (1998) 155-196 157 Fig. 3. Flow visualization studies in an end-to-side graft model. (From Bassiouny et al. [2].) vesugations into the mechanics of blood flow in the vascular system have made significant contributions to the understanding of vascular disease and the long-term consequences of surgical repair.",
+          "page": 3
+        },
+        {
+          "text": "Second, generating a suitable finite element mesh from the continuous geometric model without suitable software tools is at best time consuming, and at worst, intractable. Third, the application of boundary conditions to large complex models can be difficult.",
+          "page": 3
+        },
+        {
+          "text": "This problem is posed as follows for a domain R C s”\\” where nsd is the number of spatial dimensions: Given f: R X (0, T) + LB’“\\“, g: c X (0, T) + LX”\\“, h: I; X (0, T)-+ 6@“hd and uO: fi+ .g”\\“.",
+          "page": 4
+        },
+        {
+          "text": "The velocity profile function expressed in Eq. (3) was implemented as a user defined boundary condition function for the SpectrumTM Solver. Thus, given a node on a boundary where a Womersley velocity function is Time P=Po Fig. 4. Problem description for pulsatile flow in a long, straight cylinder.",
+          "page": 5
+        },
+        {
+          "text": "Enabling technologies for simulation-based design minimize the time spent by the biomedical analyst in discretizing the continuous problem domain. Solution methods capable of simultaneously modeling the multiple biophysical processes such as fluid flow, solid deformation, and mass transport occurring in the human body are essential.",
+          "page": 7
+        },
+        {
+          "text": "Boundary conditions are defined on the geometric model and are thus automatically updated when this geometry changes. Full functionality exists to initialize the pulsatile flow boundary conditions given a volume flow waveform. The appropriate region to mesh is automatically selected and default mesh refinement parameters specified based on local vessel sizes.",
+          "page": 8
+        },
+        {
+          "text": "Knowledge-based engineering Knowledge-based engineering (KBE) principles form the central element of the Virtual Vascular Laboratory. These principles, and software, allow for the integration of the different component technologies required to solve complex vascular blood flow problems.",
+          "page": 9
+        },
+        {
+          "text": "The role of knowledge-based engineering software, in the present context, is to manage the numerous model representations, relationships, and constraints defining a vascular blood flow problem in order to simplify the process of interacting with, and changing, the problem. 3.3.",
+          "page": 10
+        },
+        {
+          "text": "C.A. Taylor et al. I Comput. Methods Appl. Mech. Engrg. 1.58 (1998) 155-196 165 conceptually modular, and hence can be considered individually. As a further example of modularity, a vascular graft can be thought of as an independent component, with its own geometric and material properties, which can be incorporated into many different arterial subsystems.",
+          "page": 11
+        },
+        {
+          "text": "The flow domain is the only domain required for the problems presented in this paper, and therefore, will be detailed further. Note that the capabilities for blood flow/vessel deformation problems are functional and have been used to solve coupled problems, but will not be reported upon herein. The total system flow can be further decomposed into that of subsystems.",
+          "page": 12
+        },
+        {
+          "text": "Fig. 12 illustrates the construction of a bifurcation model from a surface of constant velocity magnitude extracted from phase contrast magnetic resonance imaging data. A hybrid between the idealized and patient-specific approaches is appropriate in the case where a graft model is added to a patient-specific anatomic model. 3.4. Geometric modeling 3.4.1.",
+          "page": 13
+        },
+        {
+          "text": "As noted previously, triangular facets are created by surface extraction techniques widely used in the medical imaging field. Decimation algorithms can be used to reduce the number of facets and significantly reduce the time required for rendering and geometric operations. Smoothing algorithms have been recently described by Lorensen 1281 to reduce artifacts introduced in the imaging process. 3.5.",
+          "page": 14
+        },
+        {
+          "text": "C.A. Taylor et al. I Comput. Methods Appl. Mech. Engrg. 158 (1998) 155-196 169 analysis model incorporates simplifications to the geometric model, e.g. problem symmetry, as well as information specific to the analysis to be performed. Boundary condition data is typically defined on the geometry, but specified on the discretization.",
+          "page": 15
+        },
+        {
+          "text": "The present formulation is semi-discrete in time due to the necessity of coupling with existing solid mechanics formulations for the more general class of problems involving flow through deforming blood vessels. The stabilized method employed in the present work is described as follows.",
+          "page": 15
+        },
+        {
+          "text": "Consider the finite element discretizations (Fig. 13) of idealized and patient-specific abdominal aorta models. Each of these finite element meshes has in excess of l/4 million nonlinear equations to be solved for hundreds of time steps. Explicit methods are widely used for solving large problems in fluid and solid mechanics for small time intervals.",
+          "page": 17
+        },
+        {
+          "text": "Fig. 14(a) illustrates the use of a vector slice along the mid-sagittal plane. It is noted that the vector field reverses in direction along the posterior wall of the infrarenal abdominal aorta. Fig. 14(b) illustrates the use of a set of streamlines originating at the level of the diaphragm to visualize the velocity field.",
+          "page": 18
+        },
+        {
+          "text": "However, due to the complex flow fields in the vascular system, the surface traction is a more general, and useful, measure of surface forces. 4. Validation and application of method This section describes the application of the modeling and analysis methods developed to problems in blood flow.",
+          "page": 19
+        },
+        {
+          "text": "As observed in Fig. 18, the finite element solution resolves the theoretical velocity profile well with differences observed primarily along the centerline of the vessel in the second half of the cardiac cycle where the numerical results underpredict the exact solution.",
+          "page": 20
+        },
+        {
+          "text": "The geometric solid model created in the Virtual Vascular Laboratory is shown in Fig. 20. This solid model corresponds to a high degree of accuracy with the model dimensions meticulously detailed by Loth [29]. A finite element mesh, shown in Fig. 21, was generated with 46 453 nodes and 246 286 linear tetrahedral elements.",
+          "page": 21
+        },
+        {
+          "text": "Fig. 25 displays results for the pressure drop and shear stress variation, denoted by /~,~l, along the floor of the host artery from the proximal outflow segment to the distal outflow segment. Two points are worth noting.",
+          "page": 22
+        },
+        {
+          "text": "Velocity profiles transverse to the symmetry plane for steady flow in an end-to-side anastomosis Fig. 30 shows the comparison between the computed velocity profiles and experimental data from Loth [29] for the x components of velocity along a line through the midplane in the plane of the anastomosis near the proximal end of the anastomotic region.",
+          "page": 24
+        },
+        {
+          "text": "Fully developed pulsatile flow boundary conditions, employing the Womersley solution, were specified for the inflow velocity in the common carotid artery and the outflow velocity for the external carotid artery. A zero pressure boundary condition was specified for the outflow of the internal carotid artery.",
+          "page": 27
+        },
+        {
+          "text": "Ideulized abdominal aorta The aorta is the largest artery in the human body and performs the critical function of transferring oxygenated blood from the left ventricle of the heart to the arteries. The abdominal aorta is the segment of the aorta from the level of the diaphragm to the aortic bifurcation just below the navel. Clinically, it is observed that atherosclerotic",
+          "page": 28
+        },
+        {
+          "text": "A contour slice of axial velocity and a vector slice of the velocity field is displayed in Fig. 43 under simulated resting and exercise conditions at mid-diastole along the midplane of the aorta. Note that under resting conditions a large vortex develops along the posterior wall of the aorta.",
+          "page": 30
+        }
+      ]
     },
     {
       "id": "wilson2005",
@@ -203,7 +407,109 @@
       "journal": "Computational Mechanics",
       "doi": "10.1007/s00466-011-0599-0",
       "type": "article",
-      "abstract": ""
+      "abstract": "",
+      "chunks": [
+        {
+          "text": "278 Comput Mech (2011) 48:277–291 ﬂow information for which there is a lack of velocity pro- ﬁle information, leading to numerical instabilities on either the coupled inﬂow or outﬂow faces. All of these numeri- cal instabilities emanate from the use of Neumann bound- ary conditions on the outlet faces, for which velocity proﬁle information is not speciﬁed [ 7–10].",
+          "page": 2
+        },
+        {
+          "text": "In these situations, it is com- mon that ﬂow reversal is dictated by the pressure passed to the 3D model, causing a bulk inward ﬂow without prescribing velocity proﬁle information. In these situations, instabilities can occur, particularly in cases with rapidly changing dynam- ics that may alternate between positive and negative ﬂow within a cardiac cycle.",
+          "page": 2
+        },
+        {
+          "text": "This added cost increases for high Reynolds number ﬂows, since longer extensions will be needed to dissipate the vortices. Another option is to add additional vessels to the model until the ﬂow becomes uni- directional and the Reynolds number at the outlet is reduced [21].",
+          "page": 2
+        },
+        {
+          "text": "In this paper we present a detailed comparison of these methods and compare their impact on the ﬂow physics, computational cost, imple- mentation effort, and robustness. The weak formulation is presented and then the modiﬁed formulation is discussed for each method.",
+          "page": 2
+        },
+        {
+          "text": "Advantages of this method include accuracy, robustness, ease of implementation, and little to no additional computational cost. Cons of the method are the potential to alter the local ﬂow dynamics due to the addition of an artiﬁcial traction component opposite to the direction of the ﬂow. However, as shown in the results section, these effects turn out to be minimal.",
+          "page": 3
+        },
+        {
+          "text": "Our work aims to build on this recent work by offering an alternative through the use of the stabilization method. 2.1 Governing equations In this work, we consider the ﬂow of an incompressible Newtonian ﬂuid.",
+          "page": 3
+        },
+        {
+          "text": "Con- sidering q as the pressure test function, the continuity weak form can be obtained from Eq. ( 2)a s , ( q, ui,i ) /Omega1= 0. (6) Finally the weak form is: Find ui ∈ { ui|ui(xi, t) ∈ (H 1)d × [0, T], ui = gi on ∂g/Omega1 } and p ∈ { p|p(xi, t) ∈ L2 × [0, T] } , such that for all wi ∈ { wi|wi(xi, t) ∈ (H 1)d ×[ 0, T],w i = 0o n ∂g/Omega1 } and q ∈ { q|q(xi, t) ∈ L2 ×[ 0, T] } , B(wi, q; ui , p) = F(wi, q) B(wi, q; ui , p) = (wi,ρ ˙ui)/Omega1+ ( wi,ρu j ui, j ) /Omega1 − ( wi,i, p ) /Omega1+ ( wi, j,μ ui, j ) /Omega1 + ( wi, j,μ u j,i ) /Omega1 − ( q,i, ui ) /Omega1+ (q, ui ni)∂/Omega1, F(wi, q) = (wi, fi)/Omega1+ (wi, hi)∂h/Omega1. (7) In the discrete setting, we make use of a stabilized formulation (see, e.g., [ 24–29]), which allows equal-order velocity and pressure interpolation, and addresses the con- vective instability associated with Galerkin’s method applied to Eq. ( 7).",
+          "page": 3
+        },
+        {
+          "text": "For more details about the dis- cretization, linearization, and linear solvers, see [ 23,31]. 2.2 Methods for backﬂow treatment 2.2.1 Outlet stabilization In this section, we follow the implementation of Bazilevs et al. [ 22] for the addition of stabilization terms on the out- ﬂow boundaries. The weak form in Eq. ( 7) is vulnerable to backﬂow divergence.",
+          "page": 4
+        },
+        {
+          "text": "In Eq. ( 10), (ui ni)− is deﬁned as, (ui ni)− ≡ ui ni −| ui ni| 2 = { ui ni ui ni < 0 0 ui ni ≥ 0. (11) Considering the weak form of Eq. (10), since the−β(u j n j) − (ui, ui) term is always positive, the energy dissipation added by this term is proportional to the degree of backﬂow velocity.",
+          "page": 4
+        },
+        {
+          "text": "Let us deﬁne a rotation matrix M by, M = ⎡ ⎣ e t 2 t3 ⎤ ⎦ , (12) where t2 and t3 are the directions orthogonal to the vector e. To conﬁne the velocity in the normal direction,e, t2 and t3 in Eq. (12) are simply replaced by n and its orthogonal vectors. Multiplying Eq. (8)b y M in the element level rotates it to the normal and tangential coordinates.",
+          "page": 4
+        },
+        {
+          "text": "One might add another requirement of U B i nB i < 0t oE q .( 16), in order to only effect the nodes with inward velocity (i.e. deﬁn- ing this equation only on∂h− /Omega1). But for this study, we restrict all the nodes on the outlet surface to obtain a more stable and general form.",
+          "page": 5
+        },
+        {
+          "text": "Having ci from Eq. ( 18), a weak form obtained from the following equation is included in the formulation for all the constrained surfaces (see [ 23]), − λi ci + 1 2κi c2 i + σiλ2 i = 0, (21) where λ,κ, and σ are Lagrange multipliers (part of the solu- tion vector), user-deﬁned penalty numbers, and regulariza- tion parameters, respectively.",
+          "page": 5
+        },
+        {
+          "text": "At the inlet, a Dirichlet velocity condition is imposed. At the outlet, when a zero traction Neumann boundary con- dition is imposed, all components of the traction are set to zero, i.e. h i = 0i nE q .( 7).",
+          "page": 5
+        },
+        {
+          "text": "The lengths of the inlet and expansion sections are 10 and 5 mm, respectively. Two lengths, 15 and 30 mm, are used for the outlet sections in the short and extended models, respectively. The short and extended models are meshed with 215, 910 and 320, 157 tetrahedral linear ele- ments, respectively. The results are presented based on the inlet Reynolds number with a steady inﬂow rate.",
+          "page": 6
+        },
+        {
+          "text": "Comput Mech (2011) 48:277–291 283 Fig. 4 V elocity proﬁles at x = 15, 35, 40 and 45 mm in the extended model at Re = 1,000 0 5 10 15 20 25 30 35 40 45 50 −6 −4 −2 0 2 4 6 X (mm) Y (mm) No−treatment Lagrange Stabilization Normal We observe that the stabilization and normal constraint method results are very close to the no-treatment case.",
+          "page": 7
+        },
+        {
+          "text": "This may be a result of the added traction from the stabilization term, which opposes the inward ﬂow. To obtain a more global picture of the effect of these methods on the ﬂow, the outlet and inlet energy ﬂuxes and average pressures are tabulated (Table 1). Wall time is the parallel simulation time with 8 processors under the same cir- cumstances for all cases.",
+          "page": 7
+        },
+        {
+          "text": "In this ﬁgure, the Lagrange method velocity results are closer to the other two. However, the pressure at the centerline is lower at the inlet and rapidly increases at the outlet. This suggests lower pressure energy dissipation in this method as compared with the others. To obtain stable results, the time-step size is reduced to 10 − 3 from 10− 2 for the lower Reynolds number case.",
+          "page": 8
+        },
+        {
+          "text": "This sim- ulation is done with a time-step equal to 10 − 4 over 1 s with three nonlinear iterations per time-step. The inﬂow wave- form is physiological, with a cardiac cycle time of 0.5 s [36]. This wave form (Q 1) and the model are shown in Fig. 8.T h e average ﬂow rate was scaled to produce an average Re = 2,500.",
+          "page": 8
+        },
+        {
+          "text": "This inﬂow wave form has more backﬂow, as shown by Q2 in Fig. 8.T h e Reynolds number is set to 2,000. At this Reynolds number the normal constraint simulation diverged. The Lagrange con- straint case remained stable, but the result was physically unrealistic, with a high pressure oscillation through the car- diac cycle.",
+          "page": 9
+        },
+        {
+          "text": "This is also true for the region of the outlet with high velocity close to the wall, which has a higher artiﬁcial pressure. The residual value is low for the stabilization method over the entire cycle, but the residual increases in diastole for the Lagrange method.",
+          "page": 10
+        },
+        {
+          "text": "The capacitances are tuned to obtain a pressure amplitude between 80–120 mmHg at the outlets. To achieve mesh independence, the mesh is adapted twice based on element residual values [ 38]. The ﬁnal mesh contains approximately 2 million tetrahedral elements. A Dirichlet boundary condition is imposed at the inlet, i.e. ascending aorta, with the ﬂow waveform shown in Fig. 10 [37].",
+          "page": 10
+        },
+        {
+          "text": "Assuming the stabilization method results are close to the supposed no treatment case results, it can be concluded that the Lagrange method does not change the ﬂow split values in this case. This is mainly due to the fact that the ﬂow split is deter- mined by the boundary conditions, rather than the 3D model hemodynamics.",
+          "page": 10
+        },
+        {
+          "text": "The time-averaged pressure contours at the surface are shown for the stabilization and the Lagrange methods 0 0.5 1 60 80 100 120 0 0.5 1 60 80 100 120 0 0.5 1 60 80 100 120 0 0.5 1 50 100 150 0 0.5 1 60 80 100 120 Stabilization Lagrange LagrangeStabilization variation in the pressure ﬁeld is too small to significantly affect the ﬂow split.",
+          "page": 11
+        },
+        {
+          "text": "These results correspond to a steady state, zero traction boundary condition simulation. The ¯Q is untuned for the Lagrange method with n = 2 (the Lagrange (III) case in Table 3). The Lagrange method predicts lower WSS in the upper branches due to the lower ﬂow rates in these branches.",
+          "page": 12
+        },
+        {
+          "text": "To illustrate issues with robustness of the proposed meth- ods, we present a case in which we alter the cross sectional Fig. 13 The brachiocephalic artery with normal and angled cut cut of one of the model outlets. This represents a situation in which the outlet section cannot be cut perpendicular to the ﬂow direction for reasons related to model construc- tion or lack of image data.",
+          "page": 12
+        }
+      ]
     },
     {
       "id": "bertoglio2014",
@@ -1145,7 +1451,109 @@
       "journal": "Flow, Turbulence and Combustion",
       "doi": "10.1023/A:1009995426001",
       "type": "article",
-      "abstract": ""
+      "abstract": "",
+      "chunks": [
+        {
+          "text": "In Smagorinsky’s model, the eddy- viscosity is assumed to be proportional to the subgrid characteristic length scale1 and to a characteristic turbulent velocity taken as the local strain ratejSj: \u0017tD.Cs1/2jSj; jSjD q 2SijSij: (1) Following Lilly [1], the constantCs may be obtained by assuming that the cut- off wave numberkcD\u0019=1 lies within ak−5=3 Kolmogorov cascade for the energy spectrumE.k/D CK\"2=3k−5=3 and requiring that the ensemble-averaged subgrid dissipation is identical to\".",
+          "page": 2
+        },
+        {
+          "text": "Thus by deﬁning the eddy-viscosity from the local strain rate, one relates the subgrid dissipation to the strain rate of the smallest resolved scales of motion. This choice is not in agreement with the results from Wray and Hunt [2] on the kinematic and dynamic properties of the turbulent structures.",
+          "page": 2
+        },
+        {
+          "text": "This requirement is met by the structure function model [3] which reads: \u0017tD C−3=2 K 1 q F 2; (2) whereF 2 is the second-order velocity structure function of the ﬁltered ﬁeld: F 2.x;1/D ⟨ jju.x;t/− u.xC r;t/jj2 jjrjjD1; and is a constant which can be ﬁxed from energetic considerations. Very good results have been obtained with this model for isotropic homogeneous turbulence [4].",
+          "page": 2
+        },
+        {
+          "text": "It also requires the use of a smaller value for the Smagorinsky constant (C s D 0:1) in order to sustain turbulence in a channel ﬂow [7]. Note also that depending on the damping function used it may not produce the proper near-wall scaling for the eddy-viscosity. The above-mentioned Van Driest damping produces\u0017 t DO.y2/ instead ofO.y3/.",
+          "page": 3
+        },
+        {
+          "text": "Another way to produce zero eddy-viscosity at the wall is to modify the constant of the model ( C s for the Smagorinsky model) in such a way as to enforce Cs ’ 0 when turbulence activity is reduced. This is done dynamically by the procedure proposed by Germano et al. [10], in which the variable CDC2 s appears in ﬁve independent equations.",
+          "page": 3
+        },
+        {
+          "text": "The Smagorinsky model is quite well adapted to these conﬁgurations since only local gradients are involved in the computation of the eddy-viscosity. A Lag- rangian version of its dynamic form has been proposed by Meneveau et al. [11] to allow the computation of complex conﬁgurations without direction of ﬂow homo- geneity.",
+          "page": 3
+        },
+        {
+          "text": "186 F. NICOUD AND F. DUCROS In simple geometries, the ﬁltering operations can be performed very precisely in Fourier space but deﬁning a test ﬁlter of width 2 1 in complex geometries may prove to be an issue [13].",
+          "page": 4
+        },
+        {
+          "text": "Finally, it is sensitive to both the strain and the rotation rate of the small turbulent structures. Although the dynamic procedure could also be applied to the WALE model,C m is considered here as a true constant, assessed from the canonic case of isotropic homogeneous turbulence. The model is deﬁned in Section 2 and used for the case of the pipe ﬂow in Section 3. 2.",
+          "page": 4
+        },
+        {
+          "text": "SUBGRID-SCALE STRESS MODELLING 187 where HP.Sij/ stands for the resolved strain rate deﬁned on high-pass ﬁltered velocity ﬁelds. Here the high-pass ﬁltered velocity ﬁelds are obtained using an estimation of the fourth-order derivatives of conserved variables [16].",
+          "page": 5
+        },
+        {
+          "text": "188 F. NICOUD AND F. DUCROS \u000f this invariant is of orderO.1/ near a wall. Let us ﬁrst consider the second point.",
+          "page": 6
+        },
+        {
+          "text": "On the other hand, the second invariant of S is−.1=2/SijSij , strongly related to the spatial operator used in the Smagorinsky model OP D q 2SijSij . In the limit y’ 0, it is obvious to show from relations 9 that this quantity remains ﬁnite (of orderO.1/). The same kind of results may be obtained for the third invariant of gij andSij .",
+          "page": 6
+        },
+        {
+          "text": "In the case of pure shear (e.g., gij D 0 exceptg12), it yieldsS2D/Omega12D 4S12 andIVS/Omega1D−.1=2/S2S2,s o that the considered invariant is zero. This point is in agreement with the fact that the shear zones contribute to energy dissipation to a smaller extent than convergence zones and eddies [2].",
+          "page": 7
+        },
+        {
+          "text": "Thus a simple way to build a spatial operator OP which behaves like y3 near a wall is to takeOP proportional toOP 1D \u0010 Sd ijSd ij \u00113=2 .S i n c eg has the dimension of frequency, OP 1 has the dimension of frequency to the power 6 and must be scaled before being used in the subgrid scale model formulation (3).",
+          "page": 7
+        },
+        {
+          "text": "Finally, the WALE model we propose for the eddy-viscosity reads as: \u0017 tD.Cw1/2OP 1 OP 2 D.Cw1/2 .Sd ijSd ij/3=2 .SijSij/5=2C.Sd ijSd ij/5=4; (13)",
+          "page": 7
+        },
+        {
+          "text": "All these computations have been performed with a sixth-order compact scheme [18] and the classical structure function model [4] at inﬁnite molecular Reynolds number. From Table I, a value of C w in the range 0:55\u0014Cw\u0014 0:60 is appropriate forCs D 0:18. A more accurate estimation ofCw is given in the following section. 3.",
+          "page": 8
+        },
+        {
+          "text": "Consequently, the subgrid scale model effects are not corrupted by those of artiﬁcial dissipation. This approach has already been successfully used to perform both DNS and LES [14, 15, 20] and is used here to compute turbulent pipe ﬂow. Before conducting such computation, a highly accurate spectral code was used to test the WALE model for the case of decaying isotropic homogeneous turbulence.",
+          "page": 8
+        },
+        {
+          "text": "In a reference frame moving with the average ﬂow velocity the problem can be thought of as freely decaying isotropic turbulence. We model this by considering the ﬂuid to be inside a cubical box with periodic boundary conditions [12, 22]. A Galerkin method based on Fourier ex- pansions is applied in all spatial directions.",
+          "page": 9
+        },
+        {
+          "text": "This value of Cw is in fairly good agreement with the rough estimation provided in the previous section. The model provides the right amount of dissipation so that the experimental spectra are reproduced. Note that the best value for Cw (in terms of reproducing the ex-",
+          "page": 9
+        },
+        {
+          "text": "It isRC’ 320 based on the friction velocity and the pipe radius. The large eddy simulations have been performed using a hybrid mesh (see Figure 2) with structured hexahedral cells near the wall (r> 0:7R) and prisms in the core region (r< 0:7R).",
+          "page": 10
+        },
+        {
+          "text": "A source term is added to the Navier–Stokes equations to simulate a pressure gradient corresponding to the fully turbulent state; this term comes from a empirical evaluation and reads: @p @xD \u0015 2R \u001aU 2 b 2 ; (14) with\u0015D 0:3164Rb [24]. More details concerning this conﬁguration can be found elsewhere [15].",
+          "page": 11
+        },
+        {
+          "text": "194 F. NICOUD AND F. DUCROS 0.0 0.2 0.4 0.6 0.8 1.0 −1.0 −0.8 −0.6 −0.4 −0.2 0.0 Figure 4. Resolved stress (– – –), subgrid stress (- - -), subgrid and viscous stress ( ...) a n d total computed stress (—) distributions, normalized by the wall shear stress, vs. the distance to the wall. The exact total stress is denoted by the dot-dashed line. 1 10 100 0 5 10 15 20 Figure 5.",
+          "page": 12
+        },
+        {
+          "text": "SUBGRID-SCALE STRESS MODELLING 195 0 100 200 300 0 1 2 3 Figure 6. Root-mean-square streamwise velocity and normal velocity vs. the distance to the wall. Comparison between the ﬁltered Smagorinsky model (– – –) and the WALE formulation (—). The experimental data from Eggels et al. [17] forR bD 5450 is denoted by symbol.",
+          "page": 13
+        },
+        {
+          "text": "For the computation with the WALE model, Figure 5 also suggests 0 :416 for the V on Karman’s constant \u0014 and C ’ 5, which is in the common range for turbulent velocity proﬁles. Smaller values of the constants are representative of the results with the ﬁltered Smagorinsky formulation (\u0014D 0:39,C’ 4:5).",
+          "page": 13
+        },
+        {
+          "text": "As can been seen in Figure 7, this scaling is well reproduced in the performed computation since\u0017t is of orderr3 near the pipe wall. The eddy-viscosity is two orders of magnitude smaller than the molecular viscosity in the sublayer so that the small discrepancy from the r3 behaviour could most likely not have a measurable effect on the results. The curves in Figure 7 for the",
+          "page": 13
+        },
+        {
+          "text": "For the latter, the wrong behaviour at the wall reduces the effective Reynolds number of the simulation so that only 85% of the expected ? mass ﬂow rate in the pipe was obtained. The effective Reynolds number in this computation is of order 8500.",
+          "page": 14
+        }
+      ]
     },
     {
       "id": "manchester2022",
@@ -1979,7 +2387,109 @@
       "journal": "JAMA",
       "doi": "10.1001/jama.282.21.2035",
       "type": "article",
-      "abstract": "Atherosclerosis, the leading cause of death in the developed world and nearly the leading cause in the developing world, is associated with systemic risk factors including hypertension, smoking, hyperlipidemia, and diabetes mellitus, among others. Nonetheless, atherosclerosis remains a geometrically focal disease, preferentially affecting the outer edges of vessel bifurcations. In these predisposed areas, hemodynamic shear stress, the frictional force acting on the endothelial cell surface as a result of blood flow, is weaker than in protected regions. Studies have identified hemodynamic shear stress as an important determinant of endothelial function and phenotype. Arterial-level shear stress (>15 dyne/cm2) induces endothelial quiescence and an atheroprotective gene expression profile, while low shear stress (<4 dyne/cm2), which is prevalent at atherosclerosis-prone sites, stimulates an atherogenic phenotype. The functional regulation of the endothelium by local hemodynamic shear stress provides a model for understanding the focal propensity of atherosclerosis in the setting of systemic factors and may help guide future therapeutic strategies."
+      "abstract": "Atherosclerosis, the leading cause of death in the developed world and nearly the leading cause in the developing world, is associated with systemic risk factors including hypertension, smoking, hyperlipidemia, and diabetes mellitus, among others. Nonetheless, atherosclerosis remains a geometrically focal disease, preferentially affecting the outer edges of vessel bifurcations. In these predisposed areas, hemodynamic shear stress, the frictional force acting on the endothelial cell surface as a result of blood flow, is weaker than in protected regions. Studies have identified hemodynamic shear stress as an important determinant of endothelial function and phenotype. Arterial-level shear stress (>15 dyne/cm2) induces endothelial quiescence and an atheroprotective gene expression profile, while low shear stress (<4 dyne/cm2), which is prevalent at atherosclerosis-prone sites, stimulates an atherogenic phenotype. The functional regulation of the endothelium by local hemodynamic shear stress provides a model for understanding the focal propensity of atherosclerosis in the setting of systemic factors and may help guide future therapeutic strategies.",
+      "chunks": [
+        {
+          "text": "tula,34 or in feeder arteries supplying ce- rebralarteriovenousmalformations,8 lead to expansion of the luminal radius such that mean shear stress is returned to its baseline level. 1,34 Conversely, decreased shear stress resulting from lower flow or blood viscosity 35 induces a decrease in internal vessel radius.2 The net effect of these endothelial-mediated compen- satory responses is the maintenance of mean arterial hemodynamic shear stress magnitude at approximately 15 to 20 dyne/cm 2.11,34 This shear stress– stabilizing process is dependent on in- tact endothelial function and is abolished by prior selective destruction of the en- dothelial monolayer. 2 SHEAR STRESS AND THE LOCALIZATION OF ATHEROSCLEROTIC PLAQUES Atherosclerotic lesions long have been known to occur near vascular branch- ing points. 36 Two contradictory hypoth- eses were advanced in the 1970s to ex- plain this distribution of lesions.",
+          "page": 2
+        },
+        {
+          "text": "The first implicated high shear stress (400 dyne/ cm 2)3 via direct endothelial injury and denudation, as suggested by experimen- tal exposure of endothelium to supra- physiological shear stress (400 dyne/ cm 2). The second, proposed by Caro et al,4 invoked low shear stress.",
+          "page": 2
+        },
+        {
+          "text": "Subse- quent observations and studies made in the last 3 decades have validated the low- shear hypothesis of atherosclero- sis. 5,22,24,25An explanatory mechanism for this association has recently begun to evolve 10,26,28-30 that can serve to explain the focal nature of the inflammatory and proliferative responses to injury that likely underlie atherogenesis. 37 Atherogenesis preferentially in- volves the outer walls of vessel bifur- cations and points of blood flow recir- culation and stasis (F IGURE 2, A and B).",
+          "page": 2
+        },
+        {
+          "text": "The local rates of ath- erosclerosis progression in patients with coronary artery disease were found by serial quantitative coronary angiography to correlate inversely with shear stress magnitude, even when controlled for sys- temic risk factors such as circulating lev- els of lipoproteins. 42 Flow analysis and corresponding ca- rotid endarterectomy pathological sec- tions showed greatest plaque thickness in the outer wall of the carotid sinus where flow shows stasis and shear is low in magnitude and exhibits direction re- versal 13 (Figure 2).",
+          "page": 2
+        },
+        {
+          "text": "The co-localization of atheroscle- rosis to low-shear areas has also been confirmed in the only location in the hu- man body where 2 arteries join to form a vascular confluence, at the apex of the intracranial vertebrobasilar junction. 43 The localization of atherosclerosis to low shear regions has been further es- tablished in human abdominal aortas both at autopsy 41 and with noninvasive magnetic resonance phase velocity map- ping. 44,45The same pattern of early plaque localization is observed in young trauma patients, 46 regardless of ethnic origin47 or dietary habits.48 En-face examination of endothelial surfaces in human thoracic aortas reveals leukocyte adhesion, accu- mulation of subendothelial macro- phages and lymphocytes, irregular en- dothelial morphology with denuded regions covered with platelets, and di- lated intercellular clefts in the outer walls but not in the inner walls or flow di- vider of bifurcations. 49 Measurements of wall shear stress using echo-Doppler ul- trasound in healthy young patients (aged 28-38 years) revealed a statistically sig- nificant inverse relationship between in- tima-media thickness in the carotid ar- tery and local wall shear stress. 50 Similar localization of atherosclerotic lesions has been reproduced in prospective experi- mental animal studies in the aorta 51,52and Figure 1.",
+          "page": 2
+        },
+        {
+          "text": "B,Tabular diagram illustrating the range of shear stress magnitudes encountered in veins, arteries, and in low-shear and high-shear pathologic states. HEMODYNAMIC SHEAR STRESS 2036 JAMA, December 1, 1999—Vol 282, No. 21 ©1999 American Medical Association. All rights reserved.",
+          "page": 2
+        },
+        {
+          "text": "Increasing shear stress in the rat by sur- gical construction of an aortocaval shunt results in increased cyclic guanosine 3959-monophosphate (presumably as a result of increased nitric oxide release), 54 and elevated shear increased endothe- lial nitric oxide synthase (eNOS) mes- senger RNA (mRNA), protein, and ac- tivity in high-shear stressed aortas compared with sham-operated con- trols. 55 These increases were followed by vessel structural expansion54 similar to that seen in the canine model. 1 This structural increase in vascular lumen to normalize shear was prevented in the rat model by inhibition of nitric oxide syn- thase (NOS) with N-v-nitro-l-arginine- methyl ester. 56 The central role of eNOS in shear-mediated structural remodel- ing was confirmed by Rudic et al 57 when, in wild-type mice, the common carotid artery responded to surgically induced decrease in flow by reducing caliber to normalize shear stress to its preopera- tive level, whereas it failed to do so in mu- tant mice that lacked the gene for eNOS. 57 In a baboon polytetrafluoroethylene graft fistula model, elevated shear stress was associated with increased expression of eNOS, a lower degree of neointimal and smooth muscle proliferation, and even induced regression of previously estab- lished neointima. 58 In contrast with their high-shear counterparts, low-shear grafts exhibited greater smooth muscle cell pro- liferation and higher levels of platelet- derived growth factor–A protein and mRNA. 59 The connection between high shear stress and low intimal prolifera- tion has been further clarified in rodent experiments showing that focal in- creases in shear stress in the aorta re- sulted in corresponding decreases in an- giotensin-converting enzyme activity. 60 Shear stress has also been associated with the endothelial proliferative state in animal studies.",
+          "page": 3
+        },
+        {
+          "text": "Endothelial cell pro- liferation increased 18-fold within 48 hours of reduction in shear stress. 61 De- creasing shear stress was followed by en- dothelial cell loss and desquamation, altered morphology with decreased elon- gation, decrease in actin stress fibers, greater monocyte attachment to and mi- gration across the endothelial layer, 62 and increased endothelial surface expres- sion of vascular cell adhesion molecule 1. 63 The increased endothelial cell loss in response to decreased shear has re- Figure 2.",
+          "page": 3
+        },
+        {
+          "text": "B, Left lateral cervical carotid arteriogram in a 75-year-old man who experienced an embolic stroke in the left temporal lobe. Focal nar- rowing is seen at the outer walls of the common carotid artery bifurcation in both the internal carotid artery (arrowhead) and the external carotid artery (arrowhead).",
+          "page": 3
+        },
+        {
+          "text": "HEMODYNAMIC SHEAR STRESS ©1999 American Medical Association. All rights reserved. JAMA, December 1, 1999—Vol 282, No. 21 2037",
+          "page": 3
+        },
+        {
+          "text": "cently been suggested to be the result of apoptosis, which remains unabated un- til the shear normalization has been re- stored. 64 These in vivo experiments ob- tained in various species using different methods to alter hemodynamics help es- tablish a framework to understand the propensity for intimal hyperplasia and atherosclerosis initiation in areas of low shear stress and the protective effect of elevated shear stress in sheltered re- gions of the vasculature.",
+          "page": 4
+        },
+        {
+          "text": "The correlations between hemody- namic factors and intimal hyperplasia in humans and animal models 5,22,1,7,7 have led to intensive study of the in vitro endothelial response to fluid shear stress in the past decade. 10,26-30,65 Short-term Effects of Shear Stress on Endothelial Function Hemodynamic shear stress resulting from second-to-minute time-scale varia- tion in flow increases secretion of pros- tacyclin 66 and nitric oxide,67,68 both of which hinder platelet activation, 69,70 attenuate smooth muscle prolifera- tion, 71 and inhibit neointima formation following experimental balloon injury in animals. 72,73 Physiological shear stress (.15 dyne/cm2) decreases in vitro endo- thelial cell turnover by decreasing both the basal rate of proliferation 74,75and the rate of apoptosis from growth factor depletion, tumor necrosis factor a or hydrogen peroxide exposure 74,76,77 via activation of Akt, and attenuated caspase- mediated killing. 76 Control of Endothelial Gene Expression and Phenotype Switching by Shear Stress Fluid shear stress transforms polygo- nal, cobblestone-shaped endothelial cells of random orientation into fusiform en- dothelial cells aligned in the direction of flow (F IGURE 3).",
+          "page": 4
+        },
+        {
+          "text": "Endothelial Response to Hemodynamic Shear Stress* Hemodynamic Shear Stress Physiologic Arterial Magnitude (tS.15 dyne/cm2) Low Arterial Magnitude (tS~ ± 0-4 dyne/cm2) Endothelial cell morphology Fusiform aligned Polygonal unaligned Endothelial cell function Vasoactive agents Vasoconstrictors ET-1 102/ECE86 Low High ACE60 Low High Vasodilators NO/NO syntase67-69,81-83 High Low PGI2/PGI2 synthase66-84 High Low CNP86 High Low Adrenomedullin87 High Low Antioxidant enzymes COX-1, 285 High Low Mn SOD85 High Low Cu/Zn SOD93 High Low Growth regulators Growth factor PDGF-B78,97 Low High PDGF-A59 Low High Growth inhibitor TGF-b88 High Low Inflammatory mediators MCP-1101 Low High Adhesion molecules VCAM-1100,101,103 Low High Thrombosis/fibrinolysis tPA89,90 High Low TM89 Low High Endothelial proliferation78 Low High Endothelial apoptosis79 Low High *ET-1 indicates endothelin 1; ECE, endothelin-converting enzyme; ACE, angiotensin-converting enzyme; NO, nitric oxide; PGI2, prostacyclin; CNP, C-type natriuretic peptide; COX, cyclooxygenase; Mn SOD, manganese-containing superoxide dismutase; Cu/Zn SOD, copper/zinc-containing superoxide dismutase; PDGF-A, B, platelet-derived growth factor A-chain, B-chain; TGF-b, transforming growth factor beta; MCP-1, monocyte chemotactic peptide 1; VCAM-1, vascular cell adhesion molecule 1; tPA, tissue-type plasminogen activator; and TM, thrombomodulin.",
+          "page": 4
+        },
+        {
+          "text": "HEMODYNAMIC SHEAR STRESS 2038 JAMA, December 1, 1999—Vol 282, No. 21 ©1999 American Medical Association. All rights reserved.",
+          "page": 4
+        },
+        {
+          "text": "Detrimental Effects of Oscillatory and Turbulent Shear Stress Oscillatory shear stress, unlike steady shear stress, can fail to induce [Ca 2+]i transients103 or suppress endothelin 1 mRNA. 102 In vitro oscillatory shear stress of low magnitude (±5 dyne/ cm 2) increases endothelial levels of su- peroxide anion (O2 −) via activation of its biosynthetic enzyme, nicotinamide adenine dinucleotide (reduced form) oxidase, 94 and enhances monocyte ad- hesion.104 Oscillatory shear stress is a weaker inducer of eNOS than steady shear stress, 105 and creates greater en- dothelial cell proliferation. 75,77 Simi- larly, turbulent shear stress, in con- trast to steady laminar shear stress, induces in vitro endothelial cell turn- over 106 and fails to stimulate in vitro mRNA expression of eNOS, Mn2 + su- peroxide dismutase, and COX-2 genes. 85 Although extrapolation from in vitro data to the living organism may be dif- ficult, these findings suggest that el- evated arterial-level shear stress (.15 dyne/cm 2) induces a quiescent, anti- proliferative, antioxidant, and anti- thrombotic phenotype, 10,28,78while time- and direction-varying low shear stress magnitude (,4 dyne/cm 2), as seen in regions prone to atherosclerosis,5,22 re- sults in an aggressive and proliferative phenotype.",
+          "page": 5
+        },
+        {
+          "text": "Model of Atherogenesis Anticoagulant Antithrombotic State PGI2 NO tPA Physiologic Arterial Shear Stress (τs >15 dyne/cm2) Low Arterial Shear Stress (τs ~ – 0-4 dyne/cm2) Oscillatory Slow Flow EC Quiescence Proliferation Apoptosis Paracrine Quiescent State TGF-β NO/eNOS PGI2/PGI2 Synthase Adrenomedullin CNP PDGF-B ACE ET-1 ECE High EC Antioxidant Activity COX-1, 2 Mn SOD Cu/Zn SOD TGF-β CNP PGI2/PGI2 Synthase Adrenomedullin NO/eNOS ECE PDGF-B ACE ET-1 Cu/Zn SOD Mn SOD COX-1, 2 Paracrine Proliferative State Prooxidant State PGI2 NO tPAProcoagulant Prothrombotic State MCP-1 VCAM Monocyte Activation τs VCAM Molecule Activated Monocyte Smooth Muscle Cell Fibroblast Platelet Aggregate Fibrin Plug Steady High Flow Illustration of the arterial endothelial phenotypic switch from atheroprotective (left panel) to atherogenic (right panel) induced by the local low-magnitude shear stress (,4 dyne/cm2) conditions found in atherosclerosis-prone regions of vascular bifurcations.5,22,24 The atherogenic endothelial phenotype resulting from weak local he- modynamic shear stress at the vessel wall includes the low shear-mediated recruitment and activation of monocytes, increased platelet activation,increased vasocon- striction and paracrine growth stimulation of vessel wall constituents, increased oxidant state, and increased apoptosis and cellular turnover (right panel). ts Indicates shear stress; NO, nitric oxide; EC, endothelial cell; and NOS, endothelial nitric oxide sythase.",
+          "page": 5
+        },
+        {
+          "text": "For other abbreviations, see footnote to Table. HEMODYNAMIC SHEAR STRESS ©1999 American Medical Association. All rights reserved. JAMA, December 1, 1999—Vol 282, No. 21 2039",
+          "page": 5
+        },
+        {
+          "text": "Shear stress of physiological arterial magnitudes (.15 dyne/cm 2) appears to produce an ath- eroprotective endothelial phenotype (Figures 3 and 4) that consists of de- creased expression of vasoconstric- tors, paracrine growth factors, inflam- matory mediators, adhesion molecules, oxidants, and elevated production of vasodilators, growth inhibitors, fibri- nolytics, antiplatelet factors, and anti- oxidants.",
+          "page": 6
+        },
+        {
+          "text": "In contrast, the outer walls of vessel bifurcations are characterized by low and oscillatory shear stress due to vas- cular network architectural con- straints (0±4 dyne/cm 2) and are prone to atherosclerosis. These focal areas manifest greater endothelial cell cy- cling and vulnerability to systemic apoptogenic stimuli such as oxidized low-density lipoprotein and tumor ne- crosis factor (TNF)a.",
+          "page": 6
+        },
+        {
+          "text": "Endothelial cells under the hemodynamic conditions de- scribed in Figure 4 might preferen- tially activate circulating monocytes and encourage local adhesion and diapede- sis. Persistently low antioxidant levels likely act in synergy with reduced pro- duction of nitric oxide to potentiate the steady paracrine mitogenic stimula- tion of vessel wall constituents.",
+          "page": 6
+        },
+        {
+          "text": "CONCLUSION Shear stress studies have altered our concept of the endothelium from that of a passive, nonthrombogenic sur- face to that of a dynamically respon- sive vascular element producing auto- crine and paracrine factors under the functional regulation of local hemody- namic forces. 10,26-30,65 These findings have underlined the importance of studying endothelial cell function un- der flow conditions and have renewed efforts to identify novel and known gene products that may be regulated by shear stress. 85,112 The molecular phenotypic switching of endothelium by shear stress offers an integrated model to explain the focal nature of atheroscle- rosis.",
+          "page": 6
+        },
+        {
+          "text": "Funding/Support: Dr Malek was supported by a Na- tional Institutes of Health (NIH) Medical Scientist Train- ing Program grant, the Whitaker Foundation, and the Boston Neurosurgical Foundation. Dr Alper is sup- ported by NIH grant HL15175 and by a grant-in-aid from the American Heart Association.",
+          "page": 6
+        },
+        {
+          "text": "Drs Izumo and Alper were Established Investigators of the American Heart Association during the course of this research. Acknowledgment: We apologize to those col- leagues whose work was not cited due to space limi- tations. REFERENCES 1. Kamiya A, Togawa T. Adaptive regulation of wall shear stress to flow change in the canine carotid ar- tery. Am J Physiol. 1980;239:H14-H21. 2.",
+          "page": 6
+        },
+        {
+          "text": "Atheroma and arterial wall shear: observation, correlation and proposal of a shear dependent mass transfer mecha- nism for atherogenesis. Proc R Soc Lond B Biol Sci . 1971;177:109-159. 5. Zarins CK, Giddens DP, Bharadvaj BK, Sottiurai VS, Mabon RF, Glagov S. Carotid bifurcation atheroscle- rosis: quantitative correlation of plaque localization with flow velocity profiles and wall shear stress.",
+          "page": 6
+        },
+        {
+          "text": "Circ Res. 1983;53:502-514. 6. Kerber CW, Hecht ST, Knox K, Buxton RB, Meltzer HS. Flow dynamics in a fatal aneurysm of the basilar ar- tery. AJNR Am J Neuroradiol. 1996;17:1417-1421. 7. Rodbard S. Vascular caliber.Cardiology. 1975;60: 4-49. 8. Rossitti S, Svendsen P. Shear stress in cerebral ar- teries supplying arteriovenous malformations. Acta Neurochir Wien. 1995;137:138-145. 9. Fung YC.",
+          "page": 6
+        }
+      ]
     },
     {
       "id": "chiu2011",
@@ -2012,7 +2522,109 @@
       "journal": "American Journal of Physiology-Heart and Circulatory Physiology",
       "doi": "10.1152/ajpheart.00897.2003",
       "type": "article",
-      "abstract": "A better understanding of how hemodynamic factors affect the integrity and function of the vascular endothelium is necessary to appreciate more fully how atherosclerosis is initiated and promoted. A novel technique is presented to assess the relation between fluid dynamic variables and the permeability of the endothelium to macromolecules. Fully anesthetized, domestic swine were intravenously injected with the albumin marker Evans blue dye, which was allowed to circulate for 90 min. After the animals were euthanized, silicone casts were made of the abdominal aorta and its iliac branches. Pulsatile flow calculations were subsequently made in computational regions derived from the casts. The distribution of the calculated time-dependent wall shear stress in the external iliac branches was directly compared on a point-by-point basis with the spatially varying in vivo uptake of Evans blue dye in the same arteries. The results indicate that in vivo endothelial permeability to albumin decreases with increasing time-average shear stress over the normal range. Additionally, endothelial permeability increases slightly with oscillatory shear index."
+      "abstract": "A better understanding of how hemodynamic factors affect the integrity and function of the vascular endothelium is necessary to appreciate more fully how atherosclerosis is initiated and promoted. A novel technique is presented to assess the relation between fluid dynamic variables and the permeability of the endothelium to macromolecules. Fully anesthetized, domestic swine were intravenously injected with the albumin marker Evans blue dye, which was allowed to circulate for 90 min. After the animals were euthanized, silicone casts were made of the abdominal aorta and its iliac branches. Pulsatile flow calculations were subsequently made in computational regions derived from the casts. The distribution of the calculated time-dependent wall shear stress in the external iliac branches was directly compared on a point-by-point basis with the spatially varying in vivo uptake of Evans blue dye in the same arteries. The results indicate that in vivo endothelial permeability to albumin decreases with increasing time-average shear stress over the normal range. Additionally, endothelial permeability increases slightly with oscillatory shear index.",
+      "chunks": [
+        {
+          "text": "blood ﬂow rate. EBD was administered intravenously at a 1:1 molar concentration ratio with blood serum albumin. The EBD was allowed to circulate for 90 min before the animals were killed with an intravenous injection of Euthasol (pentobarbital sodium/H11001phenytoin). Immediately after the animals were killed, the arterial tree was ﬂushed with saline to clear the vessels of blood and EBD.",
+          "page": 2
+        },
+        {
+          "text": "Casts replicating the infrarenal aorta and the iliac-femoral arteries of each animal were made in the following manner (Fig. 1). Silicone casting material (Polycast RTV-880, Polycast Industries, Bay Shore, NY), supplemented with 20% (wt/wt) 1/32-inch milled glass ﬁbers (Fibre Glast, Brookville, OH), was injected at 100 mmHg into the abdominal aorta just proximal to the renal artery ostia.",
+          "page": 2
+        },
+        {
+          "text": "Each cast was laser scanned by Product Development Technologies (Lincolnshire, IL) to generate a three-dimensional cloud of /H11011150,000 points representing the luminal surface. A custom mesh generator was used to create a three-dimensional eight-node brick element mesh representation of the terminal aorta and the common internal, external, and circum ﬂex iliac arteries.",
+          "page": 2
+        },
+        {
+          "text": "The measured femoral artery ﬂow rates were used to estimate the ﬂows through the iliac and circum ﬂex arteries and aorta by means of Fig. 1. Dorsal view of a luminal cast of the porcine aortic trifurcation before removal of the tissue. Dashed arrows, tissue dissection cut lines. Fig. 2. Three-dimensional mesh of the ter- minal aorta and common internal, external, and circumﬂex iliac arteries.",
+          "page": 2
+        },
+        {
+          "text": "ﬂow relations established previously (18). The porosities of porous plugs placed at the vessel termini were adjusted to obtain the desired ﬂow partition (9). Pulsatile laminar ﬂow calculations were performed using the ﬁnite-element code FIDAP (Fluent). A uniform inlet veloc- ity proﬁle and no-slip conditions at the rigid walls were applied.",
+          "page": 3
+        },
+        {
+          "text": "An iliac artery waveform was applied at the (aortic) inlet so that, in this rigid model, the waveforms in the iliac vessels had the appropriate shape. The mean Reynolds number based on the diameter at the inlet averaged 885 for the three cases, and the average Womersley number was 8.3. Four cycles were computed to obtain temporal convergence. Mapping of wall shear data and tissue images.",
+          "page": 3
+        },
+        {
+          "text": "An afﬁne transformation based on selected geometric features of the vessel (13) was used to deform the transformed shear image and the en face photographs of the tissue to a common template. The greatest variation in shear stress was observed in the segment of the iliac artery proximal to the circum ﬂex branch, and this region was selected for further study (16).",
+          "page": 3
+        },
+        {
+          "text": "Therefore, the distributions of selected shear stress measures in the proximal iliac segment were compared on a pixel-by-pixel basis (/H110115,000 pixels total) with the OD distribution of the templated image of the EBD-stained tissue. Each pixel represents /H110111 /H1100310 /H110027 m2 (0.1 mm2) of tissue area.",
+          "page": 3
+        },
+        {
+          "text": "RESULTS The transformed and templated images displaying the mean (i.e., time-average) wall shear stress magnitude in the proximal segment of the left and right iliac arteries from the initial case are shown with the corresponding templated tissue OD images in Fig. 4.",
+          "page": 3
+        },
+        {
+          "text": "A and C: templated optical density maps in left and right iliac arteries, respectively. B and D: corresponding templated maps of time-average shear stress for left and right iliac arteries, respectively. Increasing gray level indicates increasing shear and increasing optical density. Arrows, direction of ﬂow and location of ﬂow divider.",
+          "page": 3
+        },
+        {
+          "text": "lower shear (10 –15 dyn/cm2) are immediately adjacent to this region. The nearly white region opposite the ﬂow divider experienced mean shear stresses /H110215 dyn/cm2. Visual inspec - tion of the images in Fig. 4 suggests an inverse relation between OD and mean shear stress. There was less EBD staining at the ﬂow divider in both iliac arteries, as evidenced by the lighter spots in the OD images.",
+          "page": 4
+        },
+        {
+          "text": "More prominent staining exists opposite the ﬂow divider in the region of lowest calcu- lated wall shear stress. Similar EBD staining patterns were also observed in the four iliac arteries from the latter two cases. To enable a more quantitative presentation of the data, the pixels from each of the six shear images were sorted into three bins on the basis of their mean shear values.",
+          "page": 4
+        },
+        {
+          "text": "Varying the number of data bins per case from 3 to 10 had minimal impact on the values of P and R 2. The possible in ﬂuence of changes in the shear ﬁeld during the cardiac cycle on EBD uptake was investigated by calcu- lating several time-dependent shear measures at each pixel location in the template.",
+          "page": 4
+        },
+        {
+          "text": "The relation between normalized OD and OSI for the six arteries is plotted in Fig. 6 and can also be ﬁt to a power law model OD /H110051.17 /H11003OSI 0.032 When the above equation was transformed into logarithmic form, P /H110050.012 and R2 /H110050.333.",
+          "page": 4
+        },
+        {
+          "text": "Binned optical density vs. time-av- erage shear stress for 6 iliac arteries. Solid curve, power law ﬁt to data. Table 1.",
+          "page": 4
+        },
+        {
+          "text": "Perfect correlation is indicated by 1 or /H110021. Maximum shear and minimum shear, largest and smallest shear stress experienced at a given location during the cardiac cycle, respectively; pulse shear, difference between maximum and minimum shear; Max temporal gradient, largest value of time derivative of shear stress experienced at each location; OSI, oscillatory shear index.",
+          "page": 4
+        },
+        {
+          "text": "H1919WALL SHEAR STRESS AND ENDOTHELIAL PERMEABILITY AJP-Heart Circ Physiol • VOL 286 • MAY 2004 • www.ajpheart.org Downloaded from journals.physiology.org/journal/ajpheart (130.088.208.068) on April 19, 2026.",
+          "page": 4
+        },
+        {
+          "text": "Animal variability in the iliac-to- femoral ﬂow ratio introduces /H1101110% uncertainty in the ﬂow rate through the iliac arteries and a comparable uncertainty in the calculated shear stress in these arteries. Minor errors are also introduced into the shear calculation by assuming non- compliant vessels and Newtonian blood ﬂow.",
+          "page": 5
+        },
+        {
+          "text": "In a cast of a human aortic bifurcation, the introduction of compliance raised the time-average shear rate in locations where the shear rate is high and lowered the shear rate in locations where the shear rate is low (8). Thus the areas in our computation identiﬁed as high and low shear sites may have been exposed to more extreme values than those calculated here.",
+          "page": 5
+        },
+        {
+          "text": "Research performed in the authors’ laboratory supports the hypothesis that the arterial endothelium undergoes a period of adaptation, characterized by a transient increase in permeability, in response to changing levels of shear stress (13). It is possible that adaptation could play a role in the microcirculation measurements.",
+          "page": 5
+        },
+        {
+          "text": "This study supports the hypothesis that regions of low shear stress promote the development of atherosclerotic lesions via an increase in lipoprotein uptake and that a certain level of shear stress is beneﬁcial to the endothelium. Growing evidence from cellular and molecular biology experiments also supports this claim.",
+          "page": 5
+        },
+        {
+          "text": "Shear stress has been shown to modify the expres- sion of proteins associated with cellular permeability. Vascular endothelial growth factor and occludin are thought to increase and decrease the permeability of vascular endothelium, respec- tively.",
+          "page": 5
+        },
+        {
+          "text": "The absence of consistent cell junctions in these regions facilitates paracellular transport of macromolecules and, thus, compromises the permeability barrier of the endothelium. Fluid ﬂow has been shown to decrease the level of apoptosis in cultured cells and in ex vivo organ culture (20). It has been suggested (21) that regions exposed to a high OSI are more susceptible to lesion formation.",
+          "page": 5
+        },
+        {
+          "text": "However, endo- thelial cells in regions exposed to a strongly oscillatory ﬂow do not align. The lack of a dominant signal in a principal direction may prevent the cells from forming a regular cytoskeletal network with strong cell-cell junctions, resulting in highly permeable, intercellular gaps. Mean shear stress and oscillatory ﬂow may act in combina- tion to in ﬂuence permeability.",
+          "page": 5
+        },
+        {
+          "text": "Owing to the very low values of OSI in these vessels, the result was not noticeably different from that obtained using shear alone. Fig. 6. Binned optical density vs. oscillatory shear index (OSI) for 6 iliac arteries. Solid line, power law ﬁt to data.",
+          "page": 5
+        }
+      ]
     },
     {
       "id": "swanson2020",
@@ -2260,7 +2872,109 @@
       "journal": "Annals of Biomedical Engineering",
       "doi": "10.1007/s10439-010-9949-x",
       "type": "article",
-      "abstract": ""
+      "abstract": "",
+      "chunks": [
+        {
+          "text": "On the microscale, inﬂammatory processes such as recruitment of leukocytes into the aortic wall mediated by elastin degradation products 19 and chemokines,29 phagocyte inﬁltration resulting in pro-inﬂammatory cytokines 40 and reactive oxygen species,33 and the production of matrix metallopro- teinases such as MMP-9 by macrophages 59 are all thought to instigate or promote AAA formation and growth. 12 On the macroscale, patients with increased peripheral resistance caused by chronic spinal cord injury, 67 severe peripheral vascular disease, 1 and above the knee amputation 63 have been shown to have a 2.9-, 4.2-, and 5.3-fold increased rate of AAA, respectively, compared to control populations.",
+          "page": 2
+        },
+        {
+          "text": "Additionally, we aim to examine some of the mechanisms by which exercise might slow the growth of AAAs in humans in order to guide and evaluate the eﬀectiveness of exercise as a medical therapy for AAA disease. METHODS Magnetic Resonance Imaging Seven male and one female patients with a mean age of 73.3 years (SD: 5.70; range: 66–84) with known Hemodynamics in AAAs During Rest and Exercise 1289",
+          "page": 2
+        },
+        {
+          "text": "The temporal resolution of the velocity data equaled two times the TR (23.8–25.4 ms). Immediately after the MR exam, a brachial systolic blood pressure (SBP) and a diastolic blood pressure (DBP) measurement were acquired using an automatic pressure cuff (Omron Healthcare Inc., Bannockburn, Illinois).",
+          "page": 3
+        },
+        {
+          "text": "Building a model from the MRA data (1) entails generating pathlines (2), segmenting along the pathlines (3), lofting the segmentations to create vessels (4), unioning the vessels to create a single, solid model representing the ﬂow domain (5), and then discretizing the model into a ﬁnite-element mesh (6). LES et al.1290",
+          "page": 3
+        },
+        {
+          "text": "Here, Rp represents the proximal resistance, C the capacitance, and Rd the distal resis- tance of the downstream vasculature; Pd is a time- varying function representing the terminal capillary pressure. P(0), Q(0), and Pd(0) are the initial condi- tions for pressure, ﬂow, and capillary pressure for the downstream analytical domain, respectively.",
+          "page": 5
+        },
+        {
+          "text": "The results of this steady simu- lation were used to adapt the mesh, 37 creating an average intermediate anisotropic mesh consisting of 922,525 linear tetrahedral elements (SD: 238,766; range 595.558–1,323,275) for rest, and 967,862 linear tetrahedral elements (SD: 211,180; range 623,630– 1,219,620) for exercise.",
+          "page": 6
+        },
+        {
+          "text": "Use of constraints on branch vessels of the abdominal aorta has been shown to affect the ﬂow, pressure, MWSS, and OSI in the abdominal aorta very little. 28 Boundary conditions for each patient were derived from literature and from the measured patient-speciﬁc SC and IR ﬂows and the measured brachial artery SBP and DBP. At the wall, a no-slip condition was pre- scribed, as indicated in Eq. ( 3).",
+          "page": 6
+        },
+        {
+          "text": "R total-system and Ctotal-system were adjusted until the measured SBP and DBP were achieved. In this process, we assumed an R p total-system /Rtotal-system ratio of 5.6%. 30 The mean blood pressure was calculated as Rtotal-system times mean SC ﬂow. This is similar to the method used by Stergiopolus et al. with a two-element Windkessel model. 52 3.",
+          "page": 6
+        },
+        {
+          "text": "Lastly, capacitance, C, for each outlet was calculated by distributing the Ctotal-system pro- portional to ﬂow at each outlet. Rp,C ,R d and SC Inﬂow Waveform Speciﬁcation for Exercise Resting waveforms, target SBP and DBP, target mean ﬂows, and the Rp, C, Rd values were altered in accordance with the literature to simulate moderate lower limb exercise. 1.",
+          "page": 7
+        },
+        {
+          "text": "A patient-speciﬁc SC ﬂow waveform measured by phase-contrast MRI (resting conditions) is mapped to the in- ﬂow face using a Womersley velocity proﬁle. A patient-spe- ciﬁc 3-element Windkessel model with a proximal resistance (R p), capacitance ( C), distal resistance ( Rd) boundary condi- tion is used to represent the resistance and compliance of the vasculature downstream of each outlet.",
+          "page": 7
+        },
+        {
+          "text": "R total-system and Ctotal-system were adjusted until the measured SBP and DBP were achieved. In this process, we assumed an R p total-system /Rtotal-system ratio of 5.6%. The mean blood pressure was cal- culated as Rtotal-system times target mean SC exer- cise ﬂow. 7. Using the target exercise pressures and mean ﬂows, the resting Rp, C, Rd parameters were altered to simulate exercise.",
+          "page": 8
+        },
+        {
+          "text": "This approach is known as variationally consistent calculation of boundary ﬂuxes. 24 When averaging over the fourth through eighth cardiac cycles, OSI, which measures the unidirectionality of shear stress, was calculated as: OSI ¼ 1 2 1 /C0 1 5T R 8T 3T t * sdt /C12/C12/C12 /C12/C12/C12 1 5T R 8T 3T t * s /C12/C12/C12 /C12/C12/C12dt 0 B@ 1 CA ð17Þ where T is again the period of one cardiac cycle and ts is the in-plane component of the surface traction vec- tor.",
+          "page": 9
+        },
+        {
+          "text": "Additionally, to ensure the temporal independence of our solutions, the patient 1 exercise simulation on the ﬁnal mesh (8.3-million ele- ments) was extended for an additional ﬁve cardiac cycles. The resultant MWSS, OSI, and TKE calculated from cardiac cycles four through eight were compared to those calculated from cardiac cycles nine through thirteen.",
+          "page": 10
+        },
+        {
+          "text": "For each of the 16 simulations (eight patients, rest and exercise conditions), the boundary condition tuning process took approximately 1 week, and the ﬁnal simulation took approximately 3–7 Mesh Cross Section At The AAA 2.2-million elements 8.3-million elements 31.8-million elements FIGURE 4.",
+          "page": 10
+        },
+        {
+          "text": "The magnitude of ensemble-average velocity showed highly complex ﬂow features, espe- cially during mid-deceleration and mid-diastole. Dimensionless Variables Governing Flow The mean and systolic Reynolds numbers as well as the Womersley numbers can be seen in Table 1. The mean Reynolds numbers at the SC and IR location were relatively low, while peak Reynolds numbers were 3–5 times higher.",
+          "page": 11
+        },
+        {
+          "text": "In com- paring MWSS at different aortic locations under exercise conditions, MWSS was statistically different for SC vs. IR ( p = 0.025), SC vs. Mid-An ( p = 0.021), SC vs. SB ( p = 0.0044), IR vs. SB ( p = 0.042), and Mid-An vs. SB ( p = 0.040).",
+          "page": 11
+        },
+        {
+          "text": "Pressure and ﬂow waveforms at the inlet and selected outlets of patient 3 under rest and exercise conditions. The pressure waveforms at each outlet were calculated by averaging the pressure ﬁeld over the outlet area. The ﬂow waveforms at each outlet were calculated by integrating the velocities over the outlet area.",
+          "page": 12
+        },
+        {
+          "text": "The magnitude of the ensemble average of the velocity ﬁeld at three points in the cardiac cycle (peak systole, mid- deceleration, and mid-diastole) is plotted using a volume rendering technique for all patients for both rest and exercise. In general, the ﬂow features look more complex during exercise than during rest, for all three reported time points.",
+          "page": 13
+        },
+        {
+          "text": "The ratio of TKE/ KE was highest during diastole for all patients for both rest and exercise (except for patient 3 during exercise). However, this high ratio results from the relatively low KE during diastole.",
+          "page": 14
+        },
+        {
+          "text": "OSI changed less predictably between meshes, with maximum OSI differences between the 2.2- and FIGURE 7. The distribution of normal stresses acting on the luminal wall of the aneurysms at peak ﬂow (deﬁned as peak systole throughout this article) is shown for both rest and exercise. Values are presented in mmHg. Hemodynamics in AAAs During Rest and Exercise 1301",
+          "page": 14
+        },
+        {
+          "text": "Comparison of Measured and Simulated Infrarenal Flow Waveforms In general, the shape of the simulated and measured IR volumetric ﬂow waveforms agreed well and the simulated and measured mean IR ﬂows diﬀered by an average of 0.34% (SD: 0.411%; range: 0.00621– 1.28%).",
+          "page": 15
+        },
+        {
+          "text": "While our solutions may not have achieved perfect mesh independence, we report results on meshes an order of magnitude or more greater than previous studies. 16,53 Also for the ﬁrst time, we present mean wall shear stress and FIGURE 10.",
+          "page": 17
+        },
+        {
+          "text": "oscillatory shear index averaged over multiple cardiac cycles at four discrete locations for both rest and exercise, and we present qualitative and quantitative turbulent kinetic energy for both rest and exercise. Lastly, we report the spatial and temporal ranges of normal stresses acting on the luminal wall of the AAAs.",
+          "page": 18
+        },
+        {
+          "text": "Normal Stresses In most cases, the ratio of spatial to temporal nor- mal stresses acting on the luminal surface of the aneurysm was small (averages of 3.72 and 8.98% during rest and exercise, respectively). However, in some patients, such as patient 8, the ratio was signiﬁ- cantly larger (14.9 and 25.1% during rest and exercise, respectively).",
+          "page": 19
+        },
+        {
+          "text": "The velocity ﬁeld changed little between meshes at the suprarenal location, where the TKE was virtually zero, but changed more dramatically at the mid-aneurysm location where TKE was moderate. Mesh independence of the instantaneous velocity ﬁelds is not achievable in turbulent regions. LES et al.1306",
+          "page": 19
+        }
+      ]
     },
     {
       "id": "ku1985",
@@ -2271,7 +2985,109 @@
       "journal": "Arteriosclerosis",
       "doi": "10.1161/01.ATV.5.3.293",
       "type": "article",
-      "abstract": "Fluid velocities were measured by laser Doppler velocimetry under conditions of pulsatile flow in a scale model of the human carotid bifurcation. Flow velocity and wall shear stress at five axial and four circumferential positions were compared with intimal plaque thickness at corresponding locations in carotid bifurcations obtained from cadavers. Velocities and wall shear stresses during diastole were similar to those found previously under steady flow conditions, but these quantities oscillated in both magnitude and direction during the systolic phase. At the inner wall of the internal carotid sinus, in the region of the flow divider, wall shear stress was highest (systole = 41 dynes/cm2, diastole = 10 dynes/cm2, mean = 17 dynes/cm2) and remained unidirectional during systole. Intimal thickening in this location was minimal. At the outer wall of the carotid sinus where intimal plaques were thickest, mean shear stress was low (-0.5 dynes/cm2) but the instantaneous shear stress oscillated between -7 and +4 dynes/cm2. Along the side walls of the sinus, intimal plaque thickness was greater than in the region of the flow divider and circumferential oscillations of shear stress were prominent. With all 20 axial and circumferential measurement locations considered, strong correlations were found between intimal thickness and the reciprocal of maximum shear stress (r = 0.90, p less than 0.0005) or the reciprocal of mean shear stress (r = 0.82, p less than 0.001). An index which takes into account oscillations of wall shear also correlated strongly with intimal thickness (r = 0.82, p less than 0.001). When only the inner wall and outer wall positions were taken into account, correlations of lesion thickness with the inverse of maximum wall shear and mean wall shear were 0.94 (p less than 0.001) and 0.95 (p less than 0.001), respectively, and with the oscillatory shear index, 0.93 (p less than 0.001). These studies confirm earlier findings under steady flow conditions that plaques tend to form in areas of low, rather than high, shear stress, but indicate in addition that marked oscillations in the direction of wall shear may enhance atherogenesis."
+      "abstract": "Fluid velocities were measured by laser Doppler velocimetry under conditions of pulsatile flow in a scale model of the human carotid bifurcation. Flow velocity and wall shear stress at five axial and four circumferential positions were compared with intimal plaque thickness at corresponding locations in carotid bifurcations obtained from cadavers. Velocities and wall shear stresses during diastole were similar to those found previously under steady flow conditions, but these quantities oscillated in both magnitude and direction during the systolic phase. At the inner wall of the internal carotid sinus, in the region of the flow divider, wall shear stress was highest (systole = 41 dynes/cm2, diastole = 10 dynes/cm2, mean = 17 dynes/cm2) and remained unidirectional during systole. Intimal thickening in this location was minimal. At the outer wall of the carotid sinus where intimal plaques were thickest, mean shear stress was low (-0.5 dynes/cm2) but the instantaneous shear stress oscillated between -7 and +4 dynes/cm2. Along the side walls of the sinus, intimal plaque thickness was greater than in the region of the flow divider and circumferential oscillations of shear stress were prominent. With all 20 axial and circumferential measurement locations considered, strong correlations were found between intimal thickness and the reciprocal of maximum shear stress (r = 0.90, p less than 0.0005) or the reciprocal of mean shear stress (r = 0.82, p less than 0.001). An index which takes into account oscillations of wall shear also correlated strongly with intimal thickness (r = 0.82, p less than 0.001). When only the inner wall and outer wall positions were taken into account, correlations of lesion thickness with the inverse of maximum wall shear and mean wall shear were 0.94 (p less than 0.001) and 0.95 (p less than 0.001), respectively, and with the oscillatory shear index, 0.93 (p less than 0.001). These studies confirm earlier findings under steady flow conditions that plaques tend to form in areas of low, rather than high, shear stress, but indicate in addition that marked oscillations in the direction of wall shear may enhance atherogenesis.",
+      "chunks": [
+        {
+          "text": "294 ARTERIOSCLEROSIS VOL 5, No 3, MAY/JUNE 1985 flow. Specifically, plaque formation was maximal at the outer wall of the carotid sinus where flow separa- tion and low wall shear occurred in the model stud- ies, and it was minimal near the flow divider (inner wall) where shear stress was high and flow stream- lines were mainly axially oriented.",
+          "page": 2
+        },
+        {
+          "text": "The five standard axial locations at which flow velocity determinations were made in the model and intimal thicknesses were measured in the specimens are shown in Figure 1. The Plexiglas bifurcation model used for the fluid dynamic studies was constructed from measure- ments obtained from biplanar angiograms of 57 pa- tients ranging from 34 to 77 years of age.",
+          "page": 2
+        },
+        {
+          "text": "The carotid bifurcation specimens used to quanti- tate lesion location and thickness were obtained at autopsy from patients aged 27 to 73 years (mean, 53 years) with no history of symptomatic cerebrovascu- lar disease.' The common carotid, internal carotid, and external carotid were excised as a unit.",
+          "page": 2
+        },
+        {
+          "text": "When the dimensions of the Plexiglas model are scaled to a 6.1 mm common carotid diameter, the resulting model values are 6.3, 6.8,4.2, and 4.2 mm for levels B, C, D and E, respec- tively. These compare favorably with the corre- sponding dimensions obtained from the cadaver specimens.",
+          "page": 2
+        },
+        {
+          "text": "For the proximal (B), midsinus (C), and distal (D) internal carotid levels, and for the external carotid level (E), the 0° location is defined by the center of the flow divider wall. For the common carotid level (A), the 0° loca- tion is on the side corresponding to the origin of the exter- nal carotid. Downloaded from http://ahajournals.org by on April 19, 2026",
+          "page": 2
+        },
+        {
+          "text": "Pulsatile Flow Conditions and Fluid Dynamic Measurements The working fluid was a mixture of water and glyc- erin adjusted to yield an absolute viscosity of 0.14 g/cm/sec and a kinematic viscosity of 0.12 cm 2/sec.",
+          "page": 3
+        },
+        {
+          "text": "The tube diameter could be con- trolled by varying the chamber pressure, thereby permitting adjustment of the flow division between internal and external carotid branches. For the present study, the collapsible tube cham- ber was adjusted to provide 45% mass flow in the external carotid artery during peak systole and 30% mean flow over the pulsatile cycle.",
+          "page": 3
+        },
+        {
+          "text": "The values for flow are not the actual flow rates in the apparatus, but have been scaled to the conditions appropriate to human vessels using fluid dynamics similarity principles. between negative and positive velocities. Two veloc- ity components (axial and circumferential) were measured both in the plane of the bifurcation and perpendicular to this plane.",
+          "page": 3
+        },
+        {
+          "text": "Wall Shear Stress Stress was calculated as a function of time during the cycle at each location using a least-squares fit of three radial stations measured very close to the wall according to the defining relationship: Tw = fJ. A V Ar (1) where T*W is the wall shear stress, fj. is the absolute viscosity, V is the velocity parallel to the wall, and r is the radial distance from the wall.",
+          "page": 3
+        },
+        {
+          "text": "296 ARTERIOSCLEROSIS VOL 5, No 3, MAY/JUNE 1985 Oscillatory Shear Index An oscillatory shear index (OSI) was formulated to account for the cyclic departure of the wall shear stress vector from its predominant axial alignment (see Appendix A). The rationale for development of the OSI is as follows.",
+          "page": 4
+        },
+        {
+          "text": "At the 180° position for example, the near wall velocity in the sinus was found to be negative during segments of the cycle, leading to a wall shear stress vector that transiently alternated between the positive and negative axial directions. At the side walls of the branches (90° and 270°), helical flow patterns developed and resulted in a stress vector in which the direction changed with time.",
+          "page": 4
+        },
+        {
+          "text": "Polar coordinates corresponding to the circumferential points at which intimal thickness was measured are indicated. Note the eccentric localization of plaque along outer wall (180°) of the carotid sinus and the minimal intimal thickening along the inner wall of the sinus (0°).",
+          "page": 4
+        },
+        {
+          "text": "Correlations were calculated between intimal thick- ness at each standard location in the cadaver bifur- cations and the measured and computed hemody- namic variables in the model carotid bifurcations. Statistical analysis of the correlations was performed using the method of least squares with a two-sided t test for significance levels.",
+          "page": 4
+        },
+        {
+          "text": "Along the inner wall (0°), shear stress was high, reaching a maximum of 50 dynes/cm2 at peak systole and decreasing gradu- ally to an end-diastolic value of 17 dynes/cm 2. The mean value was 26 dynes/cm 2, three times higher than in the common carotid artery (Table 1). Shear stress was unidirectional throughout the cardiac cy- cle (Figure 4), and the oscillatory shear index was zero.",
+          "page": 5
+        },
+        {
+          "text": "During midsystole, shear stress reversed direction sharply and became negative in direction, reaching a magni- tude of - 7 dynes/cm 2. Oscillations between forward and reverse shear stress diminished in magnitude during late systole and during diastole had a mean value very close to zero (Figure 5).",
+          "page": 5
+        },
+        {
+          "text": "The shear stress oscillation from positive to negative values systole is characteristic of locations along the outer wall of the sinus. o CD CO —. Eo ro o -2 systole diastole 60 120 180 240 Pulse Cycle (degrees) 300 360 Figure 6. The axial velocity component measured very near (1.5 mm) to the outer wall of the proximal internal carotid sinus (Level B) in the model.",
+          "page": 6
+        },
+        {
+          "text": "The oscillatory shear index was high (0.32) at this location as was intimal thickness (0.63 ± 0.17 mm) (Table 1).",
+          "page": 6
+        },
+        {
+          "text": "The magnitude of shear stress at the side walls was less than along the inner wall and changed during the pulse cycle from a maximum of 11 dynes/cm2 to a minimum of 1 dyne/cm2 with a mean of 3 dynes/cm2. The oscilla- tory shear index was 0.07 and intimal thickness was greater than at the inner wall or in the common carot- id artery (Table 1).",
+          "page": 6
+        },
+        {
+          "text": "The shear stress vector at the side walls of the carotid sinus (Level B) changed in both magnitude and direction during the flow cycle. The upper curve illustrates the rapid increase and decrease in the magnitude of the wall shear stress occurring with each systole, and the rela- tively constant value during diastole.",
+          "page": 6
+        },
+        {
+          "text": "Shear stress reached a maximum value of 109 dynes/cm2 at the inner wall and had a mean value over the cycle of 45 dynes/cm2. At the outer wall, shear also increased to a maximum of 49 dynes/cm2 with a mean value of 20 dynes/cm2. Flow was unidirectional, flow distur- bances were absent or minimal, and intimal thick- ness was minimal, ranging from 0.06 ± 0.01 mm to 0.09 ± 0.04 mm.",
+          "page": 7
+        },
+        {
+          "text": "Intimal thickening did, however, correlate strongly with the reciprocal of the maximum shear stress attained during the cycle (r = 0.90, p < 0.0005) and with the reciprocal of the mean shear stress averaged over the cycle (r = 0.82, p < 0.001), indicating that intimal thickening does not occur in areas of high wall shear stress but develops in regions with a very low magnitude of maximum shear or time-averaged mean shear (Ta- ble 2).",
+          "page": 7
+        },
+        {
+          "text": "The close correspondence among intimal thickness, 1/maximum shear, 1/mean shear and oscillatory shear index is represented graphical- ly in Figure 8. Table 2.",
+          "page": 7
+        },
+        {
+          "text": "Therefore, a cor- relation analysis appears to be appropriate for these ex- perimental data. Since the correlations are based on aver- ages, the strength of associations could be overestimated. thickening Shear Shear Oscillatory Shear Index Common Proximal Carotid Mid Distal INTERNAL CAROTID External Carotid Figure 8.",
+          "page": 7
+        },
+        {
+          "text": "These authors measured axial velocity in a cast of a human aortoiliac bifurcation and found a negative correlation between intimal thickness and maximum, mean, and pulse shear with correlation coefficients ranging from -0.628 and -0.685. These values compare well with our negative correlations of -0.61 to -0.69 for the same measures of shear.",
+          "page": 8
+        },
+        {
+          "text": "The increased fluid residence time may result in modification of the mass transport of atherogenic substances between lumen and wall or in interference with endothelial metabo- lism by mechanisms suggested by Caro et al. 8 and Robertson.9 In addition, blood-borne cellular ele- ments such as platelets and macrophages, said to play a role in atherogenesis, would be expected to have an increased probability of deposition or adhe- sion in regions of increased residence time. 10 The oscillating shear stress pattern in areas dis- tant from the flow divider in the carotid sinus may in itself cause an increased ingress of plasma constitu- ents through the endothelial monolayer by effects on the stability of intercellular junctions.",
+          "page": 8
+        }
+      ]
     },
     {
       "id": "stewart2012",
@@ -2913,7 +3729,109 @@
       "journal": "American Journal of Physiology-Heart and Circulatory Physiology",
       "doi": "10.1152/ajpheart.1999.276.1.H81",
       "type": "article",
-      "abstract": "In earlier studies we found that the three-element windkessel, although an almost perfect load for isolated heart studies, does not lead to accurate estimates of total arterial compliance. To overcome this problem, we introduce an inertial term in parallel with the characteristic impedance. In seven dogs we found that ascending aortic pressure could be predicted better from aortic flow by using the four-element windkessel than by using the three-element windkessel: the root-mean-square errors and the Akaike information criterion and Schwarz criterion were smaller for the four-element windkessel. The three-element windkessel overestimated total arterial compliance compared with the values derived from the area and the pulse pressure method ( P = 0.0047, paired t-test), whereas the four-element windkessel compliance estimates were not different ( P = 0.81). The characteristic impedance was underestimated using the three-element windkessel, whereas the four-element windkessel estimation differed marginally from the averaged impedance modulus at high frequencies ( P = 0.0017 and 0.031, respectively). When applied to the human, the four-element windkessel also was more accurate in these same aspects. Using a distributed model of the systemic arterial tree, we found that the inertial term results from the proper summation of all local inertial terms, and we call it total arterial inertance. We conclude that the fourelement windkessel, with all its elements having a hemodynamic meaning, is superior to the three-element windkessel as a lumped-parameter model of the entire systemic tree or as a model for parameter estimation of vascular properties."
+      "abstract": "In earlier studies we found that the three-element windkessel, although an almost perfect load for isolated heart studies, does not lead to accurate estimates of total arterial compliance. To overcome this problem, we introduce an inertial term in parallel with the characteristic impedance. In seven dogs we found that ascending aortic pressure could be predicted better from aortic flow by using the four-element windkessel than by using the three-element windkessel: the root-mean-square errors and the Akaike information criterion and Schwarz criterion were smaller for the four-element windkessel. The three-element windkessel overestimated total arterial compliance compared with the values derived from the area and the pulse pressure method ( P = 0.0047, paired t-test), whereas the four-element windkessel compliance estimates were not different ( P = 0.81). The characteristic impedance was underestimated using the three-element windkessel, whereas the four-element windkessel estimation differed marginally from the averaged impedance modulus at high frequencies ( P = 0.0017 and 0.031, respectively). When applied to the human, the four-element windkessel also was more accurate in these same aspects. Using a distributed model of the systemic arterial tree, we found that the inertial term results from the proper summation of all local inertial terms, and we call it total arterial inertance. We conclude that the fourelement windkessel, with all its elements having a hemodynamic meaning, is superior to the three-element windkessel as a lumped-parameter model of the entire systemic tree or as a model for parameter estimation of vascular properties.",
+      "chunks": [
+        {
+          "text": "We have therefore set out to resolve the limitations of the two- and three-element windkessel models. For very low frequencies the whole blood mass is acceler- ated apparently simultaneously. We therefore hypoth- esized that an inertial term is missing from the three- element windkessel model.",
+          "page": 2
+        },
+        {
+          "text": "The main objective of the present study was to investigate whether the four-element windkessel, in- cluding an inertia term, describes the relations be- tween aortic pressure and ﬂow better than the three- element windkessel. The second objective was to assess the physiological meaning of the inertia term. METHODS Animal data.",
+          "page": 2
+        },
+        {
+          "text": "Details of the animal experiments can be found in the original studies (19, 24). From aortic pressure and ﬂow, the windkessel parameters of the three- and four-element wind- kessels were determined and compared with the ‘‘actual’’ values as described inData analysis. Human data. Human ascending aortic pressure and ﬂow waves were taken from a previous study (12).",
+          "page": 2
+        },
+        {
+          "text": "A distrib- uted model of the human systemic circulation (17) was used to derive the physical meaning of the inertance term. Aortic pressure and ﬂow waves produced by this distributed model are used as a basis for the calculations. Details of the model have been presented earlier (15–17).",
+          "page": 2
+        },
+        {
+          "text": "Zc of the distributed model was calculated from the inertance and compliance per length of the most proximal ascending aortic segment. Total systemic inertance (L) was calculated as follows.",
+          "page": 2
+        },
+        {
+          "text": "The inertance of an artery is calculated as the sum of all segmental arterial inertances, and for arteries in parallel the sum is obtained as follows: 1/L 112 5 1/L1 1 1/L2. This sum- mation gives L of the distributed model.",
+          "page": 2
+        },
+        {
+          "text": "From mean pressure and mean ﬂow,R p was calculated by division. From Fourier analysis of pressure and ﬂow, the systemic Z in was derived according to standard methods (23). For each harmonic the pressure modulus is divided by the ﬂow modulus, and the phases are subtracted. Z c was estimated from the average of the modulus of the Zin between the 3rd and 10th harmonics (12, 23).",
+          "page": 2
+        },
+        {
+          "text": "The residual sum of squares (RSS) between windkessel-predicted (P p) and measured (P m) pres- sure was calculated as follows: RSS5 o[1] N (Pp 2 Pm)2, where N is the number of samples in the heart cycle studied. The root-mean-square error (RMSE) of the pressure deviations was calculated as follows: RMSE5 ÎRSS/(N2 1).",
+          "page": 2
+        },
+        {
+          "text": "Thus a model with more parameters is only better when the AIC and SC are smaller. AIC and SC are deﬁned as follows AIC 5 N ln(RSS) 12P (2) SC 5 N ln(RSS) 1 P ln(N)( 3) where P is the number of parameters and N is the number of samples.",
+          "page": 2
+        },
+        {
+          "text": "Details of the ﬁtting procedure can be found in earlier publications (15, 18). The windkessel parameters obtained by the ﬁts, with the exception of inertia for the dog and human data, were compared with their actual values. A pairedt-test (signiﬁcance level P 5 0.05) on the dog data was used to determine whether the windkessel-predictedZ c and C differed from the actual values.",
+          "page": 2
+        },
+        {
+          "text": "the ﬁt of pressure using the three- and four-element windkessel models. Both ﬁts are close, but it may be noticed that the diastolic pressure decay in diastole is not correctly described by the three-element windkes- sel. Also, the incisura is less pronounced in the three- element windkessel. The RMSE is smaller for the four- than for the three-element windkessel model.",
+          "page": 3
+        },
+        {
+          "text": "Z c is slightly underes- timated by the four-element windkessel ( P 5 0.031). The three-element windkessel signiﬁcantly underesti- Fig. 1. Top: schematics of 3- and 4-ele- ment windkessel models presented in electrical form. R c and Rp, characteris- tic and peripheral resistance; C, total arterial compliance; L, inertance. Middle: aortic ﬂow measured indog 71.",
+          "page": 3
+        },
+        {
+          "text": "mated Zc (P 5 0.0014) and overestimated C ( P 5 0.0029) in all dogs. Mean values and standard errors for Z c and C are shown in Fig. 2. Alternatively, when we use the actual values of Zc and C together with the best estimate of inertia, the aortic pressures predicted by the three- and four- element windkessels compare with the measured pres- sure (Fig. 3).",
+          "page": 4
+        },
+        {
+          "text": "The type A and type C aortic ﬂow and pressure waves used in the analysis are shown in Fig. 4, A and B. Figure 4,C and D, shows the ﬁt of the three- and four-element windkessel models to the type A and type C pulses. The estimated lumped-model param- eters, the RMSE values, and the AIC and SC are given in Table 2.",
+          "page": 4
+        },
+        {
+          "text": "For C the deviations are ,4% for the four-element windkessel compared with 36% ( type A ) and 108% ( type C ) for the three-element windkessel. The four-element windkessel underestimates Z c by 22%, whereas the three-element model has an error of ,50%. The estimates of L are similar for thetype A and type C beats (L 5 0.0051 and 0.0054 mmHg·s 2 ·ml21, respectively).",
+          "page": 4
+        },
+        {
+          "text": "Again the four- element windkessel describes the pressure wave shape better. The parameter estimates of the four-element windkes- sel are much closer to those obtained directly from the distributed model than the parameters estimated from the three-element windkessel (Table 3). We see that the three-element windkessel again underestimates Z c by 42% and overestimates C by 19%.",
+          "page": 4
+        },
+        {
+          "text": "DISCUSSION We have shown that the four-element windkessel model is able to ﬁt ascending aortic pressure from ﬂow well and that the ﬁt is better than that based on the three-element windkessel. We made this decision on the basis of the AIC and SC. The three-element windkes- sel can also ﬁt pressure and ﬂow rather well, but the parameter values obtained are different from the ac- Fig. 2.",
+          "page": 4
+        },
+        {
+          "text": "Comparison of measured aortic pressure and aortic pressure predicted by 3- and 4-element windkessel models on basis of compli- ance and characteristic impedance derived from standard methods. H84 FOUR-ELEMENT WINDKESSEL Downloaded from journals.physiology.org/journal/ajpheart (130.088.208.068) on April 19, 2026.",
+          "page": 4
+        },
+        {
+          "text": "Fit of 3- and 4-element windkes- sel models to type A and type C human aortic pressure and ﬂow waves.A: mea- sured ﬂow; B: measured pressure; C: pressure ﬁtted by a 3-element wind- kessel model; D: pressure ﬁtted by a 4-element windkessel model. Table 2.",
+          "page": 5
+        },
+        {
+          "text": "This can be understood by keeping in mind that inertance is in- versely proportional to arterial cross-sectional area (Eq. 1). Inertial effects are included in all transmission- line models for all frequencies (17, 21).",
+          "page": 6
+        },
+        {
+          "text": "When all individual segmen- tal compliances are added, C is obtained, and similarly a proper summation of all local inertances results in L. From an analytic standpoint, it is interesting to note that the four-element windkessel contains all character- istics of the two- and three-element windkessels.",
+          "page": 6
+        },
+        {
+          "text": "Because the ratio of mean pressure to mean ﬂow in the three-element windkessel gives the sum of Z c and Rp, the Rp is smaller and the diastolic decay of aortic pressure is more rapid. We can now explain the function of the four-element windkessel as follows.",
+          "page": 6
+        },
+        {
+          "text": "For very low frequencies (below the 1st harmonic), the wavelengths of the pressure and ﬂow waves are large with respect to the length of the arterial tree, and thus the whole arterial blood mass is accelerated simulta- neously; i.e., inertia importantly contributes to the hemodynamics for these low frequencies.",
+          "page": 6
+        },
+        {
+          "text": "For high frequencies, reﬂections re- turn to the aorta with random phases and cancel, so that the aorta behaves as a reﬂectionless tube with an impedance equal to aorticZ c (21). On the basis of the above reasoning and on our knowledge ofZin, it is logical to have the inertial term in parallel with Zc.",
+          "page": 6
+        },
+        {
+          "text": "Therefore, the Fig. 5. Input impedance modulus ( top) and phase ( bottom) deter- mined in dog 71 (j) compared with input impedance of 3- and 4-element windkessel with characteristic impedance and total arte- rial compliance obtained from standard methods. Table 3.",
+          "page": 6
+        }
+      ]
     },
     {
       "id": "potters2015",
@@ -2927,6 +3845,6 @@
       "abstract": "The effects of resolution and segmentation on the accuracy and precision of the WSS algorithm were quantified. We were able to calculate volumetric WSS in the carotid bifurcation and the aorta."
     }
   ],
-  "n_with_fulltext": 17,
-  "n_total_chunks": 425
+  "n_with_fulltext": 26,
+  "n_total_chunks": 650
 }
