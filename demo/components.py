@@ -39,54 +39,28 @@ def render_pipeline_status(trace_records: list[dict]):
 # ---------------------------------------------------------------------------
 
 def render_intake_stage(referral_text: str, profile: dict):
-    st.markdown("### 1. Clinical Intake")
-    st.caption("The IntakeAgent extracts a structured patient profile from free-text clinical referral.")
+    st.markdown("### 1. Intake — structured patient from free-text referral")
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.markdown("**Clinical Referral**")
-        st.text_area("referral_display", referral_text, height=300, disabled=True, label_visibility="collapsed")
+        st.markdown("**Clinical referral**")
+        st.text_area(
+            "referral_display", referral_text, height=220,
+            disabled=True, label_visibility="collapsed",
+        )
 
     with col2:
-        st.markdown("**Extracted Patient Profile**")
-
-        # Confidence badge
-        conf = profile.get("confidence", "low")
-        badge_map = {"high": ":green[HIGH]", "medium": ":orange[MEDIUM]", "low": ":red[LOW]"}
-        st.markdown(f"Confidence: {badge_map.get(conf, conf)}")
-
-        # Key metrics
-        m1, m2, m3, m4 = st.columns(4)
+        st.markdown("**Extracted profile**")
+        m1, m2, m3 = st.columns(3)
         m1.metric("Age", f"{profile.get('age_years', '?')} yr")
         m2.metric("HR", f"{profile.get('heart_rate_bpm', '?')} bpm")
         m3.metric("CO", f"{profile.get('cardiac_output_l_min', '?')} L/min")
-        m4.metric("BSA", f"{profile.get('bsa_m2', '?')} m\u00b2")
-
-        # Vitals table
-        vitals = {
-            "Systolic BP": f"{profile.get('systolic_bp_mmhg', 'N/A')} mmHg",
-            "Diastolic BP": f"{profile.get('diastolic_bp_mmhg', 'N/A')} mmHg",
-            "Diagnosis": profile.get("diagnosis", "N/A"),
-            "Sex": profile.get("sex", "N/A"),
-            "Imaging": ", ".join(profile.get("imaging_modality", [])),
-            "Flow source": profile.get("flow_waveform_source", "N/A"),
-        }
-        for label, val in vitals.items():
-            st.markdown(f"**{label}:** {val}")
-
-        # Study goal
-        goal = profile.get("study_goal", "")
-        if goal:
-            st.info(f"**Study goal:** {goal}")
-
-        # Missing fields
-        missing = profile.get("missing_fields", [])
-        if missing:
-            st.warning(f"Missing fields: {', '.join(missing)}")
-
-        with st.expander("Raw JSON"):
-            st.json(profile)
+        bp = f"{profile.get('systolic_bp_mmhg', '?')}/{profile.get('diastolic_bp_mmhg', '?')}"
+        st.caption(
+            f"**BP** {bp} mmHg  ·  **Diagnosis** {profile.get('diagnosis', 'N/A')}  ·  "
+            f"**Imaging** {', '.join(profile.get('imaging_modality', [])) or 'N/A'}"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -94,50 +68,38 @@ def render_intake_stage(referral_text: str, profile: dict):
 # ---------------------------------------------------------------------------
 
 def render_literature_stage(justification: dict):
-    st.markdown("### 2. Literature-Grounded Decisions")
-    st.caption("The LiteratureAgent searches a corpus and cites papers to justify every CFD parameter choice.")
+    st.markdown("### 2. Literature — decisions with citations")
 
     decisions = justification.get("decisions", [])
     queries = justification.get("search_queries_used", [])
-    conf = justification.get("confidence", "N/A")
 
-    # Summary metrics
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Parameters Justified", len(decisions))
-    c2.metric("Corpus Queries", len(queries))
-    badge_map = {"high": ":green[HIGH]", "medium": ":orange[MEDIUM]", "low": ":red[LOW]"}
-    c3.metric("Confidence", conf.upper())
-
-    # Search queries
-    with st.expander(f"Search queries issued ({len(queries)})"):
-        for i, q in enumerate(queries, 1):
-            st.code(f"{i}. {q}", language=None)
-
-    # Each decision
+    # Count unique papers cited
+    papers = set()
     for d in decisions:
-        param = d["parameter"]
-        value = d["value"]
-        if isinstance(value, dict):
-            value_str = json.dumps(value, indent=2)
-        else:
-            value_str = str(value)
+        for c in d.get("citations", []):
+            papers.add(c.get("paper", ""))
+    papers.discard("")
 
-        with st.expander(f"**{param}** = `{value_str}`"):
-            st.markdown(f"**Reasoning:** {d['reasoning']}")
+    # One-line summary
+    st.markdown(
+        f"**{len(decisions)}** parameter decisions · **{len(papers)}** papers cited · "
+        f"**{len(queries)}** corpus queries"
+    )
 
-            if d.get("alternative_considered"):
-                st.markdown(f"*Alternative considered:* {d['alternative_considered']}")
-
-            citations = d.get("citations", [])
-            if citations:
-                st.markdown("**Citations:**")
-                for c in citations:
-                    st.markdown(
-                        f"> \"{c['quote']}\"  \n"
-                        f"> \u2014 *{c['paper']}*, p.{c.get('page', '?')}"
-                    )
-            elif not citations:
-                st.caption("No citation needed (default value).")
+    with st.expander("Show all decisions and citations"):
+        for d in decisions:
+            param = d["parameter"]
+            value = d["value"]
+            value_str = (
+                json.dumps(value) if isinstance(value, dict) else str(value)
+            )
+            st.markdown(f"**`{param}`** = `{value_str}`")
+            st.caption(d["reasoning"])
+            for c in d.get("citations", []):
+                st.markdown(
+                    f"> \"{c['quote']}\" — *{c['paper']}*, p.{c.get('page', '?')}"
+                )
+            st.markdown("")
 
 
 # ---------------------------------------------------------------------------
@@ -145,48 +107,40 @@ def render_literature_stage(justification: dict):
 # ---------------------------------------------------------------------------
 
 def render_config_stage(agent_config: dict, base_config: dict, rationale_md: str):
-    st.markdown("### 3. Configuration Generation")
-    st.caption("The ConfigAgent deterministically patches a template config with the intake + literature decisions. No LLM used here.")
+    st.markdown("### 3. Config — validated OpenFOAM case")
 
-    col1, col2 = st.columns(2)
+    # Key changes from base (up to 6 most important)
+    if base_config and agent_config:
+        changes = _compute_diff(base_config, agent_config)
+        if changes:
+            st.markdown("**Key parameters set from clinical input:**")
+            shown = 0
+            for path, old, new in changes:
+                # Filter: only show changes to interesting fields
+                if not any(k in path for k in [
+                    "cardiac_cycle", "physics", "numerics.profile",
+                    "mesh.goal", "windkessel", "flow_split", "inlet.type",
+                    "systolic", "diastolic"
+                ]):
+                    continue
+                new_str = _format_val(new)
+                st.markdown(f"- `{path}` → **{new_str}**")
+                shown += 1
+                if shown >= 6:
+                    break
+            if shown == 0:
+                # Fallback: show first 6 changes
+                for path, old, new in changes[:6]:
+                    new_str = _format_val(new)
+                    st.markdown(f"- `{path}` → **{new_str}**")
 
-    with col1:
-        st.markdown("**Agent Rationale**")
+    with st.expander("Show agent rationale (with citations)"):
         st.markdown(rationale_md)
 
-    with col2:
-        st.markdown("**Generated Config**")
-        tabs = st.tabs(["Key Changes", "Full Config"])
+    with st.expander("Show full config JSON"):
+        st.json(agent_config)
 
-        with tabs[0]:
-            if base_config and agent_config:
-                changes = _compute_diff(base_config, agent_config)
-                if changes:
-                    for path, old, new in changes[:20]:
-                        old_str = _format_val(old)
-                        new_str = _format_val(new)
-                        if old is None:
-                            st.markdown(f"**`{path}`**: :green[{new_str}] *(added)*")
-                        else:
-                            st.markdown(f"**`{path}`**: {old_str} :arrow_right: :green[{new_str}]")
-                    if len(changes) > 20:
-                        st.caption(f"... and {len(changes) - 20} more changes")
-                else:
-                    st.info("No differences detected.")
-            elif agent_config:
-                # No base config — show agent config fields as "added"
-                st.caption("Base template not available — showing agent config fields:")
-                for key in sorted(agent_config.keys()):
-                    if not key.startswith("_"):
-                        st.markdown(f"**`{key}`**: :green[{_format_val(agent_config[key])}]")
-            else:
-                st.info("Config not available.")
-
-        with tabs[1]:
-            if agent_config:
-                st.json(agent_config)
-            else:
-                st.info("Config not available.")
+    st.markdown("")
 
 
 # ---------------------------------------------------------------------------
@@ -194,100 +148,27 @@ def render_config_stage(agent_config: dict, base_config: dict, rationale_md: str
 # ---------------------------------------------------------------------------
 
 def render_case_download_stage(agent_config: dict, case_stls_dir: Optional[Path], case_id: str):
-    """
-    Offer a pre-built OpenFOAM case for the BPM120 demo, or fall back to
-    runtime generation if the AortaCFD-app submodule is available.
-    """
-    st.markdown("### 3.5. Download OpenFOAM Case")
-    st.caption(
-        "A complete OpenFOAM case (rendered dictionaries + scaled STLs + merged config) "
-        "ready to run on any machine with OpenFOAM 12. No computation needed to "
-        "**generate** the case — only to run it."
-    )
-
+    """Pre-built BPM120 case download (runtime generation needs AortaCFD-app repo, which is private until paper publishes)."""
     if not agent_config:
-        st.info("Run the pipeline first to generate the agent config.")
         return
 
-    # Path to the pre-built zip (bundled in the repo for Streamlit Cloud)
     assets_dir = Path(__file__).resolve().parent / "assets"
     prebuilt_zip = assets_dir / "bpm120_case.zip"
 
-    # Show what's inside the zip
-    col_a, col_b = st.columns([1, 1])
-    with col_a:
-        st.markdown("**Source patches** (scaled mm → m in the zip):")
-        if case_stls_dir and case_stls_dir.exists():
-            stls = sorted([p.name for p in case_stls_dir.glob("*.stl")])
-            csvs = sorted([p.name for p in case_stls_dir.glob("*.csv")])
-            for f in stls + csvs:
-                st.markdown(f"- `{f}`")
-        else:
-            st.markdown("- `inlet.stl`\n- `outlet1.stl` – `outlet4.stl`\n- `wall_aorta.stl`\n- `BPM120.csv`")
-    with col_b:
-        st.markdown("**The zip contains:**")
-        st.markdown(
-            "- `openfoam/constant/` — `triSurface/` (scaled), `transportProperties`, `momentumTransport`\n"
-            "- `openfoam/system/` — `controlDict`, `fvSchemes`, `fvSolution`, `snappyHexMeshDict`, `blockMeshDict`, `decomposeParDict`\n"
-            "- `agent/agent_config.json` — validated config (reproducibility)\n"
-            "- `reports/merged_config.json`, `simulation_setup_report.txt`\n"
-            "- `README.md` — run instructions"
-        )
-
-    # --- Download ---
     if prebuilt_zip.exists():
-        # Serve the pre-built zip (BPM120 demo scenario)
         zip_bytes = prebuilt_zip.read_bytes()
         st.download_button(
-            label=f"Download {case_id}_case.zip",
+            label=f"⬇  Download {case_id} OpenFOAM case ({len(zip_bytes)/1024:.0f} KB)",
             data=zip_bytes,
             file_name=f"{case_id}_case.zip",
             mime="application/zip",
             type="primary",
-            use_container_width=False,
         )
         st.caption(
-            f"Demo case · {len(zip_bytes)/1024:.1f} KB · matches the BPM120 paediatric coarctation scenario. "
-            "Unzip and follow `README.md`: `blockMesh` → `snappyHexMesh` → `foamRun`."
+            "Unzip → `blockMesh` → `snappyHexMesh` → `foamRun`. Full setup instructions in the "
+            "bundled `README.md`. Custom clinical input will build patient-specific cases once "
+            "the AortaCFD-app is released with the paper."
         )
-        st.info(
-            "**Note.** The current download is a pre-built case for the BPM120 demo scenario. "
-            "Live generation from user-specific clinical text will be enabled once the "
-            "**AortaCFD-app** is published alongside the paper (currently under review). "
-            "The full template engine lives in that repo."
-        )
-    else:
-        # Fallback: try runtime generation (only works when aortacfd-app is available)
-        if st.button("Generate OpenFOAM case (.zip)", type="primary"):
-            with st.spinner("Rendering case dictionaries..."):
-                try:
-                    from build_case import build_openfoam_case
-                    zip_bytes = build_openfoam_case(
-                        agent_config=agent_config,
-                        stl_source_dir=case_stls_dir,
-                        case_id=case_id,
-                    )
-                except Exception as e:
-                    st.error(f"Case generation failed: {e}")
-                    return
-
-            if not zip_bytes:
-                st.warning(
-                    "Runtime case generation is not available on this deployment. "
-                    "The full case-rendering engine lives in **AortaCFD-app**, which is "
-                    "private pending paper publication. A pre-built BPM120 demo case will "
-                    "be bundled here soon."
-                )
-                return
-
-            st.success(f"Generated · {len(zip_bytes)/1024:.1f} KB")
-            st.download_button(
-                label=f"Download {case_id}_case.zip",
-                data=zip_bytes,
-                file_name=f"{case_id}_case.zip",
-                mime="application/zip",
-                use_container_width=False,
-            )
 
 
 def _format_val(v: Any) -> str:
