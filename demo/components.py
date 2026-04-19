@@ -189,6 +189,90 @@ def render_config_stage(agent_config: dict, base_config: dict, rationale_md: str
                 st.info("Config not available.")
 
 
+# ---------------------------------------------------------------------------
+# Stage 3.5: OpenFOAM case download
+# ---------------------------------------------------------------------------
+
+def render_case_download_stage(agent_config: dict, case_stls_dir: Optional[Path], case_id: str):
+    """
+    Generate a full OpenFOAM case directory (0/, constant/, system/) from the
+    agent's config + bundled STLs. Offer it as a .zip download.
+    """
+    st.markdown("### 3.5. Download OpenFOAM Case")
+    st.caption(
+        "The agent's config, the STLs, and the rendered OpenFOAM dictionaries — "
+        "packaged as a zip ready to run on your own machine with `blockMesh`, "
+        "`snappyHexMesh`, and `foamRun`. No computation needed to generate the case; "
+        "only to run it."
+    )
+
+    if not case_stls_dir or not case_stls_dir.exists():
+        st.warning(
+            "Case STLs not available in this demo. The download feature requires the "
+            "bundled BPM120 surface patches (`inlet.stl`, `outlet1..4.stl`, "
+            "`wall_aorta.stl`) plus the inlet waveform CSV."
+        )
+        return
+
+    if not agent_config:
+        st.info("Run the pipeline first to generate the agent config.")
+        return
+
+    # Show what's inside
+    stls = sorted([p.name for p in case_stls_dir.glob("*.stl")])
+    csvs = sorted([p.name for p in case_stls_dir.glob("*.csv")])
+    col_a, col_b = st.columns([1, 1])
+    with col_a:
+        st.markdown("**Source patches (scaled mm → m on build):**")
+        for f in stls + csvs:
+            st.markdown(f"- `{f}`")
+    with col_b:
+        st.markdown("**You'll get in the zip:**")
+        st.markdown(
+            "- `openfoam/0/` — boundary conditions (after meshing)\n"
+            "- `openfoam/constant/` — `triSurface/`, transport + turbulence properties\n"
+            "- `openfoam/system/` — controlDict, fvSchemes, fvSolution, snappyHexMeshDict, blockMeshDict\n"
+            "- `agent/agent_config.json` — reproducibility\n"
+            "- `README.md` — run instructions"
+        )
+
+    # Build-on-demand: the heavy work only happens when user clicks
+    if st.button("Generate OpenFOAM case (.zip)", type="primary", use_container_width=False):
+        with st.spinner("Rendering case dictionaries from templates..."):
+            try:
+                from build_case import build_openfoam_case
+                zip_bytes = build_openfoam_case(
+                    agent_config=agent_config,
+                    stl_source_dir=case_stls_dir,
+                    case_id=case_id,
+                )
+            except Exception as e:
+                st.error(f"Case generation failed: {e}")
+                import traceback
+                st.code(traceback.format_exc(), language=None)
+                return
+
+        if not zip_bytes:
+            st.error(
+                "Case generation returned empty. Check that the `aortacfd-app` "
+                "submodule is initialised. See the Streamlit Cloud logs."
+            )
+            return
+
+        st.success(f"Generated · {len(zip_bytes) / 1024:.1f} KB · ready to download")
+        st.download_button(
+            label=f"Download {case_id}_case.zip",
+            data=zip_bytes,
+            file_name=f"{case_id}_case.zip",
+            mime="application/zip",
+            use_container_width=False,
+        )
+        st.caption(
+            "Unzip on a machine with OpenFOAM 12, then follow the README. "
+            "Typical runtime: mesh ~2 min, solve ~1–6 h on 32 cores."
+        )
+
+
 def _format_val(v: Any) -> str:
     if v is None:
         return "null"

@@ -25,6 +25,7 @@ from components import (
     render_intake_stage,
     render_literature_stage,
     render_config_stage,
+    render_case_download_stage,
     render_execution_stage,
     render_results_stage,
     render_audit_trace,
@@ -135,6 +136,10 @@ if "pipeline_data" in st.session_state:
 
     # Stage 3: Config
     render_config_stage(data.agent_config, data.base_config, data.rationale_md)
+    st.markdown("---")
+
+    # Stage 3.5: Download OpenFOAM case
+    render_case_download_stage(data.agent_config, data.case_stls_dir, data.case_id)
     st.markdown("---")
 
     # Stage 4: CFD Results
