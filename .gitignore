@@ -35,7 +35,9 @@ src/aortacfd_agent/corpus/papers/*.pdf
 src/aortacfd_agent/corpus/papers/*.PDF
 
 # Chroma / vector store: rebuilt from papers/ on demand.
-src/aortacfd_agent/corpus/index/
+src/aortacfd_agent/corpus/index/chroma/
+src/aortacfd_agent/corpus/index/*.npy
+# aortacfd_corpus.json (BibTeX-derived, OpenAlex abstracts) IS committed.
 
 # Agent run artefacts
 output/

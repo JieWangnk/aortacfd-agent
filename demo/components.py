@@ -80,11 +80,15 @@ def render_literature_stage(justification: dict):
             papers.add(c.get("paper", ""))
     papers.discard("")
 
-    # One-line summary
+    # Try to enrich citations with real paper metadata from the corpus
+    paper_index = _load_paper_index()
+
     st.markdown(
         f"**{len(decisions)}** parameter decisions · **{len(papers)}** papers cited · "
         f"**{len(queries)}** corpus queries"
     )
+    if paper_index:
+        st.caption(f"Retrieving over a real corpus of {len(paper_index)} papers from the project bibliography.")
 
     with st.expander("Show all decisions and citations"):
         for d in decisions:
@@ -96,10 +100,52 @@ def render_literature_stage(justification: dict):
             st.markdown(f"**`{param}`** = `{value_str}`")
             st.caption(d["reasoning"])
             for c in d.get("citations", []):
-                st.markdown(
-                    f"> \"{c['quote']}\" — *{c['paper']}*, p.{c.get('page', '?')}"
-                )
+                _render_citation(c, paper_index)
             st.markdown("")
+
+
+def _render_citation(cite: dict, paper_index: dict):
+    """Render a citation, enriched with real paper metadata if available."""
+    paper_id = cite.get("paper", "")
+    quote = cite.get("quote", "")
+    page = cite.get("page", "?")
+
+    # Look up real paper metadata by ID (case-insensitive key match)
+    meta = paper_index.get(paper_id.lower()) if paper_id else None
+
+    if meta:
+        authors = meta.get("authors", paper_id)
+        year = meta.get("year", "")
+        title = meta.get("title", "")
+        journal = meta.get("journal", "")
+        doi = meta.get("doi", "").strip()
+        doi_link = f"[doi:{doi}](https://doi.org/{doi})" if doi else ""
+        st.markdown(
+            f"> \"{quote}\"  \n"
+            f"> **{authors} {year}** — *{title}* · {journal} {doi_link}"
+        )
+    else:
+        st.markdown(f"> \"{quote}\" — *{paper_id}*, p.{page}")
+
+
+def _load_paper_index() -> dict:
+    """Lazy-load the corpus JSON and index papers by lowercased ID."""
+    if hasattr(_load_paper_index, "_cache"):
+        return _load_paper_index._cache
+    try:
+        repo_root = Path(__file__).resolve().parent.parent
+        corpus_path = repo_root / "src" / "aortacfd_agent" / "corpus" / "index" / "aortacfd_corpus.json"
+        if not corpus_path.exists():
+            _load_paper_index._cache = {}
+            return {}
+        with corpus_path.open(encoding="utf-8") as f:
+            data = json.load(f)
+        index = {p["id"].lower(): p for p in data.get("papers", [])}
+        _load_paper_index._cache = index
+        return index
+    except Exception:
+        _load_paper_index._cache = {}
+        return {}
 
 
 # ---------------------------------------------------------------------------

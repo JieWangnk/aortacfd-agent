@@ -102,7 +102,7 @@ DEMO_JUSTIFICATION = {
             ),
             "citations": [
                 {
-                    "paper": "Valen-Sendstad et al. (2018)",
+                    "paper": "valensendstad2018",
                     "page": 5,
                     "quote": (
                         "For studies where WSS, OSI and near-wall indices are "
@@ -117,7 +117,7 @@ DEMO_JUSTIFICATION = {
             "reasoning": "WSS around the coarctation is a primary endpoint.",
             "citations": [
                 {
-                    "paper": "Valen-Sendstad et al. (2018)",
+                    "paper": "valensendstad2018",
                     "page": 5,
                     "quote": "mesh refinement around the wall region",
                 }
@@ -132,7 +132,7 @@ DEMO_JUSTIFICATION = {
             ),
             "citations": [
                 {
-                    "paper": "Wang et al. (2025)",
+                    "paper": "wang2025hr",
                     "page": 4,
                     "quote": (
                         "Murray's law systematically misallocates flow because "
@@ -148,7 +148,7 @@ DEMO_JUSTIFICATION = {
             "reasoning": "Paediatric coarctation convention of ~70% to descending aorta.",
             "citations": [
                 {
-                    "paper": "Wang et al. (2025)",
+                    "paper": "wang2025hr",
                     "page": 4,
                     "quote": "roughly seventy percent of cardiac output to the descending aorta",
                 }
@@ -160,7 +160,7 @@ DEMO_JUSTIFICATION = {
             "reasoning": "Default systemic tau without patient-specific calibration.",
             "citations": [
                 {
-                    "paper": "Stergiopulos et al. (1999)",
+                    "paper": "stergiopulos1999",
                     "page": 2,
                     "quote": "A default tau of one point five seconds is appropriate",
                 }
@@ -172,7 +172,7 @@ DEMO_JUSTIFICATION = {
             "reasoning": "Published default eliminates divergence with <1% bias.",
             "citations": [
                 {
-                    "paper": "Esmaily-Moghadam et al. (2011)",
+                    "paper": "esmaily2011",
                     "page": 7,
                     "quote": "beta_T equal to zero point three damps tangential velocity during backflow",
                 }
@@ -311,13 +311,19 @@ def run_live_pipeline(clinical_text: str, api_key: str, model: str) -> DemoData:
     backend_config = AgentBackendConfig(provider="anthropic", model=model, api_key=api_key)
     backend = resolve_backend(backend_config)
 
-    # Reuse the demo corpus
-    corpus = FakeCorpusStore(chunks=[
-        Chunk(text="In coarctation cases Murray's law systematically misallocates flow.", paper="Wang2025", page=4),
-        Chunk(text="Diastolic backflow at Windkessel outlets can trigger instabilities. beta_T=0.3 recommended.", paper="Esmaily2011", page=7),
-        Chunk(text="For WSS and OSI studies, recommend mesh refinement around the wall region.", paper="ValenSendstad2018", page=5),
-        Chunk(text="A default tau of 1.5 seconds is appropriate without patient-specific calibration.", paper="Stergiopulos1999", page=2),
-    ])
+    # Real literature corpus: 108 papers from references.bib with OpenAlex
+    # abstracts, BM25-indexed. Falls back to the 4-chunk FakeCorpusStore if
+    # the corpus JSON isn't bundled.
+    try:
+        from aortacfd_agent.corpus.bib_store import load_default as _load_real_corpus
+        corpus = _load_real_corpus()
+    except (FileNotFoundError, ImportError):
+        corpus = FakeCorpusStore(chunks=[
+            Chunk(text="In coarctation cases Murray's law systematically misallocates flow.", paper="Wang2025", page=4),
+            Chunk(text="Diastolic backflow at Windkessel outlets can trigger instabilities. beta_T=0.3 recommended.", paper="Esmaily2011", page=7),
+            Chunk(text="For WSS and OSI studies, recommend mesh refinement around the wall region.", paper="ValenSendstad2018", page=5),
+            Chunk(text="A default tau of 1.5 seconds is appropriate without patient-specific calibration.", paper="Stergiopulos1999", page=2),
+        ])
 
     case_dir = sub / "cases_input" / "BPM120"
     output_dir = Path(tempfile.mkdtemp(prefix="aortacfd_demo_"))
