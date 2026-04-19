@@ -20,6 +20,8 @@ class DemoData:
     hemodynamics_report: str = ""
     flow_distribution_png: Optional[bytes] = None
     stl_path: Optional[Path] = None
+    case_stls_dir: Optional[Path] = None  # dir with all STLs + CSV for case generation
+    case_id: str = "BPM120"
 
 
 def _repo_root() -> Path:
@@ -267,6 +269,14 @@ def load_demo_data(referral_text: str = "") -> DemoData:
     if not stl_path.exists():
         stl_path = None
 
+    # Full STL dir for case generation (needs all STLs + CSV)
+    case_stls_dir = sub / "cases_input" / "BPM120"
+    if not case_stls_dir.exists() or not any(case_stls_dir.glob("*.stl")):
+        # Fallback: bundled assets/bpm120/
+        case_stls_dir = assets / "bpm120"
+        if not case_stls_dir.exists() or not any(case_stls_dir.glob("*.stl")):
+            case_stls_dir = None
+
     from sample_referrals import REFERRALS
     default_referral = list(REFERRALS.values())[0]
 
@@ -281,6 +291,8 @@ def load_demo_data(referral_text: str = "") -> DemoData:
         hemodynamics_report=hemo_report,
         flow_distribution_png=flow_png,
         stl_path=stl_path,
+        case_stls_dir=case_stls_dir,
+        case_id="BPM120",
     )
 
 
