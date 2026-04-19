@@ -165,7 +165,7 @@ class TestCoordinatorHappyPath:
             corpus=_corpus(),
         )
         result = coord.run(
-            clinical_text="12 year old male with aortic coarctation, HR 78, BP 118/72.",
+            clinical_text="18 month old male with aortic coarctation, HR 120, BP 100/55.",
             case_dir=tmp_path,  # case dir only needs to exist for the coordinator
             output_dir=tmp_path / "out",
             skip_execution=True,
