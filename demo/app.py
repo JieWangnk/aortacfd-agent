@@ -122,36 +122,17 @@ if run_button:
 if "pipeline_data" in st.session_state:
     data = st.session_state["pipeline_data"]
 
-    # Pipeline status bar
-    render_pipeline_status(data.trace_records)
-    st.markdown("---")
-
-    # Stage 1: Intake
+    # 1. Intake
     render_intake_stage(data.referral_text, data.clinical_profile)
     st.markdown("---")
 
-    # Stage 2: Literature
+    # 2. Literature decisions (collapsed by default)
     render_literature_stage(data.parameter_justification)
     st.markdown("---")
 
-    # Stage 3: Config
+    # 3. Config + Download (merged)
     render_config_stage(data.agent_config, data.base_config, data.rationale_md)
-    st.markdown("---")
-
-    # Stage 3.5: Download OpenFOAM case
     render_case_download_stage(data.agent_config, data.case_stls_dir, data.case_id)
-    st.markdown("---")
-
-    # Stage 4: CFD Results
-    render_execution_stage(data.hemodynamics_report, data.flow_distribution_png, data.stl_path)
-    st.markdown("---")
-
-    # Stage 5: Summary
-    render_results_stage(data.hemodynamics_report)
-    st.markdown("---")
-
-    # Audit trail
-    render_audit_trace(data.trace_records)
 
 else:
     # Landing state
@@ -160,11 +141,9 @@ else:
         """
         ### How it works
 
-        1. **Intake Agent** — Extracts structured patient data from free-text referral (LLM)
-        2. **Literature Agent** — Searches a paper corpus to justify every CFD parameter with citations (LLM + RAG)
-        3. **Config Agent** — Deterministically patches a template config (no LLM, fully reproducible)
-        4. **Execution Agent** — Runs OpenFOAM mesh generation and solver (subprocess)
-        5. **Results Agent** — Reads simulation output and writes a grounded clinical summary (LLM)
+        1. **Intake** — Extracts structured patient data from a free-text referral.
+        2. **Literature** — Justifies each CFD parameter with literature citations.
+        3. **Config** — Renders a validated OpenFOAM case ready to download and run.
 
         Select a sample referral in the sidebar and click **Run Pipeline** to see the demo.
 
