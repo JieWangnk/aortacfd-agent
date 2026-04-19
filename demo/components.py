@@ -88,7 +88,12 @@ def render_literature_stage(justification: dict):
         f"**{len(queries)}** corpus queries"
     )
     if paper_index:
-        st.caption(f"Retrieving over a real corpus of {len(paper_index)} papers from the project bibliography.")
+        n_with_abstract = sum(1 for p in paper_index.values() if p.get("abstract"))
+        st.caption(
+            f"Retrieval over **{len(paper_index)} papers** from the project bibliography · "
+            f"title + abstract indexing ({n_with_abstract} papers have OpenAlex abstracts) · "
+            f"BM25 keyword search · no full-text PDFs."
+        )
 
     with st.expander("Show all decisions and citations"):
         for d in decisions:
