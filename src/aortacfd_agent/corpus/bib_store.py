@@ -113,13 +113,35 @@ class BibCorpusStore:
         data = json.loads(self.corpus_path.read_text(encoding="utf-8"))
         self.papers: List[Dict[str, Any]] = data.get("papers", [])
 
-        # Build search corpus: title + abstract for each paper
-        self._texts: List[str] = []
+        # Build search units. Each unit is either:
+        #   - a full-text chunk (preferred, has page number), or
+        #   - a title+abstract fallback (one per paper without chunks)
+        # We index per-chunk so retrieval returns the most relevant passage.
+        self._units: List[Dict[str, Any]] = []
         self._tokenized: List[List[str]] = []
-        for p in self.papers:
-            text = f"{p.get('title', '')}. {p.get('abstract', '')}"
-            self._texts.append(text)
-            self._tokenized.append(_tokenize(text))
+
+        for idx, p in enumerate(self.papers):
+            chunks = p.get("chunks") or []
+            if chunks:
+                for ch in chunks:
+                    text = ch["text"]
+                    self._units.append({
+                        "paper_idx": idx,
+                        "text": text,
+                        "page": ch.get("page"),
+                        "kind": "chunk",
+                    })
+                    self._tokenized.append(_tokenize(text))
+            else:
+                # Fallback: title + abstract as a single unit
+                text = f"{p.get('title', '')}. {p.get('abstract', '')}"
+                self._units.append({
+                    "paper_idx": idx,
+                    "text": text,
+                    "page": None,
+                    "kind": "abstract",
+                })
+                self._tokenized.append(_tokenize(text))
 
         self._bm25 = BM25(self._tokenized)
 
@@ -128,32 +150,38 @@ class BibCorpusStore:
     # ------------------------------------------------------------------
 
     def search(self, query: str, top_k: int = 5) -> List[Chunk]:
-        """Return the top-k papers most relevant to the query."""
+        """Return the top-k passages most relevant to the query, diversified per paper."""
         query_tokens = _tokenize(query)
         if not query_tokens:
             return []
-        hits = self._bm25.search(query_tokens, top_k=max(top_k, 1))
+        # Get more hits than top_k so we can diversify (one passage per paper)
+        raw_hits = self._bm25.search(query_tokens, top_k=max(top_k * 5, 10))
 
+        seen_papers: set = set()
         chunks: List[Chunk] = []
-        for idx, score in hits:
-            if score <= 0:
+        for unit_idx, score in raw_hits:
+            if score <= 0 or len(chunks) >= top_k:
                 continue
-            p = self.papers[idx]
-            title = p.get("title", "")
-            abstract = p.get("abstract", "")
-            snippet = self._best_snippet(abstract or title, query_tokens)
+            unit = self._units[unit_idx]
+            paper_idx = unit["paper_idx"]
+            if paper_idx in seen_papers:
+                continue  # enforce one-passage-per-paper
+            seen_papers.add(paper_idx)
+            p = self.papers[paper_idx]
+            snippet = self._best_snippet(unit["text"], query_tokens)
             chunks.append(
                 Chunk(
                     text=snippet,
                     paper=p.get("id", "unknown"),
-                    page=None,
+                    page=unit.get("page"),
                     score=float(score),
                     metadata={
                         "authors": p.get("authors", ""),
                         "year": p.get("year"),
-                        "title": title,
+                        "title": p.get("title", ""),
                         "journal": p.get("journal", ""),
                         "doi": p.get("doi", ""),
+                        "source": unit.get("kind"),  # 'chunk' or 'abstract'
                     },
                 )
             )
