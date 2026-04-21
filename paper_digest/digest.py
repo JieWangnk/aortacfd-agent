@@ -190,9 +190,11 @@ def run(
     template_dir = Path(__file__).parent / "templates"
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Write the dated digest
-    digest_md = render_digest(start, classified, relevance_threshold, template_dir)
-    out_path = out_dir / f"{start.isoformat()}.md"
+    # Write the dated digest. Use today's publish date (the Monday the cron
+    # ran) as both filename and title — readers think in terms of the date
+    # they can read it on, not the internal 7-day-window start.
+    digest_md = render_digest(today, classified, relevance_threshold, template_dir)
+    out_path = out_dir / f"{today.isoformat()}.md"
     out_path.write_text(digest_md)
     logger.info("Wrote %s", out_path)
 
