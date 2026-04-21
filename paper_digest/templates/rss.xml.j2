@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AortaCFD Paper Digest</title>
+    <link>{{ base_url }}paper-digest/</link>
+    <atom:link href="{{ base_url }}paper-digest/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Weekly auto-curated papers in cardiovascular CFD, hemodynamics and AI modelling (PINN, neural operators, surrogates, digital twins). Classified by Claude into six research tiers. Published every Monday 09:00 UTC.</description>
+    <language>en</language>
+    <generator>aortacfd-agent paper_digest</generator>
+    {% if last_build %}
+    <lastBuildDate>{{ last_build }}</lastBuildDate>
+    {% endif %}
+    {% for issue in issues %}
+    <item>
+      <title>{{ issue.title }}</title>
+      <link>{{ base_url }}paper-digest/{{ issue.slug }}/</link>
+      <guid isPermaLink="true">{{ base_url }}paper-digest/{{ issue.slug }}/</guid>
+      <pubDate>{{ issue.pub_date }}</pubDate>
+      <description><![CDATA[{{ issue.description_html }}]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
