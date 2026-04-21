@@ -72,7 +72,11 @@ where = ["src"]
 include = ["aortacfd_agent*"]
 
 [tool.setuptools.package-data]
-aortacfd_agent = ["prompts/*.md", "schemas/*.json"]
+aortacfd_agent = [
+    "prompts/*.md",
+    "schemas/*.json",
+    "corpus/index/*.json",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
