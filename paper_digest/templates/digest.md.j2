@@ -50,20 +50,6 @@
 {% endif %}
 {% endfor %}
 
-## Methodology
+---
 
-- **Sources:** OpenAlex (peer-reviewed) + arXiv (preprints), both filtered to the last 7 days with cardiovascular + CFD + AI keywords
-- **Filter:** title/abstract keyword match → Claude Haiku 4.5 relevance score (≥ {{ relevance_threshold }})
-- **Classifier:** Claude assigns one of six tiers (A–F) and writes a 2-sentence summary
-- **Build tooling:** [`aortacfd-agent/paper_digest`](https://github.com/JieWangnk/aortacfd-agent/tree/main/paper_digest)
-- **Published:** every Monday, 09:00 UTC
-
-### What this digest does *not* cover
-
-- **Abstract-only summaries.** Claude reads title + abstract, not the full PDF. Summaries describe what a paper *claims*; they do not replace reading the methods and figures.
-- **Research papers only.** We don't surface industry announcements (Siemens, Dassault, ANSYS, Philips product blogs), non-indexed conference talks, GitHub releases of open-source CFD/ML code, or social-media discussion (Twitter/X, LinkedIn).
-- **Anglophone bias.** OpenAlex + arXiv skew toward English-language work.
-
-For deeper per-paper analysis, chat with Claude directly with the DOI. For industry news, follow vendor blogs and GitHub trending.
-
-*Found something the digest missed? Open an [issue](https://github.com/JieWangnk/aortacfd-agent/issues) with the DOI.*
+*Methodology, tier definitions and scope caveats: see the [Paper Digest landing page](index.md). Classifier threshold this run: {{ relevance_threshold }}.*
