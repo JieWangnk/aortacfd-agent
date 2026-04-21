@@ -1,14 +1,18 @@
 # Paper Digest
 
-**New every Monday.** Weekly roundup of cardiovascular CFD, hemodynamics, and AI modelling (PINN · neural operators · surrogates · digital twins). Auto-curated from OpenAlex + arXiv, classified by Claude into six tiers (A = boundary conditions, B = turbulence, C = V&V/UQ, D = physiology, E = imaging/WSS, F = AI/ML).
-
-## Latest
-
 {% if latest %}
-**[Week of {{ latest.week_start }}]({{ latest.slug }}.md)** — {{ latest.total }} new papers.
+!!! success "🟢 This week — {{ latest.week_start }}"
+
+    **[{{ latest.total }} new papers in Tiers A–F →]({{ latest.slug }}.md)** · top theme: *{{ latest.top_tier_name }}*
 {% else %}
-*No digests published yet — check back Monday.*
+!!! note "Coming soon"
+
+    The first digest will publish the next Monday at 09:00 UTC.
 {% endif %}
+
+Weekly roundup of cardiovascular CFD, hemodynamics, and AI modelling (PINN · neural operators · surrogates · digital twins). Auto-curated from OpenAlex + arXiv, classified by Claude into six tiers (A = boundary conditions, B = turbulence, C = V&V/UQ, D = physiology, E = imaging/WSS, F = AI/ML).
+
+Each weekly issue includes an "Already in your bibliography" badge when a paper matches one of the 108 in the project corpus, and a "Related from your corpus" list that BM25-searches the full-text index for the most-related passages.
 
 ## Archive
 
@@ -16,12 +20,38 @@
 - **[{{ d.week_start }}]({{ d.slug }}.md)** — {{ d.total }} papers · {{ d.top_tier_name }}
 {% endfor %}
 
-## Scope
+---
 
-- **Abstract-only** triage; full PDFs are not read.
-- **Research papers only** — no industry blogs, conference posters, GitHub releases, or social media.
-- **Anglophone bias** from the source APIs.
+## Methodology
 
-For deeper per-paper analysis, chat directly with Claude using the DOI.
+- **Sources:** OpenAlex (peer-reviewed) + arXiv (preprints), filtered to the last 7 days with cardiovascular + CFD + AI keywords.
+- **Keyword filter:** each paper must match at least one *context* term (aorta, hemodynamics, WSS, …) and one *method* term (CFD, LES, PINN, digital twin, …) in its title or abstract.
+- **Classifier:** Claude Haiku 4.5 scores relevance (0–1), assigns one of six tiers (A–F), and writes a 2-sentence summary plus a one-sentence *why it matters* note.
+- **RAG enrichment:**
+    - *Overlap flag* — DOI match against the 108-paper bibliography (`aortacfd_corpus.json`).
+    - *Related reading* — BM25 search of the new abstract against 1,466 indexed units (57 full-text papers + abstract-only entries for the rest) in `BibCorpusStore`.
+- **Relevance threshold:** 0.5. Below that, a paper is classified but dropped from the digest.
+- **Published:** every Monday at 09:00 UTC. Source code and Action in [`aortacfd-agent/paper_digest`](https://github.com/JieWangnk/aortacfd-agent/tree/main/paper_digest).
 
-*Missed a paper? [Open an issue](https://github.com/JieWangnk/aortacfd-agent/issues) with the DOI.*
+## The six tiers
+
+| Tier | Focus |
+|---|---|
+| **A** | Boundary conditions — inlet/outlet BCs, Windkessel, lumped parameter, fluid-structure coupling |
+| **B** | Turbulence & LES — RANS, DES, LES, DNS applied to cardiovascular flows |
+| **C** | V&V and UQ — grid convergence, uncertainty quantification, sensitivity analysis |
+| **D** | Physiology & scaling — Murray's law, Windkessel theory, biomechanics |
+| **E** | Imaging & WSS — 4D flow MRI, Doppler echo, WSS measurement techniques |
+| **F** | AI, ML & digital-twin pipelines — PINN, neural operators, GNN surrogates, diffusion/transformer/foundation models, AI segmentation |
+
+## Scope and limitations
+
+Be aware of the trade-offs baked into this digest:
+
+- **Abstract-only summaries.** Claude reads title + abstract, not the full PDF. Summaries describe what a paper *claims*; they do not replace reading the methods and figures.
+- **Research papers only.** The feed does not surface industry announcements (Siemens, Dassault, ANSYS, Philips product blogs), non-indexed conference talks, GitHub releases of open-source CFD/ML code, or social-media discussion (Twitter/X, LinkedIn).
+- **Anglophone bias.** OpenAlex and arXiv both skew toward English-language work.
+
+For deeper analysis of a single paper, a direct chat with Claude (with the full PDF) will always go further than this digest. For industry and tooling news, follow vendor blogs and GitHub trending directly.
+
+*Found something the digest missed? Open an [issue](https://github.com/JieWangnk/aortacfd-agent/issues) with the DOI.*
