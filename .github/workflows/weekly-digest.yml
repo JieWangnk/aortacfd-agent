@@ -25,8 +25,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install deps
-        run: pip install anthropic jinja2
+      - name: Install aortacfd-agent (pulls in the bundled corpus for RAG)
+        run: pip install -e '.[anthropic]' jinja2
 
       - name: Check out AortaCFD-web
         uses: actions/checkout@v4
@@ -54,6 +54,6 @@ jobs:
             echo "No new papers this week — nothing to commit."
             exit 0
           fi
-          WEEK=$(date -u -d '7 days ago' +%Y-%m-%d)
+          WEEK=$(date -u +%Y-%m-%d)
           git commit -m "Paper digest: week of ${WEEK}"
           git push

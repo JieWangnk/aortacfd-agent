@@ -20,9 +20,10 @@ import datetime as dt
 import logging
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from .classifier import Classification, TIER_NAMES, classify_paper, make_client
+from .corpus import CorpusContext, load_context
 from .sources import Paper, dedupe, fetch_arxiv, fetch_openalex
 
 logger = logging.getLogger("paper_digest")
@@ -31,11 +32,20 @@ logger = logging.getLogger("paper_digest")
 TIER_ORDER = ["A", "B", "C", "D", "E", "F"]
 
 
+def _format_related_line(r) -> str:
+    """Render one related-reading hit as a markdown bullet fragment."""
+    year = r.year or "—"
+    page = f" (p. {r.page})" if r.page else ""
+    doi = f" — [DOI](https://doi.org/{r.doi})" if r.doi else ""
+    return f"*{r.authors_short} ({year}) · {r.title}*{page}{doi}"
+
+
 def render_digest(
     week_start: dt.date,
     papers_with_class: List[Tuple[Paper, Classification]],
     relevance_threshold: float,
     template_dir: Path,
+    corpus: Optional[CorpusContext] = None,
 ) -> str:
     import jinja2
 
@@ -56,6 +66,9 @@ def render_digest(
             continue
         if cls.relevance < relevance_threshold:
             continue
+        # RAG enrichment — overlap flag + related reading from the user's corpus.
+        in_bibliography = corpus.is_in_bibliography(paper) if corpus else False
+        related = corpus.related(paper) if corpus else []
         tiers[cls.tier]["papers"].append({
             "title": paper.title,
             "authors_short": paper.authors_short,
@@ -68,6 +81,11 @@ def render_digest(
             "summary": cls.summary,
             "relevance": cls.why,
             "_rel_score": cls.relevance,
+            "in_bibliography": in_bibliography,
+            # Pre-render each related-reading bullet as one string so the
+            # Jinja template doesn't have to juggle conditional block tags
+            # (trim_blocks strips newlines after them, collapsing bullets).
+            "related": [_format_related_line(r) for r in related],
         })
         total += 1
 
@@ -190,10 +208,17 @@ def run(
     template_dir = Path(__file__).parent / "templates"
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Load the bibliography corpus for RAG enrichment (overlap flag +
+    # related reading). Degrades gracefully if aortacfd_agent isn't
+    # installed or the JSON is missing.
+    corpus_ctx = load_context()
+
     # Write the dated digest. Use today's publish date (the Monday the cron
     # ran) as both filename and title — readers think in terms of the date
     # they can read it on, not the internal 7-day-window start.
-    digest_md = render_digest(today, classified, relevance_threshold, template_dir)
+    digest_md = render_digest(
+        today, classified, relevance_threshold, template_dir, corpus=corpus_ctx
+    )
     out_path = out_dir / f"{today.isoformat()}.md"
     out_path.write_text(digest_md)
     logger.info("Wrote %s", out_path)

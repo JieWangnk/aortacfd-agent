@@ -30,11 +30,19 @@
 {% for p in tier.papers %}
 ### {{ p.title }}
 
-*{{ p.authors_short }}* · {{ p.venue }} · {{ p.year }}{% if p.doi %} · [DOI]({{ p.doi_url }}){% endif %}{% if p.arxiv_id %} · [arXiv:{{ p.arxiv_id }}]({{ p.arxiv_url }}){% endif %}
+*{{ p.authors_short }}* · {{ p.venue }} · {{ p.year }}{% if p.doi %} · [DOI]({{ p.doi_url }}){% endif %}{% if p.arxiv_id %} · [arXiv:{{ p.arxiv_id }}]({{ p.arxiv_url }}){% endif %}{% if p.in_bibliography %} · ✅ **Already in your bibliography**{% endif %}
 
 > {{ p.summary }}
 
 **Why it matters:** {{ p.relevance }}
+
+{% if p.related %}
+**Related from your corpus:**
+
+{% for line in p.related %}
+- {{ line }}
+{% endfor %}
+{% endif %}
 
 ---
 

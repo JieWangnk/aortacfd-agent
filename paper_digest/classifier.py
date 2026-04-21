@@ -93,9 +93,12 @@ def _parse_json_response(text: str) -> Optional[dict]:
 def classify_paper(
     paper: Paper,
     client: Any,
-    model: str = "claude-haiku-4-5-20251001",
+    model: Optional[str] = None,
     max_abstract_chars: int = 2000,
 ) -> Optional[Classification]:
+    if model is None:
+        from aortacfd_agent.config import DEFAULT_MODEL
+        model = DEFAULT_MODEL
     """Classify one paper. Returns ``None`` on API failure."""
     abstract = paper.abstract or ""
     if len(abstract) > max_abstract_chars:

@@ -29,6 +29,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
+from ..config import DEFAULT_MODEL
 from .base import LLMBackend
 
 
@@ -52,7 +53,7 @@ _PROVIDER_DEFAULTS: Dict[str, Dict[str, Any]] = {
     "anthropic": {
         "base_url": None,
         "api_key": None,   # taken from ANTHROPIC_API_KEY
-        "model": "claude-sonnet-4-5",
+        "model": DEFAULT_MODEL,
     },
 }
 
@@ -116,7 +117,7 @@ def resolve_backend(config: AgentBackendConfig) -> LLMBackend:
 
         # Anthropic SDK reads ANTHROPIC_API_KEY automatically if api_key is None.
         return AnthropicBackend(
-            model=model or "claude-sonnet-4-5",
+            model=model or DEFAULT_MODEL,
             api_key=api_key,
             base_url=base_url,
         )

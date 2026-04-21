@@ -28,6 +28,7 @@ import random
 import time
 from typing import Any, Dict, List, Optional, Tuple, Type
 
+from ..config import DEFAULT_MODEL
 from .base import AgentResponse, Message, ToolCall, ToolSpec
 
 logger = logging.getLogger(__name__)
@@ -66,7 +67,7 @@ class AnthropicBackend:
 
     def __init__(
         self,
-        model: str = "claude-sonnet-4-5",
+        model: str = DEFAULT_MODEL,
         api_key: Optional[str] = None,
         base_url: Optional[str] = None,
     ):
