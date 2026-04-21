@@ -17,10 +17,12 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import email.utils
 import logging
+import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from .classifier import Classification, TIER_NAMES, classify_paper, make_client
 from .corpus import CorpusContext, load_context
@@ -120,30 +122,24 @@ def render_digest(
     )
 
 
-def render_index(docs_dir: Path, template_dir: Path) -> str:
-    """Rebuild the archive index from existing digest files."""
-    import jinja2
-    import re
+def _scan_archive(docs_dir: Path) -> List[Dict[str, Any]]:
+    """Scan ``docs_dir`` for YYYY-MM-DD.md files, extract per-issue metadata.
 
-    env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(str(template_dir)),
-        trim_blocks=True,
-        lstrip_blocks=True,
-    )
-    tpl = env.get_template("index.md.j2")
-
-    # Pick up existing digest files named YYYY-MM-DD.md
+    Returns a list sorted newest-first, where each entry contains: slug,
+    date, total paper count, title line, top tier, highlight bullets
+    (as a raw markdown string), and the full file text.
+    """
     digest_files = sorted(
         [f for f in docs_dir.glob("*.md") if re.fullmatch(r"\d{4}-\d{2}-\d{2}", f.stem)],
         reverse=True,
     )
-    archive = []
-    latest = None
+    issues: List[Dict[str, Any]] = []
     for f in digest_files:
         text = f.read_text()
+        title_m = re.search(r"^#\s+(.+)", text, flags=re.MULTILINE)
         total_m = re.search(r"— (\d+) new papers", text)
         total = int(total_m.group(1)) if total_m else 0
-        # Find tier with largest count
+
         top_tier_key = "A"
         top_count = -1
         for tier_key in TIER_ORDER:
@@ -153,20 +149,119 @@ def render_index(docs_dir: Path, template_dir: Path) -> str:
                 if c > top_count:
                     top_count = c
                     top_tier_key = tier_key
-        entry = {
-            "week_start": f.stem,
+
+        # "Highlights this week" block — a bullet list, useful for teasers.
+        hl_m = re.search(
+            r"## Highlights this week\s*\n\n(- \*\*.+?)(?=\n\n|\n---)",
+            text,
+            flags=re.DOTALL,
+        )
+        highlights_md = hl_m.group(1).strip() if hl_m else ""
+
+        try:
+            date = dt.date.fromisoformat(f.stem)
+        except ValueError:
+            continue
+
+        issues.append({
             "slug": f.stem,
+            "date": date,
             "total": total,
+            "title": (title_m.group(1) if title_m else f.stem).strip(),
+            "top_tier_key": top_tier_key,
             "top_tier_name": TIER_NAMES[top_tier_key],
+            "highlights_md": highlights_md,
+            "text": text,
+        })
+    return issues
+
+
+def render_index(docs_dir: Path, template_dir: Path) -> str:
+    """Rebuild the archive index from existing digest files."""
+    import jinja2
+
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(str(template_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+    tpl = env.get_template("index.md.j2")
+
+    issues = _scan_archive(docs_dir)
+    archive = []
+    latest = None
+    for issue in issues:
+        entry = {
+            "week_start": issue["slug"],
+            "slug": issue["slug"],
+            "total": issue["total"],
+            "top_tier_name": issue["top_tier_name"],
         }
         if latest is None:
-            # Short teaser: pull first "Highlights" bullet if present
-            hm = re.search(r"## Highlights this week\s*\n\n(- \*\*.+?\*\*[^\n]+)", text)
-            entry["teaser"] = hm.group(1) if hm else ""
+            entry["teaser"] = issue["highlights_md"].splitlines()[0] if issue["highlights_md"] else ""
             latest = entry
         archive.append(entry)
 
     return tpl.render(latest=latest, archive=archive)
+
+
+def _highlights_to_html(md: str) -> str:
+    """Convert the Markdown highlights bullets to minimal HTML for RSS.
+
+    Handles ``**bold**`` and ``[text](url)`` — the only two constructs the
+    highlight bullets currently use.
+    """
+    if not md:
+        return ""
+    items = []
+    for line in md.splitlines():
+        line = line.strip()
+        if not line.startswith("- "):
+            continue
+        body = line[2:]
+        body = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", body)
+        body = re.sub(
+            r"\[([^\]]+)\]\(([^)]+)\)",
+            r'<a href="\2">\1</a>',
+            body,
+        )
+        items.append(f"<li>{body}</li>")
+    if not items:
+        return ""
+    return "<ul>" + "".join(items) + "</ul>"
+
+
+def render_rss(
+    docs_dir: Path,
+    template_dir: Path,
+    base_url: str = "https://jiewangnk.github.io/AortaCFD-web/",
+) -> str:
+    """Render an RSS 2.0 feed from the archive of digest issues."""
+    import jinja2
+
+    env = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(str(template_dir)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+    tpl = env.get_template("rss.xml.j2")
+
+    issues_meta = _scan_archive(docs_dir)
+    # RFC-822 pub dates anchored at Monday 09:00 UTC (the cron schedule).
+    publish_time = dt.time(9, 0, tzinfo=dt.timezone.utc)
+    items = []
+    for issue in issues_meta:
+        pub_dt = dt.datetime.combine(issue["date"], publish_time)
+        items.append({
+            "slug": issue["slug"],
+            "title": issue["title"],
+            "pub_date": email.utils.format_datetime(pub_dt),
+            "description_html": _highlights_to_html(issue["highlights_md"])
+            or f"<p>{issue['total']} new papers, top theme: {issue['top_tier_name']}.</p>",
+        })
+
+    last_build = items[0]["pub_date"] if items else None
+    return tpl.render(base_url=base_url, issues=items, last_build=last_build)
 
 
 def run(
@@ -227,6 +322,11 @@ def run(
     index_md = render_index(out_dir, template_dir)
     (out_dir / "index.md").write_text(index_md)
     logger.info("Wrote index.md")
+
+    # Rebuild the RSS feed
+    rss_xml = render_rss(out_dir, template_dir)
+    (out_dir / "rss.xml").write_text(rss_xml)
+    logger.info("Wrote rss.xml")
 
     return out_path
 
